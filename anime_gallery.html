@@ -46,6 +46,9 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 .anime-item .cap{font-size:13px;color:#475569;margin-top:.7rem;line-height:1.7}
 .dl{display:inline-block;margin-top:.8rem;padding:.35rem .9rem;font-size:12.5px;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;text-decoration:none;transition:background .15s}
 .dl:hover{background:#dbeafe}
+.copy{display:inline-block;margin-top:.8rem;margin-left:.5rem;padding:.35rem .9rem;font-size:12.5px;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;cursor:pointer;font-family:inherit;transition:background .15s}
+.copy:hover{background:#dbeafe}
+.copy.ok{color:#15803d;background:#f0fdf4;border-color:#bbf7d0}
 <style>
 .svg-player-wrap{display:inline-block;max-width:100%}
 .svg-player-wrap svg{display:block;width:100%;height:auto}
@@ -113,6 +116,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/fig_demand_read.svg"></div>
   <figcaption class="cap">需要曲線の読み方：価格3000のときの需要量は2</figcaption>
   <a class="dl" href="img/fig_demand_read.svg" download="fig_demand_read.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-demand-read">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="fig-cs-steps">
@@ -120,6 +124,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/consumer_surplus_steps.svg"></div>
   <figcaption class="cap">消費者余剰の図解</figcaption>
   <a class="dl" href="img/consumer_surplus_steps.svg" download="consumer_surplus_steps.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="fig-cs-steps">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="discrete-to-continuous">
@@ -127,6 +132,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/discrete_to_continuous_anime.svg"></div>
   <figcaption class="cap">階段状の需要・供給曲線から滑らかな需要・供給曲線へ</figcaption>
   <a class="dl" href="img/discrete_to_continuous_anime.svg" download="discrete_to_continuous_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="discrete-to-continuous">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anime-demand-shift-explain">
@@ -134,6 +140,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/demand_shift_explain.svg"></div>
   <figcaption class="cap">需要曲線の右シフトの仕組み</figcaption>
   <a class="dl" href="img/demand_shift_explain.svg" download="demand_shift_explain.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-demand-shift-explain">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anim-demand-shift">
@@ -141,6 +148,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/demand_shift.svg"></div>
   <figcaption class="cap">需要曲線の右シフトによる市場均衡の変化</figcaption>
   <a class="dl" href="img/demand_shift.svg" download="demand_shift.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anim-demand-shift">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anim-shift-identify">
@@ -148,6 +156,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/demand_shift_identify.svg"></div>
   <figcaption class="cap">シフトの種類によって観察される均衡点の並び方</figcaption>
   <a class="dl" href="img/demand_shift_identify.svg" download="demand_shift_identify.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anim-shift-identify">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="price_cap">
@@ -155,6 +164,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/price_regulation_anime.svg"></div>
   <figcaption class="cap">価格規制の効果（階段状の需要・供給曲線）</figcaption>
   <a class="dl" href="img/price_regulation_anime.svg" download="price_regulation_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="price_cap">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="price_cap-smooth">
@@ -162,6 +172,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/price_reg_smooth.svg"></div>
   <figcaption class="cap">価格規制の効果（滑らかな需要・供給曲線）</figcaption>
   <a class="dl" href="img/price_reg_smooth.svg" download="price_reg_smooth.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="price_cap-smooth">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anim-tax-equilibrium">
@@ -169,6 +180,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/tax_equilibrium.svg"></div>
   <figcaption class="cap">従量税のもとでの市場均衡</figcaption>
   <a class="dl" href="img/tax_equilibrium.svg" download="tax_equilibrium.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anim-tax-equilibrium">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anim-tax-surplus-steps">
@@ -176,6 +188,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/tax_surplus_steps.svg"></div>
   <figcaption class="cap">課税のある市場での余剰（階段状の需要・供給曲線）</figcaption>
   <a class="dl" href="img/tax_surplus_steps.svg" download="tax_surplus_steps.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anim-tax-surplus-steps">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anim-tax-surplus-smooth">
@@ -183,6 +196,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/tax_surplus_smooth.svg"></div>
   <figcaption class="cap">課税のある市場での余剰（滑らかな需要・供給曲線）</figcaption>
   <a class="dl" href="img/tax_surplus_smooth.svg" download="tax_surplus_smooth.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anim-tax-surplus-smooth">🔗 リンクをコピー</button>
 </section>
 
 <h2 class="ch-head" id="ch5">第 5 章　企業の行動</h2>
@@ -192,6 +206,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/mc_supply_curve.svg"></div>
   <figcaption class="cap">限界費用と供給曲線</figcaption>
   <a class="dl" href="img/mc_supply_curve.svg" download="mc_supply_curve.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-mc-supply-curve">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anime-supply-from-mc">
@@ -199,6 +214,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/supply_from_mc.svg"></div>
   <figcaption class="cap">供給曲線が限界費用曲線からどのように作られるかを示すアニメーション．操業停止点より上の，$q\ge q^{\text{停}}$ となる部分だけが供給曲線になる．</figcaption>
   <a class="dl" href="img/supply_from_mc.svg" download="supply_from_mc.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-supply-from-mc">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anime-isoquant">
@@ -206,6 +222,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <iframe src="img/isoquant_movie.html" loading="lazy" style="width:100%;height:760px;border:1px solid #e5e7eb;border-radius:8px;"></iframe>
   <figcaption class="cap">等産出量曲線の解説アニメーション．同じ生産量を達成する労働 $L$ と資本 $K$ の組み合わせを結んだ曲線である．</figcaption>
   <a class="dl" href="img/isoquant_movie.html" download="isoquant_movie.html">⬇ HTML をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-isoquant">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anime-cost-min">
@@ -213,6 +230,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/cost_min_anime.svg"></div>
   <figcaption class="cap">費用最小化のアニメーション</figcaption>
   <a class="dl" href="img/cost_min_anime.svg" download="cost_min_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-cost-min">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anime-cost-envelop">
@@ -220,6 +238,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/cost_envelop_anime.svg"></div>
   <figcaption class="cap">短期費用と長期費用の関係のアニメーション</figcaption>
   <a class="dl" href="img/cost_envelop_anime.svg" download="cost_envelop_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-cost-envelop">🔗 リンクをコピー</button>
 </section>
 
 <h2 class="ch-head" id="ch6">第 6 章　消費者の行動</h2>
@@ -229,6 +248,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/budget_line_anime.svg"></div>
   <figcaption class="cap">予算線の変化</figcaption>
   <a class="dl" href="img/budget_line_anime.svg" download="budget_line_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="budget-line-anime">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anime-indifference">
@@ -236,6 +256,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <iframe src="img/indifference_movie.html" loading="lazy" style="width:100%;height:760px;border:1px solid #e5e7eb;border-radius:8px;"></iframe>
   <figcaption class="cap">無差別曲線の作り方を示すアニメーション．無差別な（効用が等しい）消費計画の点を結ぶと無差別曲線が得られる．</figcaption>
   <a class="dl" href="img/indifference_movie.html" download="indifference_movie.html">⬇ HTML をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-indifference">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anime-mrs">
@@ -243,6 +264,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/indifference_MRS_anime.svg"></div>
   <figcaption class="cap">無差別曲線の接線の傾きが限界代替率 $MRS$ を表すことを示すアニメーション．財 $x$ を少しだけ増やすときに減らさなければならない財 $y$ の量を，その増分を $0$ に近づけた極限になっている．</figcaption>
   <a class="dl" href="img/indifference_MRS_anime.svg" download="indifference_MRS_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-mrs">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anime-utility-max">
@@ -250,6 +272,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/utility_max_anime.svg"></div>
   <figcaption class="cap">効用最大化のアニメーション</figcaption>
   <a class="dl" href="img/utility_max_anime.svg" download="utility_max_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-utility-max">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="fig-income-normal-inferior">
@@ -257,6 +280,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/income_normal_inferior_anime.svg"></div>
   <figcaption class="cap">所得の増加と効用最大化点の移動：x は正常財（所得増で消費増），y は途中まで正常財だが，ある所得を超えると消費が減り劣等財に変わる（破線が所得消費曲線）．</figcaption>
   <a class="dl" href="img/income_normal_inferior_anime.svg" download="income_normal_inferior_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="fig-income-normal-inferior">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anim-slutsky">
@@ -264,6 +288,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/slutsky_anime.svg"></div>
   <figcaption class="cap">スルツキー分解（財$x$の価格上昇・粗補完財のケース）：当初の効用最大化点 $A$ から，価格上昇で効用最大化点が$B$に移動する．所得を補償して元の効用 $U_1$ を保つと点 $C$ が定まり，A→C を代替効果，$C\to B$ を所得効果として分離できる．ここでは所得効果で財$y$の需要量も減るため，財$x$と財$y$ は粗補完財になっている．</figcaption>
   <a class="dl" href="img/slutsky_anime.svg" download="slutsky_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anim-slutsky">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="fig-offer-curve">
@@ -271,6 +296,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/wage_labor_supply_anime.svg"></div>
   <figcaption class="cap">賃金 w の上昇と効用最大化点の移動：予算線は<ruby>賦存点<rp>（</rp><rt>ふそんてん</rt><rp>）</rp></ruby> $(\ell=24,\ c=s)$（不労所得 $s$ だけ消費できる点）を軸に回転する．低賃金では代替効果が<ruby>優勢<rp>（</rp><rt>ゆうせい</rt><rp>）</rp></ruby>で余暇が減り労働が増えるが，高賃金になると所得効果が優勢になり余暇が増えて労働が減る．オファーカーブが左に張り出してから右へ戻る形になっている（これを<ruby>後方屈曲<rp>（</rp><rt>こうほうくっきょく</rt><rp>）</rp></ruby>と言う）．</figcaption>
   <a class="dl" href="img/wage_labor_supply_anime.svg" download="wage_labor_supply_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="fig-offer-curve">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="fig-exchange-budget">
@@ -278,6 +304,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/exchange_budget_anime.svg"></div>
   <figcaption class="cap">価格の変化と予算線の回転：初期保有 $E=(e_x, e_y)$ を売って得たお金で買い直せる組合せが予算線である．どんな価格でも $E$ はそのまま買えるので，価格比 $p_x/p_y$ が変わると予算線は $E$ を軸に回転する．財 $x$ が相対的に高くなると傾き $-p_x/p_y$ が急になる．</figcaption>
   <a class="dl" href="img/exchange_budget_anime.svg" download="exchange_budget_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="fig-exchange-budget">🔗 リンクをコピー</button>
 </section>
 
 <h2 class="ch-head" id="ch7">第 7 章　複数財市場の均衡</h2>
@@ -287,6 +314,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/GE_edgeworth_anime.svg"></div>
   <figcaption class="cap">エッジワースボックスの作り方を示すアニメーション．二人の消費者の予算制約の図を組み合わせて，二人二財の純粋交換経済を一つの図で表す．</figcaption>
   <a class="dl" href="img/GE_edgeworth_anime.svg" download="GE_edgeworth_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="GE_edgeworth_anime">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="fig-pareto-improve">
@@ -294,6 +322,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/GE_pareto_improve_anime.svg"></div>
   <figcaption class="cap">無差別曲線が交差する配分：レオンの効用が上がるのは自分の無差別曲線より右上，ケネスの効用が上がるのは自分の無差別曲線より左下である．交差していると二つの<ruby>領域<rp>（</rp><rt>りょういき</rt><rp>）</rp></ruby>が重なる部分ができ，そこへ配分を動かせば二人とも効用が上がる．つまりパレート改善ができるので，この配分はパレート効率的でない．</figcaption>
   <a class="dl" href="img/GE_pareto_improve_anime.svg" download="GE_pareto_improve_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="fig-pareto-improve">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="fig-pareto-efficient">
@@ -301,6 +330,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/GE_pareto_efficient_anime.svg"></div>
   <figcaption class="cap">無差別曲線が接する配分：レオンの改善領域（右上）とケネスの改善領域（左下）は接点で触れるだけで重ならない．二人を同時に良くできないので，この配分はパレート効率的である．</figcaption>
   <a class="dl" href="img/GE_pareto_efficient_anime.svg" download="GE_pareto_efficient_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="fig-pareto-efficient">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="FWT">
@@ -308,6 +338,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/GE_FWT.svg"></div>
   <figcaption class="cap">厚生経済学の第一基本定理の説明アニメーション．市場均衡の資源配分がパレート効率的であること，すなわち予算制約線を通して二人の無差別曲線が接することを示す．</figcaption>
   <a class="dl" href="img/GE_FWT.svg" download="GE_FWT.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="FWT">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="SWT">
@@ -315,6 +346,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/GE_SWT.svg"></div>
   <figcaption class="cap">厚生経済学の第二基本定理の説明アニメーション．任意のパレート効率的な配分が，適切な初期保有の再配分のもとで市場均衡として達成できることを示す（第一定理の「逆再生」）．</figcaption>
   <a class="dl" href="img/GE_SWT.svg" download="GE_SWT.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="SWT">🔗 リンクをコピー</button>
 </section>
 
 <h2 class="ch-head" id="ch9">第 9 章　ルールづくりのゲーム理論</h2>
@@ -324,6 +356,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/matching_boston.svg"></div>
   <figcaption class="cap">受入即決方式（ボストン方式）の手順：例1のケース</figcaption>
   <a class="dl" href="img/matching_boston.svg" download="matching_boston.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-matching-boston">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anime-gs">
@@ -331,6 +364,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/matching_gs.svg"></div>
   <figcaption class="cap">受入保留方式（ゲール・シャプレイ）の手順：例1のケース．青の破線○は暫定保留，緑○は確定</figcaption>
   <a class="dl" href="img/matching_gs.svg" download="matching_gs.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-gs">🔗 リンクをコピー</button>
 </section>
 
 <section class="anime-item" id="anime-ttc">
@@ -338,6 +372,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <div class="svg-anim" data-src="img/ttc_anime.svg"></div>
   <figcaption class="cap">最良交換サイクル（TTC）アルゴリズムの手順：表の例</figcaption>
   <a class="dl" href="img/ttc_anime.svg" download="ttc_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-ttc">🔗 リンクをコピー</button>
 </section>
 
 </div>
@@ -472,6 +507,30 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initAll)}
   else{initAll()}
+})();
+</script>
+<script>
+(function(){
+  function fallbackCopy(text){
+    var ta=document.createElement('textarea');
+    ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var url=new URL('#'+btn.dataset.anchor, location.href).href;
+      var label=btn.textContent;
+      function done(){
+        btn.textContent='✓ コピーしました'; btn.classList.add('ok');
+        setTimeout(function(){ btn.textContent=label; btn.classList.remove('ok'); },1500);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(done, function(){ fallbackCopy(url); done(); });
+      }else{ fallbackCopy(url); done(); }
+    });
+  });
 })();
 </script>
 </body>
