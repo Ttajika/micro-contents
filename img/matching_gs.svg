@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" style="font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif">
+<!-- ===== 静的レイアウト ===== -->
+<line x1="275" y1="78" x2="275" y2="430" stroke="rgba(0,0,0,0.12)" stroke-width="1"/>
+
+<!-- 左：就活生 -->
+<text x="34" y="46" fill="#333" font-size="16" font-weight="700">就活生</text>
+<text x="34" y="64" fill="#888" font-size="11">（名前：希望順）</text>
+<text x="34" y="116" fill="#333" font-size="15">アダム：<tspan x="112" text-anchor="middle">A</tspan><tspan x="134" text-anchor="middle">B</tspan><tspan x="156" text-anchor="middle">C</tspan></text>
+<text x="34" y="159" fill="#333" font-size="15">イヴ：<tspan x="112" text-anchor="middle">B</tspan><tspan x="134" text-anchor="middle">A</tspan><tspan x="156" text-anchor="middle">C</tspan></text>
+<text x="34" y="202" fill="#333" font-size="15">ノア：<tspan x="112" text-anchor="middle">A</tspan><tspan x="134" text-anchor="middle">B</tspan><tspan x="156" text-anchor="middle">C</tspan></text>
+
+<!-- 凡例 -->
+<circle cx="312" cy="62" r="7" fill="none" stroke="#1a3c6e" stroke-width="2" stroke-dasharray="3,2"/>
+<text x="324" y="66" fill="#555" font-size="11">暫定保留</text>
+<circle cx="402" cy="62" r="7" fill="none" stroke="#2a8a3e" stroke-width="2"/>
+<text x="414" y="66" fill="#555" font-size="11">確定</text>
+<line x1="470" y1="69" x2="484" y2="55" stroke="#c0392b" stroke-width="2.5"/>
+<text x="490" y="66" fill="#555" font-size="11">不採用</text>
+<line x1="538" y1="62" x2="556" y2="62" stroke="#c0392b" stroke-width="2.5"/>
+<text x="560" y="66" fill="#555" font-size="11">もう行けない</text>
+
+<!-- 企業ヘッダー -->
+<text x="300" y="46" fill="#333" font-size="16" font-weight="700">企業（名前：好み）</text>
+<rect x="345" y="80" width="70" height="44" rx="8" fill="#f5f1ec" stroke="#ddd" stroke-width="1"/>
+<text x="380" y="102" text-anchor="middle" fill="#333" font-size="18" font-weight="700">A</text>
+<text x="380" y="119" text-anchor="middle" fill="#666" font-size="12">アイノ</text>
+<rect x="475" y="80" width="70" height="44" rx="8" fill="#f5f1ec" stroke="#ddd" stroke-width="1"/>
+<text x="510" y="102" text-anchor="middle" fill="#333" font-size="18" font-weight="700">B</text>
+<text x="510" y="119" text-anchor="middle" fill="#666" font-size="12">ノイア</text>
+<rect x="605" y="80" width="70" height="44" rx="8" fill="#f5f1ec" stroke="#ddd" stroke-width="1"/>
+<text x="640" y="102" text-anchor="middle" fill="#333" font-size="18" font-weight="700">C</text>
+<text x="640" y="119" text-anchor="middle" fill="#666" font-size="12">イノア</text>
+
+<!-- 巡目ラベルと帯の区切り -->
+<line x1="300" y1="195" x2="700" y2="195" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+<line x1="300" y1="249" x2="700" y2="249" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+<line x1="300" y1="303" x2="700" y2="303" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+<text x="292" y="168" text-anchor="middle" fill="#aaa" font-size="12" transform="rotate(-90,292,168)">1巡目</text>
+<text x="292" y="222" text-anchor="middle" fill="#aaa" font-size="12" transform="rotate(-90,292,222)">2巡目</text>
+<text x="292" y="276" text-anchor="middle" fill="#aaa" font-size="12" transform="rotate(-90,292,276)">3巡目</text>
+<text x="292" y="330" text-anchor="middle" fill="#aaa" font-size="12" transform="rotate(-90,292,330)">4巡目</text>
+
+<!-- ===== 好み欄：下線（応募中）・赤線（もう行けない） ===== -->
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1"/><line x1="103" y1="120" x2="121" y2="120" stroke="#1a3c6e" stroke-width="2.5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;1;1;1;1;1;1;0;0;0;0;0;0;0;0;0;0"/><line x1="103" y1="163" x2="121" y2="163" stroke="#1a3c6e" stroke-width="2.5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;1;1;1;1;0;0;0;0"/><line x1="125" y1="163" x2="143" y2="163" stroke="#1a3c6e" stroke-width="2.5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1"/><line x1="147" y1="163" x2="165" y2="163" stroke="#1a3c6e" stroke-width="2.5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1"/><line x1="103" y1="154" x2="121" y2="154" stroke="#c0392b" stroke-width="2.5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;1"/><line x1="125" y1="154" x2="143" y2="154" stroke="#c0392b" stroke-width="2.5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;1;1;1;1;0;0;0;0;0;0;0;0;0;0;0;0"/><line x1="103" y1="206" x2="121" y2="206" stroke="#1a3c6e" stroke-width="2.5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1"/><line x1="125" y1="206" x2="143" y2="206" stroke="#1a3c6e" stroke-width="2.5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1"/><line x1="103" y1="197" x2="121" y2="197" stroke="#c0392b" stroke-width="2.5"/></g>
+
+<!-- ===== チップ（応募＝偶数手前で出現） ===== -->
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1"/><rect x="344" y="153" width="34" height="30" rx="6" fill="#eef2f7" stroke="#aab"/><text x="361" y="174" text-anchor="middle" fill="#333" font-size="15">ア</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1"/><rect x="382" y="153" width="34" height="30" rx="6" fill="#eef2f7" stroke="#aab"/><text x="399" y="174" text-anchor="middle" fill="#333" font-size="15">ノ</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1"/><rect x="493" y="153" width="34" height="30" rx="6" fill="#eef2f7" stroke="#aab"/><text x="510" y="174" text-anchor="middle" fill="#333" font-size="15">イ</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1"/><rect x="493" y="207" width="34" height="30" rx="6" fill="#eef2f7" stroke="#aab"/><text x="510" y="228" text-anchor="middle" fill="#333" font-size="15">ノ</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1"/><rect x="363" y="261" width="34" height="30" rx="6" fill="#eef2f7" stroke="#aab"/><text x="380" y="282" text-anchor="middle" fill="#333" font-size="15">イ</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1"/><rect x="623" y="315" width="34" height="30" rx="6" fill="#eef2f7" stroke="#aab"/><text x="640" y="336" text-anchor="middle" fill="#333" font-size="15">イ</text></g>
+
+<!-- ===== 保留決定（青破線○）・確定（緑○）・不採用（赤／） ===== -->
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1;0;0"/><circle cx="361" cy="168" r="21" fill="none" stroke="#1a3c6e" stroke-width="2.2" stroke-dasharray="4,3"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1"/><circle cx="361" cy="168" r="21" fill="none" stroke="#2a8a3e" stroke-width="2.5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1;1;1"/><line x1="385" y1="182" x2="413" y2="154" stroke="#c0392b" stroke-width="3"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;1;1;1;1;0;0;0;0;0;0;0;0;0;0"/><circle cx="510" cy="168" r="21" fill="none" stroke="#1a3c6e" stroke-width="2.2" stroke-dasharray="4,3"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1"/><line x1="496" y1="182" x2="524" y2="154" stroke="#c0392b" stroke-width="3"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;1;1;1;1;1;1;1;1;0;0"/><circle cx="510" cy="222" r="21" fill="none" stroke="#1a3c6e" stroke-width="2.2" stroke-dasharray="4,3"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1"/><circle cx="510" cy="222" r="21" fill="none" stroke="#2a8a3e" stroke-width="2.5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;1;1;1;1;1;1"/><line x1="366" y1="290" x2="394" y2="262" stroke="#c0392b" stroke-width="3"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1"/><circle cx="640" cy="330" r="21" fill="none" stroke="#2a8a3e" stroke-width="2.5"/></g>
+
+<!-- ===== 確定結果 ===== -->
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1"/>
+  <rect x="300" y="372" width="400" height="34" rx="8" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.2"/>
+  <text x="500" y="394" text-anchor="middle" fill="#2a8a3e" font-size="14" font-weight="700">確定：A–アダム ／ B–ノア ／ C–イヴ</text></g>
+
+<!-- ===== 手順キャプション ===== -->
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="1;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"/><text x="34" y="452" fill="#555" font-size="13">就活生の希望順と企業の好み（受入保留方式）</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0"/><text x="34" y="452" fill="#555" font-size="13">1巡目・応募：全員が第1志望へ応募する</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;1;1;0;0;0;0;0;0;0;0;0;0;0;0"/><text x="34" y="452" fill="#555" font-size="13">1巡目・保留：各企業は最良の1人を暫定保留し，残りは断る</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;1;1;0;0;0;0;0;0;0;0;0;0"/><text x="34" y="452" fill="#555" font-size="13">2巡目・応募：断られたノアが第2志望のBへ応募する</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;1;1;0;0;0;0;0;0;0;0"/><text x="34" y="452" fill="#555" font-size="13">2巡目・保留：Bはノアの方を好むので保留を入れ替え，イヴを外す</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;1;1;0;0;0;0;0;0"/><text x="34" y="452" fill="#555" font-size="13">3巡目・応募：外されたイヴが第2志望のAへ応募する</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;1;1;0;0;0;0"/><text x="34" y="452" fill="#555" font-size="13">3巡目・保留：Aは保留中のアダムの方を好むのでイヴは不採用</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1;0;0"/><text x="34" y="452" fill="#555" font-size="13">4巡目・応募：イヴが第3志望のCへ応募する</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="18s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1105;0.1111;0.2216;0.2222;0.3327;0.3333;0.4438;0.4444;0.5550;0.5556;0.6661;0.6667;0.7772;0.7778;0.8883;0.8889;0.9995" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1"/><text x="34" y="452" fill="#555" font-size="13">4巡目・保留：Cがイヴをとりもう動きがない．暫定保留が確定する</text></g>
+</svg>

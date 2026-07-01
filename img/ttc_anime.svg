@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" style="font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif">
+<defs>
+  <marker id="arrowBlue" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L7,3 L0,6 Z" fill="#1a3c6e"/>
+  </marker>
+  <marker id="arrowBlk" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L7,3 L0,6 Z" fill="#777"/>
+  </marker>
+</defs>
+
+<!-- ===== 静的：ノード（名前のみ） ===== -->
+<circle cx="90" cy="90" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="90" y="95" text-anchor="middle" fill="#222" font-size="14">アダム</text>
+<circle cx="250" cy="90" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="250" y="95" text-anchor="middle" fill="#222" font-size="14">イヴ</text>
+<circle cx="410" cy="90" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="410" y="95" text-anchor="middle" fill="#222" font-size="14">ヤコブ</text>
+<circle cx="250" cy="230" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="250" y="235" text-anchor="middle" fill="#222" font-size="14">ルツ</text>
+<circle cx="410" cy="230" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="410" y="235" text-anchor="middle" fill="#222" font-size="14">ヨセフ</text>
+
+<!-- ===== 段階1の矢印（誰を指すか） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;1;1;1;1;0;0;0;0"/>
+  <line x1="124" y1="84" x2="214" y2="84" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="284" y1="84" x2="374" y2="84" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <path d="M386,64 Q250,16 114,64" fill="none" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="250" y1="196" x2="250" y2="126" stroke="#777" stroke-width="1.6" marker-end="url(#arrowBlk)"/>
+  <line x1="376" y1="230" x2="286" y2="230" stroke="#777" stroke-width="1.6" marker-end="url(#arrowBlk)"/>
+</g>
+
+<!-- ===== 確定したサイクル（ア・イ・ヤ）の緑リング ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;1;1;1;1;1;1"/>
+  <circle cx="90" cy="90" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  <circle cx="250" cy="90" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  <circle cx="410" cy="90" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+</g>
+
+<!-- ===== 段階2の矢印（ルツの自己ループ・ヨセフ→ルツ） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;1;1;1;1"/>
+  <path d="M232,200 C 216,148 284,148 268,200" fill="none" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="376" y1="230" x2="286" y2="230" stroke="#777" stroke-width="1.6" marker-end="url(#arrowBlk)"/>
+</g>
+
+<!-- ===== ルツ・ヨセフ確定の緑リング ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;0;0;1;1"/>
+  <circle cx="250" cy="230" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  <circle cx="410" cy="230" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+</g>
+
+<!-- ===== 持ち物の札（段階1のサイクルで移動する） ===== -->
+<!-- 飴：アダム→ヤコブ（ヤコブ→アダムの矢印に沿って上を弧で移動） -->
+<g>
+  <animateTransform attributeName="transform" type="translate" dur="15s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.4;0.4175;0.435;0.4525;0.47;1" values="0,0;0,0;80,-82.5;160,-110;240,-82.5;320,0;320,0"/>
+  <rect x="62" y="143" width="56" height="24" rx="12" fill="#fff4e6" stroke="#e0a96d"/>
+  <text x="90" y="160" text-anchor="middle" fill="#8a5a2b" font-size="12">飴</text>
+</g>
+<!-- ガム：イヴ→アダム -->
+<g>
+  <animateTransform attributeName="transform" type="translate" dur="15s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.4;0.47;1" values="0,0;0,0;-160,0;-160,0"/>
+  <rect x="222" y="143" width="56" height="24" rx="12" fill="#fff4e6" stroke="#e0a96d"/>
+  <text x="250" y="160" text-anchor="middle" fill="#8a5a2b" font-size="12">ガム</text>
+</g>
+<!-- クッキー：ヤコブ→イヴ -->
+<g>
+  <animateTransform attributeName="transform" type="translate" dur="15s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.4;0.47;1" values="0,0;0,0;-160,0;-160,0"/>
+  <rect x="382" y="143" width="56" height="24" rx="12" fill="#fff4e6" stroke="#e0a96d"/>
+  <text x="410" y="160" text-anchor="middle" fill="#8a5a2b" font-size="12">クッキー</text>
+</g>
+<!-- チョコ：ルツ（自分のまま） -->
+<g>
+  <rect x="222" y="267" width="56" height="24" rx="12" fill="#fff4e6" stroke="#e0a96d"/>
+  <text x="250" y="284" text-anchor="middle" fill="#8a5a2b" font-size="12">チョコ</text>
+</g>
+<!-- ジャム：ヨセフ（自分のまま） -->
+<g>
+  <rect x="382" y="267" width="56" height="24" rx="12" fill="#fff4e6" stroke="#e0a96d"/>
+  <text x="410" y="284" text-anchor="middle" fill="#8a5a2b" font-size="12">ジャム</text>
+</g>
+
+<!-- ===== 手順キャプション（各段階のみ表示） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="1;1;0;0;0;0;0;0;0;0"/>
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">各自の持ち物は下の札．交換すれば皆が得をできるか？</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;1;1;0;0;0;0;0;0"/>
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">各自が一番欲しい財の持ち主を指す（自分でも可）</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;1;1;0;0;0;0"/>
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">サイクル成立！指された人が札を渡す → 交換して退場</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;1;1;0;0"/>
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">残った2人で繰り返す：ルツは自分自身を指す</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;0;0;1;1"/>
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">ルツ・ヨセフも自分を指して確定 → 全員の配分が決定</text>
+</g>
+</svg>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 480 400"
+     font-family="'Noto Sans JP', sans-serif" font-size="13">
+
+  <!-- ── 軸 ── -->
+  <line x1="60" y1="350" x2="430" y2="350" stroke="#333" stroke-width="1.5"/>
+  <line x1="60" y1="350" x2="60" y2="40" stroke="#333" stroke-width="1.5"/>
+  <text x="438" y="355" font-size="12">数量</text>
+  <text x="60" y="30" text-anchor="middle" font-size="12">支払意思額</text>
+
+  <!-- y軸目盛 -->
+  <text x="55" y="105" text-anchor="end">5000</text>
+  <text x="55" y="180" text-anchor="end">3500</text>
+  <text x="55" y="255" text-anchor="end">2000</text>
+  <text x="55" y="305" text-anchor="end">1000</text>
+  <text x="55" y="205" text-anchor="end" fill="#dc2626" font-weight="bold">3000</text>
+
+  <!-- x軸目盛 -->
+  <text x="120" y="370" text-anchor="middle">1</text>
+  <text x="240" y="370" text-anchor="middle">3</text>
+  <text x="300" y="370" text-anchor="middle">4</text>
+  <text x="360" y="370" text-anchor="middle">5</text>
+
+  <!-- 需要曲線(階段) -->
+  <polyline
+    points="60,100 120,100 120,175 180,175 180,250 240,250 240,300 300,300 300,310 360,310"
+    stroke="#a0522d" stroke-width="2.5" fill="none"/>
+  <text x="365" y="315" fill="#a0522d" font-weight="bold">需要曲線</text>
+
+  <!-- ══ アニメーション(5秒で1サイクル) ══ -->
+
+  <!-- ① 水平線:y軸の3000から右へ伸びる -->
+  <line x1="60" y1="200" x2="60" y2="200"
+        stroke="#dc2626" stroke-width="2" stroke-dasharray="5 3">
+    <animate attributeName="x2"
+             values="60; 60; 180; 180; 60"
+             keyTimes="0; 0.10; 0.40; 0.95; 1"
+             dur="5s" repeatCount="indefinite"/>
+  </line>
+
+  <!-- ② 交点マーカー -->
+  <circle cx="180" cy="200" r="5" fill="#dc2626" opacity="0">
+    <animate attributeName="opacity"
+             values="0; 0; 1; 1; 0"
+             keyTimes="0; 0.40; 0.42; 0.95; 1"
+             dur="5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- ③ 垂直線:交点から下へ落ちる -->
+  <line x1="180" y1="200" x2="180" y2="200"
+        stroke="#dc2626" stroke-width="2" stroke-dasharray="5 3">
+    <animate attributeName="y2"
+             values="200; 200; 350; 350; 200"
+             keyTimes="0; 0.42; 0.74; 0.95; 1"
+             dur="5s" repeatCount="indefinite"/>
+  </line>
+
+  <!-- ④ 「2」ラベル(色が変わる) -->
+  <text x="180" y="370" text-anchor="middle" font-weight="bold">2
+    <animate attributeName="fill"
+             values="#333; #333; #dc2626; #dc2626; #333"
+             keyTimes="0; 0.74; 0.78; 0.95; 1"
+             dur="5s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- ⑤ 「2」を囲むハイライトリング -->
+  <circle cx="180" cy="365" r="6" fill="none" stroke="#fbbf24" stroke-width="2.5" opacity="0">
+    <animate attributeName="opacity"
+             values="0; 0; 1; 1; 0"
+             keyTimes="0; 0.74; 0.80; 0.95; 1"
+             dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="r"
+             values="6; 6; 16; 12; 12"
+             keyTimes="0; 0.74; 0.80; 0.90; 1"
+             dur="5s" repeatCount="indefinite"/>
+  </circle>
+</svg>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アニメーション一覧 — ミクロ経済学（仮題）</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']],
+    macros: {
+      R: '\\mathbb{R}', P: '\\mathsf{Pr}',
+      condi: '\\mathrel{|}',
+      pd: ['\\frac{\\partial #1}{\\partial #2}', 2],
+      dd: ['\\frac{d #1}{d #2}', 2],
+      eqdef: '\\mathrel{:=}',
+      uu: '\\underline{u}', ou: '\\overline{u}',
+      d: '\\ d',
+    },
+    tags: 'ams',
+  },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+    // Ignore <span class="fn"> (footnote sources) — typeset manually on popup open.
+    ignoreHtmlClass: '(^|\\s)fn(\\s|$)',
+  },
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+*{box-sizing:border-box}
+body{font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif;background:#fafaf8;color:#1f2937;margin:0;line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:2rem 1.2rem 5rem}
+h1{font-family:'Noto Serif JP',serif;font-size:24px;color:#1e293b;border-bottom:2.5px solid #1e293b;padding-bottom:.5rem}
+.lead{color:#64748b;font-size:14px}
+.toc{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:1rem 1.4rem;margin:1.5rem 0 2.5rem}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{font-size:13px;margin:2px 0}
+.toc li.toc-ch{margin-top:10px;font-weight:700;font-size:14px}
+.toc a{color:#2563eb;text-decoration:none}
+.toc a:hover{text-decoration:underline}
+h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border-bottom:1px solid #e5e7eb;padding-bottom:4px;margin:2.8rem 0 1rem;scroll-margin-top:1rem}
+.anime-item{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:1.2rem 1.4rem;margin:1.2rem 0;scroll-margin-top:1rem}
+.anime-item .num{font-weight:700;color:#2563eb;font-size:14px;margin-bottom:.6rem}
+.anime-item .cap{font-size:13px;color:#475569;margin-top:.7rem;line-height:1.7}
+.dl{display:inline-block;margin-top:.8rem;padding:.35rem .9rem;font-size:12.5px;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;text-decoration:none;transition:background .15s}
+.dl:hover{background:#dbeafe}
+<style>
+.svg-player-wrap{display:inline-block;max-width:100%}
+.svg-player-wrap svg{display:block;width:100%;height:auto}
+.svg-controls{display:flex;align-items:center;gap:8px;padding:6px 12px;background:rgba(250,250,248,0.95);border:1px solid #e0e0e0;border-radius:0 0 8px 8px}
+.svg-controls button{width:32px;height:32px;border:none;border-radius:50%;background:#555;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
+.svg-controls button:hover{background:#333}
+.svg-controls button.playing{background:#2471a3}
+.svg-controls .seek{flex:1;height:5px;-webkit-appearance:none;appearance:none;background:#ddd;border-radius:3px;outline:none;margin:0}
+.svg-controls .seek::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#555;cursor:pointer}
+.svg-controls .seek::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#555;cursor:pointer;border:none}
+.svg-controls .time{font-size:11px;color:#888;min-width:65px;text-align:right;font-variant-numeric:tabular-nums;font-family:-apple-system,BlinkMacSystemFont,sans-serif;flex-shrink:0}
+.svg-controls .speed{font-size:11px;color:#666;background:#eee;border:1px solid #ccc;border-radius:4px;padding:4px 8px;cursor:pointer;flex-shrink:0;font-family:inherit}
+.svg-controls .speed:hover{background:#ddd}
+</style>
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>アニメーション一覧</h1>
+<p class="lead">『ミクロ経済学（仮題）』（多鹿 智哉）本文中のアニメーション32点。各図番号は本文と対応します。本文に印刷されたQRコードからこのページの該当アニメへ飛べます。<br><a href="image_gallery.html" style="color:#2563eb">→ 静止画の図版一覧はこちら</a></p>
+<nav class="toc"><ul>
+<li class="toc-ch"><a href="#ch3">第 3 章　需要と供給</a></li>
+<li><a href="#anime-demand-read">図 3.2.2　需要曲線の読み方：価格3000のときの需要量は2</a></li>
+<li><a href="#fig-cs-steps">図 3.4.2　消費者余剰の図解</a></li>
+<li><a href="#discrete-to-continuous">図 3.4.4　階段状の需要・供給曲線から滑らかな需要・供給曲線へ</a></li>
+<li><a href="#anime-demand-shift-explain">図 3.7.1　需要曲線の右シフトの仕組み</a></li>
+<li><a href="#anim-demand-shift">図 3.7.2　需要曲線の右シフトによる市場均衡の変化</a></li>
+<li><a href="#anim-shift-identify">図 3.7.3　シフトの種類によって観察される均衡点の並び方</a></li>
+<li><a href="#price_cap">図 3.8.1　価格規制の効果（階段状の需要・供給曲線）</a></li>
+<li><a href="#price_cap-smooth">図 3.8.2　価格規制の効果（滑らかな需要・供給曲線）</a></li>
+<li><a href="#anim-tax-equilibrium">図 3.8.6　従量税のもとでの市場均衡</a></li>
+<li><a href="#anim-tax-surplus-steps">図 3.8.7　課税のある市場での余剰（階段状の需要・供給曲線）</a></li>
+<li><a href="#anim-tax-surplus-smooth">図 3.8.8　課税のある市場での余剰（滑らかな需要・供給曲線）</a></li>
+<li class="toc-ch"><a href="#ch5">第 5 章　企業の行動</a></li>
+<li><a href="#anime-mc-supply-curve">図 5.2.1　限界費用と供給曲線</a></li>
+<li><a href="#anime-supply-from-mc">図 5.4.2　供給曲線が限界費用曲線からどのように作られるかを示すアニメーション．操業停止点よ</a></li>
+<li><a href="#anime-isoquant">図 5.7.1　等産出量曲線の解説アニメーション．同じ生産量を達成する労働 $L$ と資本 $K</a></li>
+<li><a href="#anime-cost-min">図 5.7.3　費用最小化のアニメーション</a></li>
+<li><a href="#anime-cost-envelop">図 5.7.4　短期費用と長期費用の関係のアニメーション</a></li>
+<li class="toc-ch"><a href="#ch6">第 6 章　消費者の行動</a></li>
+<li><a href="#budget-line-anime">図 6.2.1　予算線の変化</a></li>
+<li><a href="#anime-indifference">図 6.4.1　無差別曲線の作り方を示すアニメーション．無差別な（効用が等しい）消費計画の点を結</a></li>
+<li><a href="#anime-mrs">図 6.4.7　無差別曲線の接線の傾きが限界代替率 $MRS$ を表すことを示すアニメーション．</a></li>
+<li><a href="#anime-utility-max">図 6.5.1　効用最大化のアニメーション</a></li>
+<li><a href="#fig-income-normal-inferior">図 6.6.2　所得の増加と効用最大化点の移動：x は正常財（所得増で消費増），y は途中まで正</a></li>
+<li><a href="#anim-slutsky">図 6.7.2　スルツキー分解（財$x$の価格上昇・粗補完財のケース）：当初の効用最大化点 $A</a></li>
+<li><a href="#fig-offer-curve">図 6.8.2　賃金 w の上昇と効用最大化点の移動：予算線は賦存点 $(\ell=24,\ c</a></li>
+<li><a href="#fig-exchange-budget">図 6.9.1　価格の変化と予算線の回転：初期保有 $E=(e_x, e_y)$ を売って得たお</a></li>
+<li class="toc-ch"><a href="#ch7">第 7 章　複数財市場の均衡</a></li>
+<li><a href="#GE_edgeworth_anime">図 7.2.1　エッジワースボックスの作り方を示すアニメーション．二人の消費者の予算制約の図を組</a></li>
+<li><a href="#fig-pareto-improve">図 7.3.1　無差別曲線が交差する配分：レオンの効用が上がるのは自分の無差別曲線より右上，ケネ</a></li>
+<li><a href="#fig-pareto-efficient">図 7.3.2　無差別曲線が接する配分：レオンの改善領域（右上）とケネスの改善領域（左下）は接点</a></li>
+<li><a href="#FWT">図 7.4.1　厚生経済学の第一基本定理の説明アニメーション．市場均衡の資源配分がパレート効率的</a></li>
+<li><a href="#SWT">図 7.4.2　厚生経済学の第二基本定理の説明アニメーション．任意のパレート効率的な配分が，適切</a></li>
+<li class="toc-ch"><a href="#ch9">第 9 章　ルールづくりのゲーム理論</a></li>
+<li><a href="#anime-matching-boston">図 9.4.1　受入即決方式（ボストン方式）の手順：例1のケース</a></li>
+<li><a href="#anime-gs">図 9.4.2　受入保留方式（ゲール・シャプレイ）の手順：例1のケース．青の破線○は暫定保留，緑</a></li>
+<li><a href="#anime-ttc">図 9.4.3　最良交換サイクル（TTC）アルゴリズムの手順：表の例</a></li>
+</ul></nav>
+
+<h2 class="ch-head" id="ch3">第 3 章　需要と供給</h2>
+
+<section class="anime-item" id="anime-demand-read">
+  <div class="num">図 3.2.2</div>
+  <div class="svg-anim" data-src="img/fig_demand_read.svg"></div>
+  <figcaption class="cap">需要曲線の読み方：価格3000のときの需要量は2</figcaption>
+  <a class="dl" href="img/fig_demand_read.svg" download="fig_demand_read.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="fig-cs-steps">
+  <div class="num">図 3.4.2</div>
+  <div class="svg-anim" data-src="img/consumer_surplus_steps.svg"></div>
+  <figcaption class="cap">消費者余剰の図解</figcaption>
+  <a class="dl" href="img/consumer_surplus_steps.svg" download="consumer_surplus_steps.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="discrete-to-continuous">
+  <div class="num">図 3.4.4</div>
+  <div class="svg-anim" data-src="img/discrete_to_continuous_anime.svg"></div>
+  <figcaption class="cap">階段状の需要・供給曲線から滑らかな需要・供給曲線へ</figcaption>
+  <a class="dl" href="img/discrete_to_continuous_anime.svg" download="discrete_to_continuous_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anime-demand-shift-explain">
+  <div class="num">図 3.7.1</div>
+  <div class="svg-anim" data-src="img/demand_shift_explain.svg"></div>
+  <figcaption class="cap">需要曲線の右シフトの仕組み</figcaption>
+  <a class="dl" href="img/demand_shift_explain.svg" download="demand_shift_explain.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anim-demand-shift">
+  <div class="num">図 3.7.2</div>
+  <div class="svg-anim" data-src="img/demand_shift.svg"></div>
+  <figcaption class="cap">需要曲線の右シフトによる市場均衡の変化</figcaption>
+  <a class="dl" href="img/demand_shift.svg" download="demand_shift.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anim-shift-identify">
+  <div class="num">図 3.7.3</div>
+  <div class="svg-anim" data-src="img/demand_shift_identify.svg"></div>
+  <figcaption class="cap">シフトの種類によって観察される均衡点の並び方</figcaption>
+  <a class="dl" href="img/demand_shift_identify.svg" download="demand_shift_identify.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="price_cap">
+  <div class="num">図 3.8.1</div>
+  <div class="svg-anim" data-src="img/price_regulation_anime.svg"></div>
+  <figcaption class="cap">価格規制の効果（階段状の需要・供給曲線）</figcaption>
+  <a class="dl" href="img/price_regulation_anime.svg" download="price_regulation_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="price_cap-smooth">
+  <div class="num">図 3.8.2</div>
+  <div class="svg-anim" data-src="img/price_reg_smooth.svg"></div>
+  <figcaption class="cap">価格規制の効果（滑らかな需要・供給曲線）</figcaption>
+  <a class="dl" href="img/price_reg_smooth.svg" download="price_reg_smooth.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anim-tax-equilibrium">
+  <div class="num">図 3.8.6</div>
+  <div class="svg-anim" data-src="img/tax_equilibrium.svg"></div>
+  <figcaption class="cap">従量税のもとでの市場均衡</figcaption>
+  <a class="dl" href="img/tax_equilibrium.svg" download="tax_equilibrium.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anim-tax-surplus-steps">
+  <div class="num">図 3.8.7</div>
+  <div class="svg-anim" data-src="img/tax_surplus_steps.svg"></div>
+  <figcaption class="cap">課税のある市場での余剰（階段状の需要・供給曲線）</figcaption>
+  <a class="dl" href="img/tax_surplus_steps.svg" download="tax_surplus_steps.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anim-tax-surplus-smooth">
+  <div class="num">図 3.8.8</div>
+  <div class="svg-anim" data-src="img/tax_surplus_smooth.svg"></div>
+  <figcaption class="cap">課税のある市場での余剰（滑らかな需要・供給曲線）</figcaption>
+  <a class="dl" href="img/tax_surplus_smooth.svg" download="tax_surplus_smooth.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<h2 class="ch-head" id="ch5">第 5 章　企業の行動</h2>
+
+<section class="anime-item" id="anime-mc-supply-curve">
+  <div class="num">図 5.2.1</div>
+  <div class="svg-anim" data-src="img/mc_supply_curve.svg"></div>
+  <figcaption class="cap">限界費用と供給曲線</figcaption>
+  <a class="dl" href="img/mc_supply_curve.svg" download="mc_supply_curve.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anime-supply-from-mc">
+  <div class="num">図 5.4.2</div>
+  <div class="svg-anim" data-src="img/supply_from_mc.svg"></div>
+  <figcaption class="cap">供給曲線が限界費用曲線からどのように作られるかを示すアニメーション．操業停止点より上の，$q\ge q^{\text{停}}$ となる部分だけが供給曲線になる．</figcaption>
+  <a class="dl" href="img/supply_from_mc.svg" download="supply_from_mc.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anime-isoquant">
+  <div class="num">図 5.7.1</div>
+  <iframe src="img/isoquant_movie.html" loading="lazy" style="width:100%;height:760px;border:1px solid #e5e7eb;border-radius:8px;"></iframe>
+  <figcaption class="cap">等産出量曲線の解説アニメーション．同じ生産量を達成する労働 $L$ と資本 $K$ の組み合わせを結んだ曲線である．</figcaption>
+  <a class="dl" href="img/isoquant_movie.html" download="isoquant_movie.html">⬇ HTML をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anime-cost-min">
+  <div class="num">図 5.7.3</div>
+  <div class="svg-anim" data-src="img/cost_min_anime.svg"></div>
+  <figcaption class="cap">費用最小化のアニメーション</figcaption>
+  <a class="dl" href="img/cost_min_anime.svg" download="cost_min_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anime-cost-envelop">
+  <div class="num">図 5.7.4</div>
+  <div class="svg-anim" data-src="img/cost_envelop_anime.svg"></div>
+  <figcaption class="cap">短期費用と長期費用の関係のアニメーション</figcaption>
+  <a class="dl" href="img/cost_envelop_anime.svg" download="cost_envelop_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<h2 class="ch-head" id="ch6">第 6 章　消費者の行動</h2>
+
+<section class="anime-item" id="budget-line-anime">
+  <div class="num">図 6.2.1</div>
+  <div class="svg-anim" data-src="img/budget_line_anime.svg"></div>
+  <figcaption class="cap">予算線の変化</figcaption>
+  <a class="dl" href="img/budget_line_anime.svg" download="budget_line_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anime-indifference">
+  <div class="num">図 6.4.1</div>
+  <iframe src="img/indifference_movie.html" loading="lazy" style="width:100%;height:760px;border:1px solid #e5e7eb;border-radius:8px;"></iframe>
+  <figcaption class="cap">無差別曲線の作り方を示すアニメーション．無差別な（効用が等しい）消費計画の点を結ぶと無差別曲線が得られる．</figcaption>
+  <a class="dl" href="img/indifference_movie.html" download="indifference_movie.html">⬇ HTML をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anime-mrs">
+  <div class="num">図 6.4.7</div>
+  <div class="svg-anim" data-src="img/indifference_MRS_anime.svg"></div>
+  <figcaption class="cap">無差別曲線の接線の傾きが限界代替率 $MRS$ を表すことを示すアニメーション．財 $x$ を少しだけ増やすときに減らさなければならない財 $y$ の量を，その増分を $0$ に近づけた極限になっている．</figcaption>
+  <a class="dl" href="img/indifference_MRS_anime.svg" download="indifference_MRS_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anime-utility-max">
+  <div class="num">図 6.5.1</div>
+  <div class="svg-anim" data-src="img/utility_max_anime.svg"></div>
+  <figcaption class="cap">効用最大化のアニメーション</figcaption>
+  <a class="dl" href="img/utility_max_anime.svg" download="utility_max_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="fig-income-normal-inferior">
+  <div class="num">図 6.6.2</div>
+  <div class="svg-anim" data-src="img/income_normal_inferior_anime.svg"></div>
+  <figcaption class="cap">所得の増加と効用最大化点の移動：x は正常財（所得増で消費増），y は途中まで正常財だが，ある所得を超えると消費が減り劣等財に変わる（破線が所得消費曲線）．</figcaption>
+  <a class="dl" href="img/income_normal_inferior_anime.svg" download="income_normal_inferior_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anim-slutsky">
+  <div class="num">図 6.7.2</div>
+  <div class="svg-anim" data-src="img/slutsky_anime.svg"></div>
+  <figcaption class="cap">スルツキー分解（財$x$の価格上昇・粗補完財のケース）：当初の効用最大化点 $A$ から，価格上昇で効用最大化点が$B$に移動する．所得を補償して元の効用 $U_1$ を保つと点 $C$ が定まり，A→C を代替効果，$C\to B$ を所得効果として分離できる．ここでは所得効果で財$y$の需要量も減るため，財$x$と財$y$ は粗補完財になっている．</figcaption>
+  <a class="dl" href="img/slutsky_anime.svg" download="slutsky_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="fig-offer-curve">
+  <div class="num">図 6.8.2</div>
+  <div class="svg-anim" data-src="img/wage_labor_supply_anime.svg"></div>
+  <figcaption class="cap">賃金 w の上昇と効用最大化点の移動：予算線は<ruby>賦存点<rp>（</rp><rt>ふそんてん</rt><rp>）</rp></ruby> $(\ell=24,\ c=s)$（不労所得 $s$ だけ消費できる点）を軸に回転する．低賃金では代替効果が<ruby>優勢<rp>（</rp><rt>ゆうせい</rt><rp>）</rp></ruby>で余暇が減り労働が増えるが，高賃金になると所得効果が優勢になり余暇が増えて労働が減る．オファーカーブが左に張り出してから右へ戻る形になっている（これを<ruby>後方屈曲<rp>（</rp><rt>こうほうくっきょく</rt><rp>）</rp></ruby>と言う）．</figcaption>
+  <a class="dl" href="img/wage_labor_supply_anime.svg" download="wage_labor_supply_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="fig-exchange-budget">
+  <div class="num">図 6.9.1</div>
+  <div class="svg-anim" data-src="img/exchange_budget_anime.svg"></div>
+  <figcaption class="cap">価格の変化と予算線の回転：初期保有 $E=(e_x, e_y)$ を売って得たお金で買い直せる組合せが予算線である．どんな価格でも $E$ はそのまま買えるので，価格比 $p_x/p_y$ が変わると予算線は $E$ を軸に回転する．財 $x$ が相対的に高くなると傾き $-p_x/p_y$ が急になる．</figcaption>
+  <a class="dl" href="img/exchange_budget_anime.svg" download="exchange_budget_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<h2 class="ch-head" id="ch7">第 7 章　複数財市場の均衡</h2>
+
+<section class="anime-item" id="GE_edgeworth_anime">
+  <div class="num">図 7.2.1</div>
+  <div class="svg-anim" data-src="img/GE_edgeworth_anime.svg"></div>
+  <figcaption class="cap">エッジワースボックスの作り方を示すアニメーション．二人の消費者の予算制約の図を組み合わせて，二人二財の純粋交換経済を一つの図で表す．</figcaption>
+  <a class="dl" href="img/GE_edgeworth_anime.svg" download="GE_edgeworth_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="fig-pareto-improve">
+  <div class="num">図 7.3.1</div>
+  <div class="svg-anim" data-src="img/GE_pareto_improve_anime.svg"></div>
+  <figcaption class="cap">無差別曲線が交差する配分：レオンの効用が上がるのは自分の無差別曲線より右上，ケネスの効用が上がるのは自分の無差別曲線より左下である．交差していると二つの<ruby>領域<rp>（</rp><rt>りょういき</rt><rp>）</rp></ruby>が重なる部分ができ，そこへ配分を動かせば二人とも効用が上がる．つまりパレート改善ができるので，この配分はパレート効率的でない．</figcaption>
+  <a class="dl" href="img/GE_pareto_improve_anime.svg" download="GE_pareto_improve_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="fig-pareto-efficient">
+  <div class="num">図 7.3.2</div>
+  <div class="svg-anim" data-src="img/GE_pareto_efficient_anime.svg"></div>
+  <figcaption class="cap">無差別曲線が接する配分：レオンの改善領域（右上）とケネスの改善領域（左下）は接点で触れるだけで重ならない．二人を同時に良くできないので，この配分はパレート効率的である．</figcaption>
+  <a class="dl" href="img/GE_pareto_efficient_anime.svg" download="GE_pareto_efficient_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="FWT">
+  <div class="num">図 7.4.1</div>
+  <div class="svg-anim" data-src="img/GE_FWT.svg"></div>
+  <figcaption class="cap">厚生経済学の第一基本定理の説明アニメーション．市場均衡の資源配分がパレート効率的であること，すなわち予算制約線を通して二人の無差別曲線が接することを示す．</figcaption>
+  <a class="dl" href="img/GE_FWT.svg" download="GE_FWT.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="SWT">
+  <div class="num">図 7.4.2</div>
+  <div class="svg-anim" data-src="img/GE_SWT.svg"></div>
+  <figcaption class="cap">厚生経済学の第二基本定理の説明アニメーション．任意のパレート効率的な配分が，適切な初期保有の再配分のもとで市場均衡として達成できることを示す（第一定理の「逆再生」）．</figcaption>
+  <a class="dl" href="img/GE_SWT.svg" download="GE_SWT.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<h2 class="ch-head" id="ch9">第 9 章　ルールづくりのゲーム理論</h2>
+
+<section class="anime-item" id="anime-matching-boston">
+  <div class="num">図 9.4.1</div>
+  <div class="svg-anim" data-src="img/matching_boston.svg"></div>
+  <figcaption class="cap">受入即決方式（ボストン方式）の手順：例1のケース</figcaption>
+  <a class="dl" href="img/matching_boston.svg" download="matching_boston.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anime-gs">
+  <div class="num">図 9.4.2</div>
+  <div class="svg-anim" data-src="img/matching_gs.svg"></div>
+  <figcaption class="cap">受入保留方式（ゲール・シャプレイ）の手順：例1のケース．青の破線○は暫定保留，緑○は確定</figcaption>
+  <a class="dl" href="img/matching_gs.svg" download="matching_gs.svg">⬇ SVG をダウンロード</a>
+</section>
+
+<section class="anime-item" id="anime-ttc">
+  <div class="num">図 9.4.3</div>
+  <div class="svg-anim" data-src="img/ttc_anime.svg"></div>
+  <figcaption class="cap">最良交換サイクル（TTC）アルゴリズムの手順：表の例</figcaption>
+  <a class="dl" href="img/ttc_anime.svg" download="ttc_anime.svg">⬇ SVG をダウンロード</a>
+</section>
+
+</div>
+<script>
+(function(){
+  var speeds=[0.25,0.5,1,1.5,2];
+
+  function initPlayer(el){
+    var src=el.getAttribute('data-src');
+    if(!src)return;
+
+    var xhr=new XMLHttpRequest();
+    xhr.open('GET',src,true);
+    xhr.onload=function(){
+      if(xhr.status>=200&&xhr.status<400||xhr.status===0){
+        setup(el,xhr.responseText);
+      }
+    };
+    xhr.send();
+  }
+
+  function setup(el,svgText){
+    var wrap=document.createElement('div');
+    wrap.className='svg-player-wrap';
+    var w=el.getAttribute('width');
+    if(w)wrap.style.width=w+'px';
+
+    var parser=new DOMParser();
+    var doc=parser.parseFromString(svgText,'image/svg+xml');
+    var svgEl=doc.documentElement;
+
+    var svgContainer=document.createElement('div');
+    svgContainer.appendChild(svgEl);
+    wrap.appendChild(svgContainer);
+
+    var anim=svgEl.querySelector('animate, animateTransform');
+    var dur=12;
+    if(anim){var d=anim.getAttribute('dur');if(d)dur=parseFloat(d)}
+
+    var controls=document.createElement('div');
+    controls.className='svg-controls';
+
+    var playBtn=document.createElement('button');
+    playBtn.innerHTML='\u23F8';playBtn.title='\u518D\u751F / \u4E00\u6642\u505C\u6B62';playBtn.className='playing';
+
+    var resetBtn=document.createElement('button');
+    resetBtn.innerHTML='\u21BA';resetBtn.title='\u30EA\u30BB\u30C3\u30C8';
+
+    var seek=document.createElement('input');
+    seek.type='range';seek.className='seek';seek.min=0;seek.max=1000;seek.value=0;
+
+    var time=document.createElement('span');
+    time.className='time';time.textContent='0.0 / '+dur.toFixed(1)+'s';
+
+    var speedBtn=document.createElement('button');
+    speedBtn.className='speed';speedBtn.textContent='1x';speedBtn.title='\u901F\u5EA6\u5207\u66FF';
+    var speedIdx=2;
+
+    controls.appendChild(playBtn);
+    controls.appendChild(resetBtn);
+    controls.appendChild(seek);
+    controls.appendChild(time);
+    controls.appendChild(speedBtn);
+    wrap.appendChild(controls);
+
+    el.parentNode.insertBefore(wrap,el);
+    el.style.display='none';
+
+    // State
+    var paused=false,seeking=false,currentSpeed=1;
+    var lastRealTime=null,simTime=0;
+
+    function tick(realTime){
+      if(lastRealTime===null)lastRealTime=realTime;
+      var dt=(realTime-lastRealTime)/1000;
+      lastRealTime=realTime;
+
+      if(!paused&&!seeking){
+        simTime+=dt*currentSpeed;
+        if(simTime>=dur)simTime=simTime%dur;
+        svgEl.setCurrentTime(simTime);
+      }
+
+      var t=simTime%dur;
+      if(!seeking){
+        seek.value=(t/dur)*1000;
+        time.textContent=t.toFixed(1)+' / '+dur.toFixed(1)+'s';
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // Pause SMIL's own clock — we drive time manually for speed control
+    requestAnimationFrame(function(){
+      svgEl.pauseAnimations();
+      svgEl.setCurrentTime(0);
+      requestAnimationFrame(tick);
+    });
+
+    playBtn.addEventListener('click',function(){
+      if(paused){
+        paused=false;lastRealTime=null;
+        playBtn.innerHTML='\u23F8';playBtn.className='playing';
+      }else{
+        paused=true;
+        playBtn.innerHTML='\u25B6';playBtn.className='';
+      }
+    });
+
+    resetBtn.addEventListener('click',function(){
+      simTime=0;svgEl.setCurrentTime(0);lastRealTime=null;
+      if(paused){paused=false;playBtn.innerHTML='\u23F8';playBtn.className='playing'}
+    });
+
+    seek.addEventListener('input',function(){
+      seeking=true;
+      simTime=(parseFloat(this.value)/1000)*dur;
+      svgEl.setCurrentTime(simTime);
+      time.textContent=simTime.toFixed(1)+' / '+dur.toFixed(1)+'s';
+    });
+    seek.addEventListener('change',function(){seeking=false;lastRealTime=null});
+
+    speedBtn.addEventListener('click',function(){
+      speedIdx=(speedIdx+1)%speeds.length;
+      currentSpeed=speeds[speedIdx];
+      speedBtn.textContent=currentSpeed+'x';
+    });
+  }
+
+  function initAll(){
+    var els=document.querySelectorAll('.svg-anim[data-src]');
+    for(var i=0;i<els.length;i++){initPlayer(els[i])}
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initAll)}
+  else{initAll()}
+})();
+</script>
+</body>
+</html>

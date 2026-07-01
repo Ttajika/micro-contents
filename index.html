@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ミクロ経済学（仮題）Web副教材 — 多鹿 智哉</title>
+
+<!-- ── SNS共有・検索向けメタ（公開前に内容確定）────────────── -->
+<meta name="description" content="学部向けミクロ経済学の教科書『ミクロ経済学（仮題）』（多鹿智哉）のWeb副教材。アニメーション・図版・演習問題を収録。">
+<meta property="og:title" content="ミクロ経済学（仮題）Web副教材">
+<meta property="og:description" content="本文中の図をQRコードからアニメ・拡大図で確認できるWeb副教材。">
+<meta property="og:type" content="website">
+<!-- <meta property="og:image" content="img/cover.png"> 書影が用意できたら設定 -->
+<!-- <link rel="icon" href="favicon.ico"> favicon を用意したら設定 -->
+<!-- 紙の本の発売前は検索インデックスを避けたい場合、次行を有効化する
+<meta name="robots" content="noindex, nofollow"> -->
+
+<style>
+  :root { --ink:#1f2937; --sub:#6b7280; --line:#e5e7eb; --accent:#2563eb; --bg:#f9fafb; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.8; }
+  .wrap { max-width:820px; margin:0 auto; padding:48px 20px 80px; }
+  header { border-bottom:2px solid var(--line); padding-bottom:24px; margin-bottom:32px; }
+  h1 { font-size:1.7rem; margin:0 0 6px; }
+  .byline { color:var(--sub); margin:0; }
+  .lead { font-size:1.02rem; }
+  h2 { font-size:1.2rem; margin:40px 0 14px; padding-bottom:6px; border-bottom:1px solid var(--line); }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin:24px 0; }
+  .card { display:block; background:#fff; border:1px solid var(--line); border-radius:12px;
+    padding:20px; text-decoration:none; color:inherit; transition:box-shadow .15s, transform .15s; }
+  .card:hover { box-shadow:0 6px 20px rgba(0,0,0,.07); transform:translateY(-2px); }
+  .card .t { font-weight:700; font-size:1.05rem; margin-bottom:4px; color:var(--accent); }
+  .card .d { color:var(--sub); font-size:.92rem; }
+  .note { background:#fff; border:1px solid var(--line); border-left:4px solid var(--accent);
+    border-radius:8px; padding:14px 18px; margin:16px 0; }
+  .todo { background:#fff7ed; border-left-color:#f59e0b; }
+  .biblio { display:grid; grid-template-columns:max-content 1fr; gap:6px 18px;
+    background:#fff; border:1px solid var(--line); border-radius:8px; padding:16px 20px; margin:16px 0; }
+  .biblio dt { color:var(--sub); font-weight:600; }
+  .biblio dd { margin:0; }
+  .ph { color:#b45309; background:#fffbeb; padding:0 4px; border-radius:3px; font-size:.92em; }
+  ul.toc-book { columns:2; column-gap:32px; padding-left:1.2em; }
+  ul.toc-book li { margin:2px 0; break-inside:avoid; }
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--line);
+    color:var(--sub); font-size:.9rem; }
+  a { color:var(--accent); }
+  @media (max-width:560px){ ul.toc-book{columns:1} .biblio{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>ミクロ経済学（仮題）— Web副教材</h1>
+    <p class="byline">多鹿 智哉</p>
+  </header>
+
+  <p class="lead">
+    学部向けミクロ経済学の教科書『ミクロ経済学（仮題）』の Web 副教材ページです。
+    本文中の図はQRコードからこのサイトの該当ページへ飛び、アニメーションや拡大図で確認できます。
+  </p>
+
+  <!-- ── 書誌情報（確定したら ［…］ を置き換える）──────────── -->
+  <h2>書誌情報</h2>
+  <dl class="biblio">
+    <dt>書名</dt><dd>ミクロ経済学<span class="ph">［仮題：確定後に差し替え］</span></dd>
+    <dt>著者</dt><dd>多鹿 智哉</dd>
+    <dt>出版社</dt><dd><span class="ph">［出版社名］</span></dd>
+    <dt>刊行</dt><dd><span class="ph">［20XX年X月］</span></dd>
+    <dt>判型・頁</dt><dd><span class="ph">［A5判・XXX頁］</span></dd>
+    <dt>ISBN</dt><dd><span class="ph">［978-X-XXXX-XXXX-X］</span></dd>
+    <dt>定価</dt><dd><span class="ph">［X,XXX円＋税］</span></dd>
+  </dl>
+  <!-- 書影が用意できたら：<img src="img/cover.png" alt="書影" style="max-width:200px"> -->
+
+  <h2>本書の特徴・対象読者</h2>
+  <ul>
+    <li><strong>対象</strong>：<span class="ph">［学部1〜2年生／経済学部以外でも可 など］</span></li>
+    <li><strong>前提知識</strong>：<span class="ph">［高校数学程度。微分は本文・付録で補う など］</span></li>
+    <li><strong>分量の目安</strong>：<span class="ph">［半期／通年、X回相当］</span></li>
+    <li><strong>特徴</strong>：数学を抑えつつ論理は飛ばさず、図とアニメーションで直観を補う。<span class="ph">［その他の差別化点］</span></li>
+  </ul>
+
+  <h2>コンテンツ</h2>
+  <div class="cards">
+    <a class="card" href="anime_gallery.html">
+      <div class="t">アニメーション一覧 →</div>
+      <div class="d">本文中のアニメ図版を、再生・シーク・速度変更つきで閲覧。</div>
+    </a>
+    <a class="card" href="image_gallery.html">
+      <div class="t">図版一覧 →</div>
+      <div class="d">本文中の静止画図版を一覧。各図はダウンロード可。</div>
+    </a>
+    <a class="card" href="micro_exercise.html">
+      <div class="t">演習問題 →</div>
+      <div class="d">章ごとの練習問題と解答例。<!-- 公開範囲は要調整 --></div>
+    </a>
+    <a class="card" href="references.html">
+      <div class="t">参考文献 →</div>
+      <div class="d">本書で紹介・参照した文献の一覧（書籍案内＋引用論文、DOIリンクつき）。</div>
+    </a>
+  </div>
+
+  <h2>目次・章構成</h2>
+  <p class="ph">［確定したら本書の章立てに差し替え。以下は仮の骨子。］</p>
+  <ul class="toc-book">
+    <li>第1章　ミクロ経済学の方法</li>
+    <li>第2章　意思決定</li>
+    <li>第3章　需要と供給</li>
+    <li>第4章　市場の失敗</li>
+    <li>第5章　独占</li>
+    <li>第6章　企業の行動</li>
+    <li>第7章　消費者の行動</li>
+    <li>第8章　一般均衡</li>
+    <li>第9章以降　<span class="ph">［ゲーム理論・契約・メカニズムデザイン 等］</span></li>
+  </ul>
+
+  <h2>採用をご検討の先生方へ</h2>
+  <p>
+    本書は学部1〜2年生でも読み進められるよう、数学を抑えつつ論理を飛ばさずに書いた副読本です。
+    講義での図版利用やQRコードを介したアニメ参照を前提に作っています。
+    採用・見本のご相談は下記までお気軽にご連絡ください。
+  </p>
+  <div class="note">
+    <!-- 連絡先は公開可能なものに差し替えてください -->
+    お問い合わせ：<a href="mailto:tomoyatajika@gmail.com">tomoyatajika@gmail.com</a>
+  </div>
+
+  <h2>教員用リソース</h2>
+  <p>講義スライドや試験問題に合わせて図を作り替えたい先生方のために、作図のソースを公開しています。</p>
+  <ul>
+    <li><strong>ゲームの木の作図ツール（Typst）</strong>：展開形ゲームの木を記述する Typst パッケージ。
+      <a href="https://github.com/Ttajika/Typst/tree/main/game-tree">GitHub で見る</a> ／
+      <a href="https://github.com/Ttajika/Typst/archive/refs/heads/main.zip" download>ZIP でダウンロード</a></li>
+    <li><strong>本文の図版（SVG／画像）</strong>：<a href="image_gallery.html">図版一覧</a>・<a href="anime_gallery.html">アニメーション一覧</a>の各図から個別にダウンロードできます。</li>
+  </ul>
+  <p style="color:var(--sub); font-size:.92rem;">
+    ※ 利用条件は下の「二次利用ポリシー」に従ってください。<span class="ph">［各リソースのライセンス（例：MIT／CC など）を確認し、リポジトリに LICENSE を置く］</span>
+  </p>
+
+  <h2>正誤表</h2>
+  <p>
+    本文・図版の誤りが見つかった場合はここに掲載します。お気づきの点は
+    <a href="mailto:tomoyatajika@gmail.com">tomoyatajika@gmail.com</a> までご連絡ください。
+  </p>
+  <div class="note">
+    <span class="ph">［現時点で報告されている誤りはありません／最終更新：20XX-XX-XX］</span>
+  </div>
+
+  <h2>二次利用ポリシー</h2>
+  <div class="note todo">
+    <strong>［要確定：出版社と調整のうえ確定する］</strong><br>
+    以下はたたき台です。出版契約の内容に合わせて書き換えてください。
+  </div>
+  <ul>
+    <li><strong>講義での利用</strong>：採用教員は、授業内のスライド・配布資料に本サイトの図版を出典明記のうえ利用できる。<span class="ph">［要確定］</span></li>
+    <li><strong>改変</strong>：図の改変の可否 <span class="ph">［要確定］</span></li>
+    <li><strong>再配布</strong>：他サイト・他教材への転載の可否 <span class="ph">［要確定］</span></li>
+    <li><strong>商用利用</strong>：可否 <span class="ph">［要確定］</span></li>
+  </ul>
+  <p style="color:var(--sub); font-size:.92rem;">
+    ※ ライセンス形態（例：CC BY-NC など）を採用する場合はここに明記し、リポジトリに LICENSE ファイルを置く。
+  </p>
+
+  <h2>出典表記の例</h2>
+  <p>本サイトの図版を引用・利用する際は、次のように出典を明記してください。</p>
+  <div class="note">
+    多鹿智哉『ミクロ経済学<span class="ph">［仮題］</span>』<span class="ph">［出版社・刊行年］</span>、図X.Y.Z（Web副教材 <span class="ph">［URL］</span> より）
+  </div>
+
+  <footer>
+    最終更新：<span class="ph">［20XX-XX-XX］</span><br>
+    © 多鹿 智哉. 図版・本文の著作権は著者および出版社に帰属します。<!-- 帰属先は契約に合わせて -->
+  </footer>
+
+</div>
+</body>
+</html>

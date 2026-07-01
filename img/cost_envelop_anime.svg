@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 540" style="font-family:-apple-system,BlinkMacSystemFont,sans-serif">
+
+<rect x="0" y="0" width="600" height="540" fill="#fafbfc"/>
+
+<rect x="30" y="14" width="540" height="56" rx="8" fill="#eef3f9" stroke="#dde3eb" stroke-width="1"/>
+
+<text x="300" y="48" text-anchor="middle" font-size="14" fill="#333" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="discrete"
+           keyTimes="0;0.115;0.542;1"
+           values="1;0;0;0"/>
+  短期費用曲線：資本 <tspan style="text-decoration:overline">K</tspan> を固定したときの費用
+</text>
+<text x="300" y="48" text-anchor="middle" font-size="14" fill="#333" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="discrete"
+           keyTimes="0;0.115;0.542;1"
+           values="0;1;0;0"/>
+  <tspan style="text-decoration:overline">K</tspan> の値を変えてみる．
+</text>
+<text x="300" y="48" text-anchor="middle" font-size="14" fill="#333" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="discrete"
+           keyTimes="0;0.115;0.542;1"
+           values="0;0;1;1"/>
+  長期費用曲線：各 q で最も低い短期費用曲線を結ぶ
+</text>
+
+<g stroke="rgba(0,0,0,0.06)" stroke-width="0.5">
+  <line x1="80" y1="417.5" x2="480" y2="417.5"/>
+  <line x1="80" y1="355" x2="480" y2="355"/>
+  <line x1="80" y1="292.5" x2="480" y2="292.5"/>
+  <line x1="80" y1="230" x2="480" y2="230"/>
+  <line x1="80" y1="167.5" x2="480" y2="167.5"/>
+  <line x1="80" y1="105" x2="480" y2="105"/>
+  <line x1="160" y1="80" x2="160" y2="480"/>
+  <line x1="240" y1="80" x2="240" y2="480"/>
+  <line x1="320" y1="80" x2="320" y2="480"/>
+  <line x1="400" y1="80" x2="400" y2="480"/>
+</g>
+
+<line x1="80" y1="80" x2="80" y2="480" stroke="#333" stroke-width="1.5"/>
+<line x1="80" y1="480" x2="480" y2="480" stroke="#333" stroke-width="1.5"/>
+
+<text x="490" y="486" font-size="16" font-style="italic" font-weight="600" fill="#333">q</text>
+<text x="74" y="78" font-size="16" font-style="italic" font-weight="600" fill="#333" text-anchor="end">C</text>
+<text x="74" y="495" font-size="12" fill="#666" text-anchor="end">O</text>
+
+<g font-size="11" fill="#666">
+  <text x="160" y="497" text-anchor="middle">1</text>
+  <text x="240" y="497" text-anchor="middle">2</text>
+  <text x="320" y="497" text-anchor="middle">3</text>
+  <text x="400" y="497" text-anchor="middle">4</text>
+  <text x="480" y="497" text-anchor="middle">5</text>
+  <text x="74" y="421.5" text-anchor="end">5</text>
+  <text x="74" y="359" text-anchor="end">10</text>
+  <text x="74" y="296.5" text-anchor="end">15</text>
+  <text x="74" y="234" text-anchor="end">20</text>
+  <text x="74" y="171.5" text-anchor="end">25</text>
+  <text x="74" y="109" text-anchor="end">30</text>
+</g>
+
+<polyline points="80,467.5 104,467.2 128,464.8 152,458.4 176,445.9 200,425.3 224,394.6 248,351.7 272,294.7 296,221.5 320,130 331.2,80" fill="none" stroke="#2c5fa6" stroke-width="2.5" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.01;0.115;0.135;1" values="0;1;1;0.3;0.3"/>
+</polyline>
+<text x="335" y="95" font-size="11" font-weight="700" fill="#2c5fa6" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.01;1" values="0;1;1"/>
+  <tspan style="text-decoration:overline">K</tspan>=1
+</text>
+
+<polyline points="80,455 112,454.6 144,451.8 176,444.2 208,429.4 240,405 272,368.6 304,317.8 336,250.2 368,163.4 393.3,80" fill="none" stroke="#2c5fa6" stroke-width="2.5" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.115;0.135;0.1775;0.1975;1" values="0;0;1;1;0.3;0.3"/>
+</polyline>
+<text x="395" y="95" font-size="11" font-weight="700" fill="#2c5fa6" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.115;0.135;1" values="0;0;1;1"/>
+  <tspan style="text-decoration:overline">K</tspan>=2
+</text>
+
+<polyline points="80,442.5 112,442.2 144,440.4 176,435.3 208,425.4 240,409.2 272,384.9 304,351 336,306 368,248.1 400,175.8 432,87.6 434.5,80" fill="none" stroke="#2c5fa6" stroke-width="2.5" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.1775;0.1975;0.240;0.260;1" values="0;0;1;1;0.3;0.3"/>
+</polyline>
+<text x="435" y="95" font-size="11" font-weight="700" fill="#2c5fa6" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.1775;0.1975;1" values="0;0;1;1"/>
+  <tspan style="text-decoration:overline">K</tspan>=3
+</text>
+
+<polyline points="80,430 112,429.8 144,428.4 176,424.6 208,417.2 240,405 272,386.8 304,361.4 336,327.6 368,284.2 400,230 432,163.8 464,84.4 465.6,80" fill="none" stroke="#2c5fa6" stroke-width="2.5" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.240;0.260;0.3025;0.3225;1" values="0;0;1;1;0.3;0.3"/>
+</polyline>
+<text x="455" y="110" font-size="11" font-weight="700" fill="#2c5fa6" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.240;0.260;1" values="0;0;1;1"/>
+  <tspan style="text-decoration:overline">K</tspan>=4
+</text>
+
+<polyline points="80,417.5 112,417.3 144,416.2 176,413.2 208,407.3 240,397.5 272,382.9 304,362.6 336,335.6 368,300.9 400,257.5 432,204.5 464,141 480,105" fill="none" stroke="#2c5fa6" stroke-width="2.5" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.3025;0.3225;0.365;0.385;1" values="0;0;1;1;0.3;0.3"/>
+</polyline>
+<text x="455" y="130" font-size="11" font-weight="700" fill="#2c5fa6" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.3025;0.3225;1" values="0;0;1;1"/>
+  <tspan style="text-decoration:overline">K</tspan>=5
+</text>
+
+<polyline points="80,392.5 112,392.4 144,391.6 176,389.4 208,385.2 240,378.2 272,367.8 304,353.3 336,334 368,309.2 400,278.2 432,240.4 464,195 480,169.3" fill="none" stroke="#2c5fa6" stroke-width="2.5" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.365;0.385;0.4275;0.4475;1" values="0;0;1;1;0.3;0.3"/>
+</polyline>
+<text x="455" y="175" font-size="11" font-weight="700" fill="#2c5fa6" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.365;0.385;1" values="0;0;1;1"/>
+  <tspan style="text-decoration:overline">K</tspan>=7
+</text>
+
+<polyline points="80,355 112,354.9 144,354.4 176,352.8 208,349.9 240,345 272,337.7 304,327.6 336,314 368,296.7 400,275 432,248.5 464,216.8 480,198.75" fill="none" stroke="#2c5fa6" stroke-width="2.5" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.4275;0.4475;0.49;0.51;1" values="0;0;1;1;0.3;0.3"/>
+</polyline>
+<text x="455" y="215" font-size="11" font-weight="700" fill="#2c5fa6" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.4275;0.4475;1" values="0;0;1;1"/>
+  <tspan style="text-decoration:overline">K</tspan>=10
+</text>
+
+<polyline points="80,480 100,476.9 120,471.2 140,463.8 160,455 180,445.1 200,434.1 220,422.1 240,409.3 260,395.6 280,381.2 300,365.9 320,350.1 340,333.5 360,316.3 380,298.5 400,280 420,261 440,241.3 460,221.1 480,200.5" fill="none" stroke="#c44040" stroke-width="3" stroke-dasharray="550" stroke-dashoffset="550">
+  <animate attributeName="stroke-dashoffset" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.542;0.917;1" values="550;550;0;0"/>
+</polyline>
+
+<text x="370" y="320" font-size="13" font-weight="700" fill="#c44040" opacity="0">
+  <animate attributeName="opacity" dur="24s" repeatCount="indefinite" calcMode="linear"
+           keyTimes="0;0.85;0.95;1" values="0;0;1;1"/>
+  長期費用曲線
+</text>
+
+</svg>
