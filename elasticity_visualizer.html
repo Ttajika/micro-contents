@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>価格弾力性ビジュアライザー — 基礎ミクロ経済学</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --border: #e2e2e0;
+  --text: #1a1a1a;
+  --text-dim: #6b7280;
+  --accent: #1d4ed8;
+  --header-bg: #1e293b;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+header h1 { font-size: 15px; font-weight: 700; }
+header a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 12px;
+}
+header a:hover { color: rgba(255,255,255,0.9); }
+
+.app {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 18px;
+  align-items: start;
+}
+
+/* ── Chart ── */
+.chart-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 20px 12px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.swatch {
+  width: 13px; height: 13px;
+  border-radius: 2px;
+  border: 1.5px solid;
+  flex-shrink: 0;
+}
+.swatch-before { background: #fff; border-color: #1e293b; }
+.swatch-after  { background: #dc2626; border-color: #dc2626; }
+.swatch-dp     { background: rgba(251,191,36,0.3); border-color: #d97706; }
+.swatch-dq     { background: rgba(59,130,246,0.2); border-color: #3b82f6; }
+.swatch-d1     { background: #1d4ed8; border-color: #1d4ed8; }
+.swatch-d2     { background: #ea580c; border-color: #ea580c; }
+.swatch-after2 { background: #ea580c; border-color: #9a3412; }
+
+/* ── Howto (collapsible usage guide) ── */
+.howto {
+  grid-column: 1 / -1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.howto > summary {
+  cursor: pointer;
+  padding: 11px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  list-style: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+.howto > summary::-webkit-details-marker { display: none; }
+.howto > summary::before {
+  content: '▶';
+  font-size: 9px;
+  color: var(--text-dim);
+  transition: transform 0.15s ease;
+}
+.howto[open] > summary::before { transform: rotate(90deg); }
+.howto-body {
+  padding: 4px 20px 16px;
+  font-size: 13px;
+  line-height: 1.75;
+  border-top: 1px solid var(--border);
+}
+.howto-body h3 {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 14px 0 4px;
+}
+.howto-body h3:first-child { margin-top: 12px; }
+.howto-body ul { margin: 0; padding-left: 20px; }
+.howto-body li { margin-bottom: 2px; }
+.howto-body code {
+  background: #f1f5f9;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+.howto-body .swatch-inline {
+  display: inline-block;
+  width: 11px; height: 11px;
+  border-radius: 2px;
+  border: 1.5px solid;
+  vertical-align: -1px;
+  margin-right: 3px;
+}
+.howto-body .dot-inline {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  vertical-align: -1px;
+  margin-right: 3px;
+}
+.howto-body .tip {
+  background: #eff6ff;
+  border-left: 3px solid #1d4ed8;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-top: 10px;
+  color: #1e3a5f;
+  font-size: 12.5px;
+}
+
+/* ── Panel ── */
+.panel { display: flex; flex-direction: column; gap: 14px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Sliders */
+.eq-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.eq-label code {
+  background: #f1f5f9;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+
+.slider-row {
+  margin-bottom: 10px;
+}
+.slider-row:last-child { margin-bottom: 0; }
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3px;
+}
+.slider-name { font-size: 13px; }
+.slider-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: #eff6ff;
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 3px;
+  min-width: 40px;
+  text-align: right;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+  height: 4px;
+}
+
+.sep {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 10px 0;
+}
+
+/* Price sliders highlighted */
+.price-before .slider-val { background: #f1f5f9; color: #1e293b; }
+.price-after  .slider-name { color: #dc2626; font-weight: 500; }
+.price-after  .slider-val  { background: #fef2f2; color: #dc2626; }
+input#s-p2 { accent-color: #dc2626; }
+
+/* Compare mode toggle */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  background: #f8fafc;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+.toggle-row input { cursor: pointer; accent-color: #ea580c; }
+.toggle-row label { font-size: 12.5px; cursor: pointer; flex: 1; }
+
+.curve2-section .slider-name { color: #ea580c; font-weight: 500; }
+.curve2-section .slider-val  { background: #fff7ed; color: #ea580c; }
+input#s-b2 { accent-color: #ea580c; }
+
+.row-eps2 td { color: #ea580c; font-weight: 600; }
+.row-eps2 td:last-child { color: #ea580c; }
+
+.curve-note {
+  font-size: 11.5px;
+  color: var(--text-dim);
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: #f8fafc;
+  border-radius: 4px;
+  line-height: 1.5;
+}
+
+/* Stats */
+.stat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.stat-table td {
+  padding: 5px 4px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.stat-table td:last-child {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+.row-eps td {
+  font-weight: 700;
+  background: #f8fafc;
+  border-bottom: none;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+}
+.row-eps td:last-child { color: var(--accent); }
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+.badge-elastic    { background: #fee2e2; color: #b91c1c; }
+.badge-inelastic  { background: #dbeafe; color: #1e40af; }
+.badge-unit       { background: #fef3c7; color: #92400e; }
+.badge-undef      { background: #f3f4f6; color: #6b7280; }
+
+.eq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 10px;
+}
+.eq-cell {
+  background: #f8fafc;
+  border-radius: 5px;
+  padding: 5px 8px;
+}
+.eq-cell .k { font-size: 11px; color: var(--text-dim); margin-bottom: 1px; }
+.eq-cell .v {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+}
+.eq-cell.before .k { color: #1e293b; }
+.eq-cell.after  .k { color: #dc2626; }
+.eq-cell.after  .v { color: #dc2626; }
+
+.alert {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+  border-radius: 5px;
+  padding: 8px 10px;
+  font-size: 12.5px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.formula {
+  background: #f8fafc;
+  border-radius: 5px;
+  padding: 8px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  margin-top: 10px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+.formula .num { color: var(--accent); font-weight: 500; }
+
+@media (max-width: 720px) {
+  .app { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>価格弾力性ビジュアライザー</h1>
+</header>
+
+<div class="app">
+
+  <!-- ── Usage guide (collapsible) ── -->
+  <details class="howto">
+    <summary>使い方</summary>
+    <div class="howto-body">
+
+      <h3>概要</h3>
+      <p>線形需要曲線 <code>P = a − b·Q</code> のもとで、価格を <i>P₁</i> から <i>P₂</i> へ動かしたときの需要量の反応から、価格弾力性 <code>ε = −(ΔQ/Q₁) / (ΔP/P₁)</code> を計算・可視化する。比較モードでは、同じ点 (Q₁, P₁) を通る別の傾きの需要曲線を重ねて、傾きと弾力性の関係を観察できる。</p>
+
+      <h3>パラメータ</h3>
+      <ul>
+        <li>需要切片 <i>a</i>: 価格軸の切片</li>
+        <li>需要の傾き <i>b</i>: 値が大きいほど急</li>
+        <li>変化前価格 <i>P₁</i>: 弾力性を測る基準点の価格</li>
+        <li>変化後価格 <i>P₂</i>: 価格変化後の値</li>
+        <li>需要2 の傾き <i>b₂</i>（比較モード時）: もう一本の需要曲線の傾き</li>
+      </ul>
+
+      <h3>図の見方（単一モード）</h3>
+      <ul>
+        <li><span class="dot-inline" style="background:#fff;border-color:#1e293b;"></span>変化前の点 (P₁, Q₁)</li>
+        <li><span class="dot-inline" style="background:#dc2626;border-color:#7f1d1d;"></span>変化後の点 (P₂, Q₂)</li>
+        <li><span class="swatch-inline" style="background:rgba(251,191,36,0.3);border-color:#d97706;"></span>価格変化 ΔP の帯（縦方向）</li>
+        <li><span class="swatch-inline" style="background:rgba(59,130,246,0.2);border-color:#3b82f6;"></span>需要量変化 ΔQ の帯（横方向）</li>
+      </ul>
+
+      <h3>図の見方（比較モード）</h3>
+      <ul>
+        <li><span class="swatch-inline" style="background:#1d4ed8;border-color:#1d4ed8;"></span>需要1（傾き <i>b</i>）</li>
+        <li><span class="swatch-inline" style="background:#ea580c;border-color:#ea580c;"></span>需要2（傾き <i>b₂</i>）</li>
+        <li>両曲線は (Q₁, P₁) で交差するように <i>a₂</i> が自動調整される</li>
+      </ul>
+
+      <h3>試してみよう</h3>
+      <ul>
+        <li>同じ <i>P₁ → P₂</i> でも <i>b</i> を大きくすると ε が小さくなる（同じ点の傾きと反比例）</li>
+        <li>比較モードで <i>b₂</i> を <i>b</i> の倍にすると <code>ε₂ / ε₁ = b / b₂</code> が成立する</li>
+        <li>同じ需要曲線でも、<i>P₁</i> を曲線の上のほうにとると ε は大きく、下のほうにとると ε は小さくなる</li>
+        <li>ε の値に応じて<strong>弾力的</strong>（ε &gt; 1）／<strong>非弾力的</strong>（ε &lt; 1）／<strong>単位弾力的</strong>（ε = 1）のバッジが切り替わる</li>
+        <li><i>P₂</i> を <i>a</i> 以上にすると需要量が 0 になり、警告が表示される</li>
+      </ul>
+
+      <div class="tip">講義ノート §需要の価格弾力性 と併せて読むと理解が深まる。</div>
+
+    </div>
+  </details>
+
+  <!-- ── Chart ── -->
+  <div class="chart-wrap">
+    <canvas id="chart"></canvas>
+    <div class="legend" id="legend-single">
+      <div class="legend-item"><div class="swatch swatch-before"></div>変化前 (P₁, Q₁)</div>
+      <div class="legend-item"><div class="swatch swatch-after"></div>変化後 (P₂, Q₂)</div>
+      <div class="legend-item"><div class="swatch swatch-dp"></div>価格変化 ΔP</div>
+      <div class="legend-item"><div class="swatch swatch-dq"></div>需要量変化 ΔQ</div>
+    </div>
+    <div class="legend" id="legend-compare" style="display:none">
+      <div class="legend-item"><div class="swatch swatch-d1"></div>需要1（傾き b）</div>
+      <div class="legend-item"><div class="swatch swatch-d2"></div>需要2（傾き b₂）</div>
+      <div class="legend-item"><div class="swatch swatch-before"></div>共通点 (P₁, Q₁)</div>
+      <div class="legend-item"><div class="swatch swatch-after"></div>需要1 の P₂</div>
+      <div class="legend-item"><div class="swatch swatch-after2"></div>需要2 の P₂</div>
+    </div>
+  </div>
+
+  <!-- ── Panel ── -->
+  <div class="panel">
+
+    <!-- Controls -->
+    <div class="card">
+      <div class="card-title">パラメータ</div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="s-compare">
+        <label for="s-compare">比較モード：同じ点 (Q₁, P₁) を通る別の傾きの需要曲線を表示</label>
+      </div>
+
+      <p class="eq-label">需要曲線: <code>P = a − b·Q</code></p>
+
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-name">需要切片 <i>a</i></span>
+          <span class="slider-val" id="v-a">20</span>
+        </div>
+        <input type="range" id="s-a" min="5" max="40" value="20" step="1">
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-name">需要の傾き <i>b</i></span>
+          <span class="slider-val" id="v-b">2.0</span>
+        </div>
+        <input type="range" id="s-b" min="0.5" max="6" value="2" step="0.5">
+      </div>
+
+      <hr class="sep">
+      <p class="eq-label">価格の変化</p>
+
+      <div class="slider-row price-before">
+        <div class="slider-header">
+          <span class="slider-name">変化前価格 <i>P₁</i></span>
+          <span class="slider-val" id="v-p1">8</span>
+        </div>
+        <input type="range" id="s-p1" min="0.5" max="40" value="8" step="0.5">
+      </div>
+
+      <div class="slider-row price-after">
+        <div class="slider-header">
+          <span class="slider-name">変化後価格 <i>P₂</i></span>
+          <span class="slider-val" id="v-p2">12</span>
+        </div>
+        <input type="range" id="s-p2" min="0.5" max="40" value="12" step="0.5">
+      </div>
+
+      <div id="compare-controls" style="display:none">
+        <hr class="sep">
+        <div class="slider-row curve2-section">
+          <div class="slider-header">
+            <span class="slider-name">需要2 の傾き <i>b₂</i></span>
+            <span class="slider-val" id="v-b2">4.0</span>
+          </div>
+          <input type="range" id="s-b2" min="0.5" max="6" value="4" step="0.5">
+        </div>
+        <div class="curve-note">
+          両曲線は共通点 (Q₁, P₁) で交差し、そこでの価格変化 <i>P₁ → P₂</i> に対する需要量の反応を比較します。
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="card">
+      <div class="card-title">弾力性の計算</div>
+
+      <div id="alert-no-q" class="alert" style="display:none">
+        価格が需要切片以上（需要量 $= 0$）
+      </div>
+      <div id="alert-nochange" class="alert" style="display:none" role="alert">
+        価格が変化していません（ΔP $= 0$）
+      </div>
+
+      <div class="eq-grid">
+        <div class="eq-cell before">
+          <div class="k">変化前 P₁</div>
+          <div class="v" id="ev-p1">—</div>
+        </div>
+        <div class="eq-cell before">
+          <div class="k">変化前 Q₁</div>
+          <div class="v" id="ev-q1">—</div>
+        </div>
+        <div class="eq-cell after">
+          <div class="k" id="k-q2">変化後 Q₂</div>
+          <div class="v" id="ev-q2">—</div>
+        </div>
+        <div class="eq-cell after" id="cell-q2b" style="display:none">
+          <div class="k" style="color:#ea580c">需要2 の Q₂</div>
+          <div class="v" id="ev-q2b" style="color:#ea580c">—</div>
+        </div>
+        <div class="eq-cell after" id="cell-p2">
+          <div class="k">変化後 P₂</div>
+          <div class="v" id="ev-p2">—</div>
+        </div>
+      </div>
+
+      <table class="stat-table" id="stat-table" style="margin-top:10px;">
+        <tr>
+          <td>価格の変化率 ΔP/P₁</td>
+          <td id="st-dp">—</td>
+        </tr>
+        <tr>
+          <td id="lbl-dq">需要量の変化率 ΔQ/Q₁</td>
+          <td id="st-dq">—</td>
+        </tr>
+        <tr id="row-dq2" style="display:none">
+          <td style="color:#ea580c">需要2 の ΔQ/Q₁</td>
+          <td id="st-dq2" style="color:#ea580c">—</td>
+        </tr>
+        <tr class="row-eps">
+          <td id="lbl-eps">価格弾力性 ε</td>
+          <td id="st-eps">—</td>
+        </tr>
+        <tr class="row-eps2" id="row-eps2" style="display:none">
+          <td>需要2 の価格弾力性 ε₂</td>
+          <td id="st-eps2">—</td>
+        </tr>
+      </table>
+
+      <div style="text-align:center;">
+        <span class="badge" id="badge">—</span>
+      </div>
+
+      <div class="formula" id="formula">
+        ε = −(ΔQ/Q₁) / (ΔP/P₁)
+      </div>
+    </div>
+
+  </div><!-- /panel -->
+</div><!-- /app -->
+
+<script>
+// ── Canvas setup (HiDPI) ───────────────────────────────────────
+const canvas = document.getElementById('chart');
+const ctx    = canvas.getContext('2d');
+const dpr    = window.devicePixelRatio || 1;
+const DW = 620, DH = 500;
+canvas.width  = DW * dpr;
+canvas.height = DH * dpr;
+canvas.style.width  = DW + 'px';
+canvas.style.height = DH + 'px';
+ctx.scale(dpr, dpr);
+
+// ── State ─────────────────────────────────────────────────────
+const P = { a: 20, b: 2, p1: 8, p2: 12, b2: 4, compare: false };
+
+// ── Sliders ───────────────────────────────────────────────────
+['a','b','p1','p2','b2'].forEach(k => {
+  const sl = document.getElementById('s-' + k);
+  const vl = document.getElementById('v-' + k);
+  sl.addEventListener('input', () => {
+    P[k] = +sl.value;
+    vl.textContent = sl.value;
+    update();
+  });
+});
+
+// Compare toggle
+document.getElementById('s-compare').addEventListener('change', (e) => {
+  P.compare = e.target.checked;
+  document.getElementById('compare-controls').style.display = P.compare ? '' : 'none';
+  document.getElementById('legend-single').style.display    = P.compare ? 'none' : '';
+  document.getElementById('legend-compare').style.display   = P.compare ? '' : 'none';
+  document.getElementById('cell-q2b').style.display = P.compare ? '' : 'none';
+  document.getElementById('cell-p2').style.display  = P.compare ? 'none' : '';
+  document.getElementById('row-dq2').style.display  = P.compare ? '' : 'none';
+  document.getElementById('row-eps2').style.display = P.compare ? '' : 'none';
+  document.getElementById('k-q2').textContent  = P.compare ? '需要1 の Q₂' : '変化後 Q₂';
+  document.getElementById('lbl-dq').textContent  = P.compare ? '需要1 の ΔQ/Q₁' : '需要量の変化率 ΔQ/Q₁';
+  document.getElementById('lbl-eps').textContent = P.compare ? '需要1 の価格弾力性 ε₁' : '価格弾力性 ε';
+  update();
+});
+
+// ── Formatting ────────────────────────────────────────────────
+function fmt(x, d = 2) {
+  if (x == null || !isFinite(x)) return '—';
+  if (Math.abs(x) < 1e-9) return '0';
+  return x.toFixed(d);
+}
+function fmtPct(x) {
+  if (x == null || !isFinite(x)) return '—';
+  return (x * 100).toFixed(1) + '%';
+}
+function fmtSigned(x, d = 2) {
+  if (x == null || !isFinite(x)) return '—';
+  if (Math.abs(x) < 1e-9) return '0';
+  return (x > 0 ? '+' : '') + x.toFixed(d);
+}
+function fmtSignedPct(x) {
+  if (x == null || !isFinite(x)) return '—';
+  if (Math.abs(x) < 1e-9) return '0%';
+  return (x > 0 ? '+' : '') + (x * 100).toFixed(1) + '%';
+}
+
+// ── Main update ───────────────────────────────────────────────
+function update() {
+  const { a, b, p1, p2, b2, compare } = P;
+
+  document.getElementById('alert-no-q').style.display = 'none';
+  document.getElementById('alert-nochange').style.display = 'none';
+
+  // Curve 1: Q = (a - P) / b
+  const q1raw = (a - p1) / b;
+  const q2raw = (a - p2) / b;
+  const q1 = Math.max(0, q1raw);
+  const q2 = Math.max(0, q2raw);
+
+  const p1OutOfRange = p1 >= a;
+  const p2OutOfRange = p2 >= a;
+
+  if (p1OutOfRange || p2OutOfRange) {
+    document.getElementById('alert-no-q').style.display = '';
+  }
+
+  // Curve 2 passes through (Q₁, P₁) with slope b₂:  P = a₂ - b₂·Q,  a₂ = P₁ + b₂·Q₁
+  const a2 = p1 + b2 * q1;
+  const q2b_raw = (a2 - p2) / b2;   // = q1 + (p1 - p2)/b2
+  const q2b = Math.max(0, q2b_raw);
+  const p2OutOfRange2 = p2 >= a2;
+
+  // Changes
+  const dP = p2 - p1;
+  const dQ  = q2  - q1;
+  const dQb = q2b - q1;
+
+  const pctP  = dP / p1;
+  const pctQ  = q1 > 0 ? dQ  / q1 : NaN;
+  const pctQb = q1 > 0 ? dQb / q1 : NaN;
+
+  let eps = NaN, eps2 = NaN;
+  if (Math.abs(dP) > 1e-9 && q1 > 0) {
+    eps  = -(pctQ)  / (pctP);
+    eps2 = -(pctQb) / (pctP);
+  }
+
+  if (Math.abs(dP) < 1e-9) {
+    document.getElementById('alert-nochange').style.display = '';
+  }
+
+  // Update eq cells
+  document.getElementById('ev-p1').textContent = fmt(p1, 1);
+  document.getElementById('ev-q1').textContent = p1OutOfRange ? '0' : fmt(q1, 2);
+  document.getElementById('ev-p2').textContent = fmt(p2, 1);
+  document.getElementById('ev-q2').textContent = p2OutOfRange ? '0' : fmt(q2, 2);
+  document.getElementById('ev-q2b').textContent = p2OutOfRange2 ? '0' : fmt(q2b, 2);
+
+  // Update stat table
+  document.getElementById('st-dp').textContent  = fmtSignedPct(pctP);
+  document.getElementById('st-dq').textContent  = isFinite(pctQ)  ? fmtSignedPct(pctQ)  : '—';
+  document.getElementById('st-dq2').textContent = isFinite(pctQb) ? fmtSignedPct(pctQb) : '—';
+  document.getElementById('st-eps').textContent  = isFinite(eps)  ? eps.toFixed(3)  : '—';
+  document.getElementById('st-eps2').textContent = isFinite(eps2) ? eps2.toFixed(3) : '—';
+
+  // Badge (always based on curve 1)
+  const badge = document.getElementById('badge');
+  if (!isFinite(eps)) {
+    badge.className = 'badge badge-undef';
+    badge.textContent = '定義できません';
+  } else if (eps > 1.001) {
+    badge.className = 'badge badge-elastic';
+    badge.textContent = compare ? '需要1: 弾力的 (ε > 1)' : '弾力的 (ε > 1)';
+  } else if (eps < 0.999) {
+    badge.className = 'badge badge-inelastic';
+    badge.textContent = compare ? '需要1: 非弾力的 (ε < 1)' : '非弾力的 (ε < 1)';
+  } else {
+    badge.className = 'badge badge-unit';
+    badge.textContent = compare ? '需要1: 単位弾力的' : '単位弾力的 (ε = 1)';
+  }
+
+  // Formula display with values
+  const formulaEl = document.getElementById('formula');
+  if (compare && isFinite(eps) && isFinite(eps2)) {
+    const ratio = b2 / b;
+    formulaEl.innerHTML =
+      '同じ (P₁, Q₁) でも傾きで弾力性が変わる：<br>' +
+      '&nbsp;&nbsp;ε₁ = P₁/(b·Q₁) = <span class="num">' + eps.toFixed(3) + '</span><br>' +
+      '&nbsp;&nbsp;ε₂ = P₁/(b₂·Q₁) = <span class="num" style="color:#ea580c">' + eps2.toFixed(3) + '</span><br>' +
+      '&nbsp;&nbsp;比 ε₁/ε₂ = b₂/b = <span class="num">' + ratio.toFixed(2) + '</span>';
+  } else if (isFinite(eps)) {
+    formulaEl.innerHTML =
+      'ε = −(ΔQ/Q₁) / (ΔP/P₁)<br>' +
+      '&nbsp;&nbsp;= −(<span class="num">' + fmtSigned(pctQ * 100, 1) + '%</span>) / (<span class="num">' +
+      fmtSigned(pctP * 100, 1) + '%</span>)<br>' +
+      '&nbsp;&nbsp;= <span class="num">' + eps.toFixed(3) + '</span>';
+  } else {
+    formulaEl.innerHTML = 'ε = −(ΔQ/Q₁) / (ΔP/P₁)';
+  }
+
+  draw({ a, b, p1, p2, q1, q2, b2, a2, q2b, compare, eps, eps2 });
+}
+
+// ── Draw ──────────────────────────────────────────────────────
+function draw(s) {
+  const W = DW, H = DH;
+  const ml = 62, mr = 28, mt = 22, mb = 52;
+  const cw = W - ml - mr, ch = H - mt - mb;
+
+  ctx.clearRect(0, 0, W, H);
+
+  const { a, b, p1, p2, q1, q2, b2, a2, q2b, compare } = s;
+
+  // Scale — in compare mode, extend Q-axis to include curve 2
+  const qIntercept  = a  / b;
+  const qIntercept2 = a2 / b2;
+  const qMaxData = compare
+    ? Math.max(qIntercept, qIntercept2, q2b)
+    : qIntercept;
+  const pMaxData = compare ? Math.max(a, a2) : a;
+
+  const Qmax = Math.max(qMaxData * 1.15, 4);
+  const Pmax = pMaxData * 1.15;
+
+  const cx = q => ml + (q / Qmax) * cw;
+  const cy = p => mt + ch - (p / Pmax) * ch;
+
+  // ── Axes & grid ──
+  drawAxes(ml, mr, mt, mb, cw, ch, Qmax, Pmax, cx, cy);
+
+  const validQ1 = p1 < a;   // curve 1 intercept — but in compare mode, (Q₁,P₁) is the anchor, both curves valid there
+  const validQ2  = p2 < a;
+  const validQ2b = p2 < a2;
+
+  // ── Bands only in single mode ──
+  if (!compare) {
+    const pLow  = Math.min(p1, p2);
+    const pHigh = Math.max(p1, p2);
+    const qLow  = Math.min(q1, q2);
+    const qHigh = Math.max(q1, q2);
+
+    if (validQ1 && validQ2 && Math.abs(p1 - p2) > 1e-9) {
+      ctx.fillStyle = 'rgba(251,191,36,0.18)';
+      ctx.fillRect(ml, cy(pHigh), cw, cy(pLow) - cy(pHigh));
+    }
+    if (validQ1 && validQ2 && Math.abs(q1 - q2) > 1e-9) {
+      ctx.fillStyle = 'rgba(59,130,246,0.12)';
+      ctx.fillRect(cx(qLow), mt, cx(qHigh) - cx(qLow), ch);
+    }
+  } else {
+    // Compare mode: only horizontal P-band to highlight the common ΔP
+    if (validQ1 && Math.abs(p1 - p2) > 1e-9) {
+      const pLow  = Math.min(p1, p2);
+      const pHigh = Math.max(p1, p2);
+      ctx.fillStyle = 'rgba(251,191,36,0.14)';
+      ctx.fillRect(ml, cy(pHigh), cw, cy(pLow) - cy(pHigh));
+    }
+  }
+
+  // ── Demand curve 1 ──
+  ctx.lineJoin = 'round';
+  const qdEnd = Math.min(qIntercept, Qmax);
+  ctx.strokeStyle = '#1d4ed8';
+  ctx.lineWidth   = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(cx(0), cy(a));
+  ctx.lineTo(cx(qdEnd), cy(Math.max(0, a - b * qdEnd)));
+  ctx.stroke();
+  ctx.fillStyle = '#1d4ed8';
+  ctx.font = '12px Noto Sans JP, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText(compare ? '需要1' : '需要', cx(qdEnd * 0.88) - 2, cy(a - b * qdEnd * 0.88) - 6);
+
+  // ── Demand curve 2 ──
+  if (compare) {
+    const qd2End = Math.min(qIntercept2, Qmax);
+    ctx.strokeStyle = '#ea580c';
+    ctx.lineWidth   = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(cx(0), cy(a2));
+    ctx.lineTo(cx(qd2End), cy(Math.max(0, a2 - b2 * qd2End)));
+    ctx.stroke();
+    ctx.fillStyle = '#ea580c';
+    ctx.textAlign = 'right';
+    ctx.fillText('需要2', cx(qd2End * 0.88) - 2, cy(a2 - b2 * qd2End * 0.88) - 6);
+  }
+
+  // ── Dashed reference lines ──
+  ctx.setLineDash([4, 4]);
+  ctx.strokeStyle = '#9ca3af';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  if (validQ1) {
+    ctx.moveTo(ml, cy(p1)); ctx.lineTo(cx(q1), cy(p1));
+    ctx.moveTo(cx(q1), cy(p1)); ctx.lineTo(cx(q1), mt + ch);
+  }
+  if (!compare && validQ2) {
+    ctx.moveTo(ml, cy(p2)); ctx.lineTo(cx(q2), cy(p2));
+    ctx.moveTo(cx(q2), cy(p2)); ctx.lineTo(cx(q2), mt + ch);
+  }
+  if (compare) {
+    // P₂ line across chart
+    if (validQ1) {
+      const rightmostQ = Math.max(validQ2 ? q2 : 0, validQ2b ? q2b : 0);
+      ctx.moveTo(ml, cy(p2));
+      ctx.lineTo(cx(rightmostQ), cy(p2));
+    }
+    if (validQ2)  { ctx.moveTo(cx(q2),  cy(p2)); ctx.lineTo(cx(q2),  mt + ch); }
+    if (validQ2b) { ctx.moveTo(cx(q2b), cy(p2)); ctx.lineTo(cx(q2b), mt + ch); }
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // ── ΔP arrow on left side ──
+  if (validQ1 && Math.abs(p1 - p2) > 1e-9) {
+    const ax = ml + 16;
+    drawArrow(ctx, ax, cy(p1), ax, cy(p2), '#d97706', 2);
+    ctx.fillStyle = '#92400e';
+    ctx.font = 'bold 12px Noto Sans JP, sans-serif';
+    ctx.textAlign = 'left';
+    const midY = (cy(p1) + cy(p2)) / 2;
+    ctx.fillText('ΔP', ax + 6, midY + 4);
+  }
+
+  // ── ΔQ arrows ──
+  if (!compare) {
+    if (validQ1 && validQ2 && Math.abs(q1 - q2) > 1e-9) {
+      const ay = mt + ch - 14;
+      drawArrow(ctx, cx(q1), ay, cx(q2), ay, '#3b82f6', 2);
+      ctx.fillStyle = '#1d4ed8';
+      ctx.font = 'bold 12px Noto Sans JP, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('ΔQ', (cx(q1) + cx(q2)) / 2, ay - 6);
+    }
+  } else {
+    // Two ΔQ arrows at slightly different heights so they don't overlap
+    if (validQ1 && validQ2 && Math.abs(q1 - q2) > 1e-9) {
+      const ay = mt + ch - 14;
+      drawArrow(ctx, cx(q1), ay, cx(q2), ay, '#1d4ed8', 2);
+      ctx.fillStyle = '#1d4ed8';
+      ctx.font = 'bold 11px Noto Sans JP, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('ΔQ₁', (cx(q1) + cx(q2)) / 2, ay - 5);
+    }
+    if (validQ1 && validQ2b && Math.abs(q1 - q2b) > 1e-9) {
+      const ay = mt + ch - 32;
+      drawArrow(ctx, cx(q1), ay, cx(q2b), ay, '#ea580c', 2);
+      ctx.fillStyle = '#ea580c';
+      ctx.font = 'bold 11px Noto Sans JP, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('ΔQ₂', (cx(q1) + cx(q2b)) / 2, ay - 5);
+    }
+  }
+
+  // ── Axis labels ──
+  ctx.font = '11px JetBrains Mono, monospace';
+  if (validQ1) {
+    axisLabelY(ctx, ml, cy(p1), 'P₁=' + fmt(p1, 1), '#1e293b');
+    axisLabelX(ctx, cx(q1), mt + ch, 'Q₁=' + fmt(q1, 1), '#1e293b');
+  }
+  if (!compare && validQ2) {
+    axisLabelY(ctx, ml, cy(p2), 'P₂=' + fmt(p2, 1), '#dc2626');
+    axisLabelX(ctx, cx(q2), mt + ch, 'Q₂=' + fmt(q2, 1), '#dc2626');
+  }
+  if (compare) {
+    if (validQ1) axisLabelY(ctx, ml, cy(p2), 'P₂=' + fmt(p2, 1), '#374151');
+    if (validQ2)  axisLabelX(ctx, cx(q2),  mt + ch, 'Q₂(1)=' + fmt(q2,  1), '#1d4ed8');
+    if (validQ2b) axisLabelX(ctx, cx(q2b), mt + ch, 'Q₂(2)=' + fmt(q2b, 1), '#ea580c');
+  }
+
+  // ── Points ──
+  if (validQ1) drawPoint(ctx, cx(q1), cy(p1), '#fff', '#1e293b', 6, 2.2);
+  if (!compare) {
+    if (validQ2) drawPoint(ctx, cx(q2), cy(p2), '#dc2626', '#7f1d1d', 6, 2);
+  } else {
+    if (validQ2)  drawPoint(ctx, cx(q2),  cy(p2), '#1d4ed8', '#1e3a8a', 6, 2);
+    if (validQ2b) drawPoint(ctx, cx(q2b), cy(p2), '#ea580c', '#9a3412', 6, 2);
+  }
+}
+
+// ── Helpers ──────────────────────────────────────────────────
+function drawAxes(ml, mr, mt, mb, cw, ch, Qmax, Pmax, cx, cy) {
+  // Background
+  ctx.fillStyle = '#f9fafb';
+  ctx.fillRect(ml, mt, cw, ch);
+
+  // Grid lines
+  if (cx && cy) {
+    ctx.strokeStyle = '#f0f0ee';
+    ctx.lineWidth = 0.8;
+    const qStep = niceStep(Qmax / 5);
+    const pStep = niceStep(Pmax / 5);
+    for (let q = qStep; q < Qmax * 1.01; q += qStep) {
+      ctx.beginPath(); ctx.moveTo(cx(q), mt); ctx.lineTo(cx(q), mt + ch); ctx.stroke();
+    }
+    for (let p = pStep; p < Pmax * 1.01; p += pStep) {
+      ctx.beginPath(); ctx.moveTo(ml, cy(p)); ctx.lineTo(ml + cw, cy(p)); ctx.stroke();
+    }
+
+    // Tick labels
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = '11px JetBrains Mono, monospace';
+    for (let q = qStep; q < Qmax * 1.01; q += qStep) {
+      ctx.textAlign = 'center';
+      ctx.fillText(fmtTick(q), cx(q), mt + ch + 14);
+    }
+    for (let p = pStep; p < Pmax * 1.01; p += pStep) {
+      ctx.textAlign = 'right';
+      ctx.fillText(fmtTick(p), ml - 6, cy(p) + 4);
+    }
+  }
+
+  // Axis lines
+  ctx.strokeStyle = '#9ca3af';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(ml, mt); ctx.lineTo(ml, mt + ch + 1);
+  ctx.moveTo(ml - 1, mt + ch); ctx.lineTo(ml + cw, mt + ch);
+  ctx.stroke();
+
+  // Arrows
+  ctx.strokeStyle = '#9ca3af';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(ml - 4, mt + 6); ctx.lineTo(ml, mt - 2); ctx.lineTo(ml + 4, mt + 6);
+  ctx.moveTo(ml + cw - 4, mt + ch - 4); ctx.lineTo(ml + cw + 6, mt + ch); ctx.lineTo(ml + cw - 4, mt + ch + 4);
+  ctx.stroke();
+
+  // Axis names
+  ctx.fillStyle = '#374151';
+  ctx.font = '13px Noto Sans JP, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Q', ml + cw + 16, mt + ch + 4);
+  ctx.textAlign = 'right';
+  ctx.fillText('P', ml - 10, mt - 4);
+}
+
+function drawPoint(ctx, x, y, fill, stroke, r, lw) {
+  ctx.fillStyle   = fill;
+  ctx.strokeStyle = stroke;
+  ctx.lineWidth   = lw || 2;
+  ctx.beginPath();
+  ctx.arc(x, y, r || 5, 0, Math.PI * 2);
+  ctx.fill(); ctx.stroke();
+}
+
+function drawArrow(ctx, x1, y1, x2, y2, color, lw) {
+  ctx.strokeStyle = color;
+  ctx.fillStyle   = color;
+  ctx.lineWidth   = lw || 2;
+
+  const head = 6;
+  const dx = x2 - x1, dy = y2 - y1;
+  const len = Math.hypot(dx, dy);
+  if (len < 1) return;
+  const ux = dx / len, uy = dy / len;
+
+  // Shorten segment so heads fit
+  const sx1 = x1 + ux * head, sy1 = y1 + uy * head;
+  const sx2 = x2 - ux * head, sy2 = y2 - uy * head;
+
+  ctx.beginPath();
+  ctx.moveTo(sx1, sy1); ctx.lineTo(sx2, sy2);
+  ctx.stroke();
+
+  // Two arrow heads (both ends)
+  drawHead(ctx, x1, y1, -ux, -uy, head);
+  drawHead(ctx, x2, y2,  ux,  uy, head);
+}
+
+function drawHead(ctx, x, y, ux, uy, size) {
+  const px = -uy, py = ux;
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x - ux * size + px * size * 0.5, y - uy * size + py * size * 0.5);
+  ctx.lineTo(x - ux * size - px * size * 0.5, y - uy * size - py * size * 0.5);
+  ctx.closePath();
+  ctx.fill();
+}
+
+function axisLabelY(ctx, ml, y, text, color) {
+  ctx.fillStyle = color;
+  ctx.font = '10.5px JetBrains Mono, monospace';
+  ctx.textAlign = 'right';
+  ctx.fillText(text, ml - 4, y + 4);
+}
+
+function axisLabelX(ctx, x, yBase, text, color) {
+  ctx.fillStyle = color;
+  ctx.font = '10.5px JetBrains Mono, monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText(text, x, yBase + 28);
+}
+
+function niceStep(raw) {
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const n = raw / mag;
+  if (n < 1.5) return mag;
+  if (n < 3.5) return 2 * mag;
+  if (n < 7.5) return 5 * mag;
+  return 10 * mag;
+}
+
+function fmtTick(x) {
+  return x % 1 === 0 ? x : x.toFixed(1);
+}
+
+// Initial draw
+update();
+</script>
+</body>
+</html>

@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スルツキー分解 3D 可視化 — 基礎ミクロ経済学</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --border: #e2e2e0;
+  --text: #1a1a1a;
+  --text-dim: #6b7280;
+  --accent: #1d4ed8;
+}
+
+html, body { width: 100%; height: 100%; overflow: hidden; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+#container { position: relative; width: 100vw; height: 100vh; }
+#canvas-container { width: 100%; height: 100%; }
+
+#ui-panel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  font-size: 12.5px;
+  max-width: 300px;
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+}
+#ui-panel h3 {
+  margin: 0 0 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--accent);
+}
+#ui-panel .legend-item {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 5px; font-size: 12px;
+}
+#ui-panel .legend-color {
+  width: 16px; height: 12px; border-radius: 2px; flex-shrink: 0;
+}
+#ui-panel hr { margin: 10px 0; border: none; border-top: 1px solid var(--border); }
+#ui-panel .section-label {
+  font-weight: 600; margin-bottom: 6px; font-size: 12px; color: var(--text);
+}
+#ui-panel button {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  margin-bottom: 4px;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  text-align: left;
+  transition: all 0.15s;
+}
+#ui-panel button:hover:not(.active):not(:disabled) { background: #f3f4f6; }
+#ui-panel button.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+#ui-panel button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.phase-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.phase-buttons button {
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  font-size: 11.5px !important;
+  padding: 8px 6px !important;
+  font-weight: 500;
+}
+#phase-desc {
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--text);
+  background: #f7f8fa;
+  padding: 9px 11px;
+  border-radius: 4px;
+  border-left: 3px solid var(--accent);
+  margin-bottom: 10px;
+}
+.legend-item.dim {
+  opacity: 0.3;
+}
+#pair-panel {
+  margin-top: 8px;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+#pair-panel .pair-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+#pair-panel .pair-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 8px;
+  margin-bottom: 2px;
+  border-radius: 3px;
+  background: #f7f8fa;
+}
+#pair-panel .pair-row.complement { background: #fdf0f5; border-left: 3px solid #cc3a78; }
+#pair-panel .pair-row.substitute { background: #eef5fc; border-left: 3px solid #3a78cc; }
+#pair-panel .pair-name { font-family: 'JetBrains Mono', monospace; }
+#pair-panel .pair-tag {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+#pair-panel .tag-comp { background: #cc3a78; color: white; }
+#pair-panel .tag-sub  { background: #3a78cc; color: white; }
+#pair-panel .effect-vec {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--text-dim);
+  margin-top: 3px;
+  padding-left: 8px;
+}
+.gx { color: #c0392b; font-weight: 600; }
+.gy { color: #27ae60; font-weight: 600; }
+.gz { color: #2980b9; font-weight: 600; }
+.slider-group {
+  margin: 8px 0;
+}
+.slider-group .slider-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  margin-bottom: 3px;
+  color: var(--text);
+}
+.slider-group .slider-label .slider-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--accent);
+}
+.slider-group input[type=range] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.slider-group .slider-hint {
+  font-size: 10.5px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+#info {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+#info code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #f3f4f6;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 10.5px;
+}
+.coords {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+#hint {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+}
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="canvas-container"></div>
+  <div id="ui-panel">
+    <h3>スルツキー分解の構成</h3>
+    <div class="phase-buttons">
+      <button type="button" class="phase-btn" data-phase="0">① 選好</button>
+      <button type="button" class="phase-btn" data-phase="1">② 予算 → A</button>
+      <button type="button" class="phase-btn" data-phase="2">③ 価格変化 → B</button>
+      <button type="button" class="phase-btn" data-phase="3">④ 補償 → C</button>
+    </div>
+    <div id="phase-desc"></div>
+    <div id="legend"></div>
+    <div id="pair-panel"></div>
+    <hr>
+    <div class="section-label">分解の追加表示（④のみ）</div>
+    <button type="button" id="btn-total">合計効果 A → B を表示</button>
+    <hr>
+    <div class="section-label">2次元平面への投影（④のみ）</div>
+    <button type="button" id="btn-proj-xy">底面 (q_x, q_y) への影</button>
+    <button type="button" id="btn-proj-yz">側面 (q_y, q_z) への影</button>
+    <button type="button" id="btn-proj-xz">側面 (q_x, q_z) への影</button>
+    <hr>
+    <div class="section-label">パラメータ操作（連続変更）</div>
+    <div class="slider-group">
+      <div class="slider-label">
+        <span>財 z の価格</span>
+        <span class="slider-value" id="pz-val">3.00</span>
+      </div>
+      <input type="range" id="pz-slider" aria-label="財 z の価格" min="1" max="5" step="0.05" value="3">
+      <div class="slider-hint">初期 1.0 → 現在の値（値上げのみ。A は不変、B と C が動く）</div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-label">
+        <span>CES パラメータ s</span>
+        <span class="slider-value" id="s-val">-0.80</span>
+      </div>
+      <input type="range" id="s-slider" aria-label="CES パラメータ s" min="-2" max="0.9" step="0.05" value="-0.8">
+      <div class="slider-hint">s &lt; 0：y,z は純補完財 / s &gt; 0：純代替財 / s → 1：完全代替 / s → -∞：レオンチェフ</div>
+    </div>
+    <div class="slider-group">
+      <div class="slider-label">
+        <span>面の透明度</span>
+        <span class="slider-value" id="opa-val">0.50</span>
+      </div>
+      <input type="range" id="opa-slider" aria-label="面の透明度" min="0.05" max="1.0" step="0.05" value="0.5">
+      <div class="slider-hint">下げると曲面・予算面を透かして、内側にある点（特に B の位置）が見やすくなる</div>
+    </div>
+    <button type="button" id="btn-fit-view">視野を最適点に合わせる</button>
+    <div id="info">
+      <code>u(x,y,z) = x^0.3 + (y^-0.8 + z^-0.8)^(-1.25)</code><br>
+      価格変化: 財 z の価格 1 → 3
+      <div class="coords" id="coords"></div>
+    </div>
+  </div>
+  <div id="hint">ドラッグで回転 / スクロールでズーム / 右ドラッグで平行移動</div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ============================================================
+// パラメータと最適化
+// ============================================================
+// 可変パラメータ
+const state = {
+  u_param: { m: 0.3, s: -0.8 },
+  initialPx: 3,
+  initialPy: 12,
+  initialPz: 1,
+  income: 29.8,
+  currentPz: 3,
+  opacity: 0.5,  // 曲面・予算面の透明度（スライダーで可変）
+  // 派生（recomputeで更新）
+  A: null, B: null, C: null,
+  u_0: 0, u_B: 0,
+  budget1: null, budget2: null, budget3: null,
+  effGross: null, effSubs: null, effInc: null,
+};
+
+function utility(u, x, y, z) {
+  const ces = Math.pow(Math.pow(y, u.s) + Math.pow(z, u.s), 1 / u.s);
+  return Math.pow(x, u.m) + ces;
+}
+
+function computeOptimum(u, b) {
+  const sigma = 1 / (1 - u.s);
+  const D = Math.pow(b.py, 1 - sigma) + Math.pow(b.pz, 1 - sigma);
+  const A_idx = Math.pow(D, 1 / (1 - sigma));
+  const x = Math.pow((u.m * A_idx) / b.px, 1 / (1 - u.m));
+  const M = b.income - b.px * x;
+  const y = (M * Math.pow(b.py, -sigma)) / D;
+  const z = (M * Math.pow(b.pz, -sigma)) / D;
+  return { x, y, z };
+}
+
+// 補償所得：価格 (px, py, pz) で効用 u_target を達成する所得を二分探索で求める
+function compensatedIncome(u, px, py, pz, u_target) {
+  let lo = 0.001, hi = 10000;
+  for (let iter = 0; iter < 80; iter++) {
+    const mid = (lo + hi) / 2;
+    const opt = computeOptimum(u, { px, py, pz, income: mid });
+    const uu = utility(u, opt.x, opt.y, opt.z);
+    if (uu < u_target) lo = mid;
+    else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
+
+function recomputeState() {
+  const u = state.u_param;
+  state.budget1 = { px: state.initialPx, py: state.initialPy, pz: state.initialPz, income: state.income };
+  state.A = computeOptimum(u, state.budget1);
+  state.u_0 = utility(u, state.A.x, state.A.y, state.A.z);
+  state.budget3 = { px: state.initialPx, py: state.initialPy, pz: state.currentPz, income: state.income };
+  state.B = computeOptimum(u, state.budget3);
+  state.u_B = utility(u, state.B.x, state.B.y, state.B.z);
+  const mC = compensatedIncome(u, state.initialPx, state.initialPy, state.currentPz, state.u_0);
+  state.budget2 = { px: state.initialPx, py: state.initialPy, pz: state.currentPz, income: mC };
+  state.C = computeOptimum(u, state.budget2);
+  state.effGross = { dx: state.B.x - state.A.x, dy: state.B.y - state.A.y, dz: state.B.z - state.A.z };
+  state.effSubs  = { dx: state.C.x - state.A.x, dy: state.C.y - state.A.y, dz: state.C.z - state.A.z };
+  state.effInc   = { dx: state.B.x - state.C.x, dy: state.B.y - state.C.y, dz: state.B.z - state.C.z };
+}
+
+const fmt = v => (v >= 0 ? '+' : '') + v.toFixed(2);
+recomputeState();
+
+// ============================================================
+// Three.js セットアップ
+// ============================================================
+const container = document.getElementById('canvas-container');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xfafaf8);
+
+const camera = new THREE.PerspectiveCamera(
+  42, container.clientWidth / container.clientHeight, 0.1, 100
+);
+camera.position.set(13, 8, 13);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(container.clientWidth, container.clientHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+container.appendChild(renderer.domElement);
+
+let autoFitCamera = true;  // ユーザがドラッグしたら false に切替
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(4, 1.5, 3);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.update();
+// ユーザがカメラ操作したら自動追従を止める
+controls.addEventListener('start', () => { autoFitCamera = false; });
+
+// --- ライティング ---
+scene.add(new THREE.AmbientLight(0xffffff, 0.65));
+const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.55);
+dirLight1.position.set(10, 15, 10);
+scene.add(dirLight1);
+const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.25);
+dirLight2.position.set(-8, 5, -8);
+scene.add(dirLight2);
+
+// ============================================================
+// 軸・ラベル
+// ============================================================
+let AXIS_LEN = 10;
+
+function makeTextSprite(text, color = '#000', fontSize = 36, scale = 0.7) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 160; canvas.height = 80;
+  const ctx = canvas.getContext('2d');
+  ctx.font = `bold ${fontSize}px 'Noto Sans JP', sans-serif`;
+  ctx.fillStyle = color;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 80, 40);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.minFilter = THREE.LinearFilter;
+  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false });
+  const sp = new THREE.Sprite(mat);
+  sp.scale.set(scale * 2, scale, 1);
+  sp.renderOrder = 1000;
+  return sp;
+}
+
+function niceTickSpacing(len) {
+  if (len <= 12) return 1;
+  if (len <= 25) return 2;
+  if (len <= 60) return 5;
+  return 10;
+}
+
+const axisGroup = new THREE.Group();
+scene.add(axisGroup);
+
+function rebuildAxes() {
+  // Clear existing
+  while (axisGroup.children.length) {
+    const c = axisGroup.children[0];
+    axisGroup.remove(c);
+    if (c.geometry) c.geometry.dispose();
+    if (c.material) c.material.dispose();
+  }
+  const tickLen = Math.max(0.06, AXIS_LEN * 0.008);
+  // 軸ライン
+  function addAxisLine(dir, color) {
+    const pts = [new THREE.Vector3(0,0,0), dir.clone().multiplyScalar(AXIS_LEN)];
+    axisGroup.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(pts),
+      new THREE.LineBasicMaterial({ color })
+    ));
+  }
+  addAxisLine(new THREE.Vector3(1,0,0), 0xc0392b);
+  addAxisLine(new THREE.Vector3(0,1,0), 0x27ae60);
+  addAxisLine(new THREE.Vector3(0,0,1), 0x2980b9);
+  // ラベル
+  const labelOffset = Math.max(0.4, AXIS_LEN * 0.04);
+  const lblX = makeTextSprite('q_x', '#c0392b', 38, 0.55);
+  lblX.position.set(AXIS_LEN + labelOffset, 0, 0); axisGroup.add(lblX);
+  const lblY = makeTextSprite('q_y', '#27ae60', 38, 0.55);
+  lblY.position.set(0, AXIS_LEN + labelOffset, 0); axisGroup.add(lblY);
+  const lblZ = makeTextSprite('q_z', '#2980b9', 38, 0.55);
+  lblZ.position.set(0, 0, AXIS_LEN + labelOffset); axisGroup.add(lblZ);
+  // 目盛り
+  const step = niceTickSpacing(AXIS_LEN);
+  for (let i = step; i <= AXIS_LEN; i += step) {
+    let pts;
+    pts = [new THREE.Vector3(i, -tickLen, 0), new THREE.Vector3(i, tickLen, 0)];
+    axisGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+      new THREE.LineBasicMaterial({ color: 0xc0392b })));
+    pts = [new THREE.Vector3(-tickLen, i, 0), new THREE.Vector3(tickLen, i, 0)];
+    axisGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+      new THREE.LineBasicMaterial({ color: 0x27ae60 })));
+    pts = [new THREE.Vector3(0, -tickLen, i), new THREE.Vector3(0, tickLen, i)];
+    axisGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+      new THREE.LineBasicMaterial({ color: 0x2980b9 })));
+  }
+}
+
+function computeAxisLen() {
+  const maxCoord = Math.max(
+    state.A.x, state.A.y, state.A.z,
+    state.B.x, state.B.y, state.B.z,
+    state.C.x, state.C.y, state.C.z
+  );
+  return Math.max(8, Math.ceil(maxCoord * 1.3));
+}
+
+// ============================================================
+// 無差別曲面メッシュ
+// ============================================================
+function buildIndifferenceSurface(u, u_0, color = 0x1d8aaa, opacity = 0.5, xMax = AXIS_LEN, yMax = AXIS_LEN, zMax = AXIS_LEN, nx = 100, ny = 100) {
+  // 各格子点で z と f = zMax - z を計算
+  // f >= 0: 可視（z ≤ zMax）, f < 0 (有限): クリップ（z > zMax, ただし定義域内）, f = SENTINEL: 定義域外
+  const SENTINEL = -1e10;
+  const fGrid = [];
+  const zGrid = [];
+  for (let i = 0; i <= nx; i++) {
+    fGrid.push([]);
+    zGrid.push([]);
+    for (let j = 0; j <= ny; j++) {
+      const x = (i / nx) * xMax;
+      const y = (j / ny) * yMax;
+      let z = NaN, f = SENTINEL;
+      if (x > 1e-6 && y > 1e-6) {
+        const v = u_0 - Math.pow(x, u.m);
+        if (v > 1e-6) {
+          const vs = Math.pow(v, u.s);
+          const ys = Math.pow(y, u.s);
+          const diff = vs - ys;
+          if (diff > 1e-9) {
+            z = Math.pow(diff, 1 / u.s);
+            f = zMax - z;  // 定義域内なら線形補間に使える値
+          }
+        }
+      }
+      fGrid[i].push(f);
+      zGrid[i].push(z);
+    }
+  }
+
+  // Marching Squares 風：各セルで境界補間 → 多角形 → 扇状三角形分割
+  const positions = [];
+  const indices = [];
+  function addVertex(x, y, z) {
+    const idx = positions.length / 3;
+    positions.push(x, y, z);
+    return idx;
+  }
+  for (let i = 0; i < nx; i++) {
+    for (let j = 0; j < ny; j++) {
+      const x0 = (i / nx) * xMax, x1 = ((i + 1) / nx) * xMax;
+      const y0 = (j / ny) * yMax, y1 = ((j + 1) / ny) * yMax;
+      const corners = [
+        { x: x0, y: y0, f: fGrid[i][j],         z: zGrid[i][j]         },
+        { x: x1, y: y0, f: fGrid[i + 1][j],     z: zGrid[i + 1][j]     },
+        { x: x1, y: y1, f: fGrid[i + 1][j + 1], z: zGrid[i + 1][j + 1] },
+        { x: x0, y: y1, f: fGrid[i][j + 1],     z: zGrid[i][j + 1]     },
+      ];
+      const polygon = [];
+      for (let k = 0; k < 4; k++) {
+        const a = corners[k];
+        const b = corners[(k + 1) % 4];
+        const aVis = a.f >= 0;
+        const bVis = b.f >= 0;
+        if (aVis) polygon.push({ x: a.x, y: a.y, z: a.z });
+        if (aVis !== bVis) {
+          if (a.f > SENTINEL + 1 && b.f > SENTINEL + 1) {
+            // セル辺上で f = 0（z = zMax）の点を線形補間で求める
+            const t = a.f / (a.f - b.f);
+            polygon.push({
+              x: a.x + t * (b.x - a.x),
+              y: a.y + t * (b.y - a.y),
+              z: zMax,
+            });
+          } else {
+            // 一方が定義域外（SENTINEL）：z = ∞ への発散を zMax の「壁」で代替し、隙間を埋める
+            const senCorner = a.f <= SENTINEL + 1 ? a : b;
+            polygon.push({ x: senCorner.x, y: senCorner.y, z: zMax });
+          }
+        }
+      }
+      if (polygon.length < 3) continue;
+      // 扇状三角形分割
+      const i0 = addVertex(polygon[0].x, polygon[0].y, polygon[0].z);
+      let iPrev = addVertex(polygon[1].x, polygon[1].y, polygon[1].z);
+      for (let k = 2; k < polygon.length; k++) {
+        const iNext = addVertex(polygon[k].x, polygon[k].y, polygon[k].z);
+        indices.push(i0, iPrev, iNext);
+        iPrev = iNext;
+      }
+    }
+  }
+
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geom.setIndex(indices);
+  geom.computeVertexNormals();
+  const mat = new THREE.MeshPhongMaterial({
+    color,
+    transparent: true,
+    opacity,
+    side: THREE.DoubleSide,
+    flatShading: false,
+    shininess: 30
+  });
+  return new THREE.Mesh(geom, mat);
+}
+
+// ============================================================
+// 予算面メッシュ（多角形を解析的に計算して三角形分割）
+// ============================================================
+function clipPolygonHalfPlane(poly, a, b, c) {
+  // a*x + b*y <= c の半平面で凸多角形をクリップ
+  if (poly.length === 0) return [];
+  const out = [];
+  const eps = 1e-9;
+  for (let i = 0; i < poly.length; i++) {
+    const p = poly[i], q = poly[(i + 1) % poly.length];
+    const pVal = a * p.x + b * p.y - c;
+    const qVal = a * q.x + b * q.y - c;
+    const pIn = pVal <= eps, qIn = qVal <= eps;
+    if (pIn) {
+      out.push(p);
+      if (!qIn) {
+        const t = pVal / (pVal - qVal);
+        out.push({ x: p.x + t * (q.x - p.x), y: p.y + t * (q.y - p.y) });
+      }
+    } else if (qIn) {
+      const t = pVal / (pVal - qVal);
+      out.push({ x: p.x + t * (q.x - p.x), y: p.y + t * (q.y - p.y) });
+    }
+  }
+  return out;
+}
+
+function budgetPolygon(b, xMax, yMax, zMax) {
+  // [0, xMax] × [0, yMax] の長方形から開始
+  let poly = [
+    { x: 0, y: 0 }, { x: xMax, y: 0 },
+    { x: xMax, y: yMax }, { x: 0, y: yMax }
+  ];
+  // z >= 0: p_x x + p_y y <= m
+  poly = clipPolygonHalfPlane(poly, b.px, b.py, b.income);
+  // z <= zMax: p_x x + p_y y >= m - zMax*p_z  →  -p_x x - p_y y <= -(m - zMax*p_z)
+  poly = clipPolygonHalfPlane(poly, -b.px, -b.py, -(b.income - zMax * b.pz));
+  return poly;
+}
+function buildBudgetPlane(b, color, opacity = 0.42, xMax = AXIS_LEN, yMax = AXIS_LEN, zMax = AXIS_LEN) {
+  const poly = budgetPolygon(b, xMax, yMax, zMax);
+  if (poly.length < 3) {
+    return new THREE.Object3D();  // 可視部分なし
+  }
+  const positions = [];
+  for (const p of poly) {
+    const z = (b.income - b.px * p.x - b.py * p.y) / b.pz;
+    positions.push(p.x, p.y, z);
+  }
+  const indices = [];
+  for (let i = 1; i < poly.length - 1; i++) {
+    indices.push(0, i, i + 1);
+  }
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geom.setIndex(indices);
+  geom.computeVertexNormals();
+  const mat = new THREE.MeshPhongMaterial({
+    color, transparent: true, opacity, side: THREE.DoubleSide, shininess: 10
+  });
+  return new THREE.Mesh(geom, mat);
+}
+
+// ============================================================
+// 最適点 A, B, C と分解ベクトル
+// ============================================================
+function makePoint(pos, color, label) {
+  const group = new THREE.Group();
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(0.13, 24, 24),
+    new THREE.MeshPhongMaterial({ color })
+  );
+  sphere.position.set(pos.x, pos.y, pos.z);
+  group.add(sphere);
+  const sp = makeTextSprite(label, '#111', 44, 0.5);
+  sp.position.set(pos.x + 0.35, pos.y + 0.35, pos.z + 0.35);
+  group.add(sp);
+  return group;
+}
+
+function makeArrow(from, to, color, headLen = 0.32, headW = 0.18) {
+  const dir = new THREE.Vector3(to.x - from.x, to.y - from.y, to.z - from.z);
+  const len = dir.length();
+  if (len < 1e-5) return new THREE.Object3D();  // ゼロ長矢印は描かない
+  dir.normalize();
+  return new THREE.ArrowHelper(
+    dir, new THREE.Vector3(from.x, from.y, from.z), len, color, headLen, headW
+  );
+}
+
+// ============================================================
+// オブジェクト管理（state から再生成可能）
+// ============================================================
+let objects = {};
+
+function disposeObject(obj) {
+  obj.traverse(c => {
+    if (c.geometry) c.geometry.dispose();
+    if (c.material) {
+      if (Array.isArray(c.material)) c.material.forEach(m => m.dispose());
+      else c.material.dispose();
+    }
+  });
+}
+
+// 配色：予算面と対応する最適点は同じ色で揃える
+const COL_U0  = 0x1d8aaa;  // u₀ 曲面（青緑）
+const COL_UB  = 0x9c8870;  // u_B 曲面（暖灰）
+const COL_AB1 = 0xe07a3a;  // A & B₁（オレンジ）
+const COL_CB2 = 0x3aa850;  // C & B₂（緑）
+const COL_BB3 = 0x8e2dcc;  // B & B₃（紫）
+const HEX = n => '#' + n.toString(16).padStart(6, '0');
+
+function buildObjects() {
+  const op = state.opacity;
+  return {
+    u0Surface: buildIndifferenceSurface(state.u_param, state.u_0, COL_U0,  op),
+    uBSurface: buildIndifferenceSurface(state.u_param, state.u_B, COL_UB,  op),
+    b1Plane:   buildBudgetPlane(state.budget1, COL_AB1, op),
+    b2Plane:   buildBudgetPlane(state.budget2, COL_CB2, op),
+    b3Plane:   buildBudgetPlane(state.budget3, COL_BB3, op),
+    pointA:    makePoint(state.A, COL_AB1, 'A'),
+    pointB:    makePoint(state.B, COL_BB3, 'B'),
+    pointC:    makePoint(state.C, COL_CB2, 'C'),
+    arrowAC:   makeArrow(state.A, state.C, 0x111111),
+    arrowCB:   makeArrow(state.C, state.B, 0x666666),
+  };
+}
+
+// 透明度のみを変更（rebuild不要、material.opacity を直接更新）
+function applyOpacity() {
+  ['u0Surface', 'uBSurface', 'b1Plane', 'b2Plane', 'b3Plane'].forEach(k => {
+    const o = objects[k];
+    if (o && o.material) o.material.opacity = state.opacity;
+  });
+}
+
+// A → B 合計効果（トグル）
+let totalArrow = null;
+function makeDashedArrow(from, to, color) {
+  // 破線セグメント + 矢頭
+  const dir = new THREE.Vector3(to.x - from.x, to.y - from.y, to.z - from.z);
+  const len = dir.length();
+  if (len < 1e-5) return new THREE.Object3D();
+  dir.normalize();
+  const group = new THREE.Group();
+  const lineGeom = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(from.x, from.y, from.z),
+    new THREE.Vector3(to.x - dir.x * 0.3, to.y - dir.y * 0.3, to.z - dir.z * 0.3)
+  ]);
+  const lineMat = new THREE.LineDashedMaterial({
+    color, dashSize: 0.25, gapSize: 0.15, linewidth: 2
+  });
+  const line = new THREE.Line(lineGeom, lineMat);
+  line.computeLineDistances();
+  group.add(line);
+  // 矢頭（細い円錐）
+  const coneGeom = new THREE.ConeGeometry(0.13, 0.32, 12);
+  const coneMat = new THREE.MeshBasicMaterial({ color });
+  const cone = new THREE.Mesh(coneGeom, coneMat);
+  cone.position.set(to.x - dir.x * 0.16, to.y - dir.y * 0.16, to.z - dir.z * 0.16);
+  cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
+  group.add(cone);
+  return group;
+}
+
+document.getElementById('btn-total').addEventListener('click', () => {
+  const btn = document.getElementById('btn-total');
+  if (btn.disabled) return;
+  if (totalArrow) {
+    scene.remove(totalArrow);
+    disposeObject(totalArrow);
+    totalArrow = null;
+    btn.classList.remove('active');
+  } else {
+    totalArrow = makeDashedArrow(state.A, state.B, 0x884411);
+    scene.add(totalArrow);
+    btn.classList.add('active');
+  }
+});
+
+// ============================================================
+// フェーズ制御
+// ============================================================
+function pairRow(label, tag, tagClass, value) {
+  const klass = tagClass === 'comp' ? 'complement' : 'substitute';
+  const tagK = tagClass === 'comp' ? 'tag-comp' : 'tag-sub';
+  const valHtml = value ? `<span class="effect-vec">${value}</span>` : '';
+  return `<div class="pair-row ${klass}">
+    <span class="pair-name">${label}${valHtml}</span>
+    <span class="pair-tag ${tagK}">${tag}</span>
+  </div>`;
+}
+
+const G = { x: '<span class="gx">x</span>', y: '<span class="gy">y</span>', z: '<span class="gz">z</span>' };
+
+function getPhaseConfig() {
+  const { u_param, u_0, u_B, initialPz, currentPz, effGross, effSubs, effInc } = state;
+  // (y, z) の純代替/補完判定（s の符号で決まる）
+  const yzIsComp = u_param.s < 0;
+  const yzTag = yzIsComp ? '純補完' : '純代替';
+  const yzClass = yzIsComp ? 'comp' : 'sub';
+  const yzReason = yzIsComp ? `s=${u_param.s.toFixed(2)} < 0 による` : `s=${u_param.s.toFixed(2)} > 0 による`;
+  const yzCmp = yzIsComp ? '< 0' : '> 0';
+  // (x, z) は加法分離下で常に純代替
+  // 効果値の符号で異常時もタグを変える
+  const xzTag = effSubs.dx > 0 ? '純代替' : (effSubs.dx < 0 ? '純補完' : '中立');
+  const xzClass = effSubs.dx > 0 ? 'sub' : (effSubs.dx < 0 ? 'comp' : 'sub');
+
+  return {
+    0: {
+      visible: ['u0Surface'],
+      desc: '消費者の選好を3財空間で表現した<strong>無差別曲面</strong>。同じ効用 u₀ を与える消費プランの集合。任意方向に回転して、原点から離れるほど高効用となる凸な構造を確認しよう。',
+      legend: [['u0Surface', HEX(COL_U0), '無差別曲面 u = u₀']],
+      pairHtml: '',
+    },
+    1: {
+      visible: ['u0Surface', 'b1Plane', 'pointA'],
+      desc: `<strong>初期予算面 B₁</strong>（オレンジ）が登場。価格 (p_${G.x}, p_${G.y}, p_${G.z}) = (${state.initialPx}, ${state.initialPy}, ${state.initialPz})、所得 m = ${state.income}。無差別曲面と接する点が最適消費 <strong>A</strong>（同じオレンジ）。`,
+      legend: [
+        ['u0Surface', HEX(COL_U0),  '無差別曲面 u = u₀'],
+        ['b1Plane',   HEX(COL_AB1), '初期予算面 B₁'],
+        ['pointA',    HEX(COL_AB1), '最適点 A'],
+      ],
+      pairHtml: '',
+    },
+    2: {
+      visible: ['uBSurface', 'b3Plane', 'pointA', 'pointB'],
+      desc: `<strong>財 ${G.z} の価格が ${initialPz.toFixed(1)} → ${currentPz.toFixed(2)} に値上がり</strong>。所得は元のまま。新しい予算面 <strong>B₃</strong>（紫）と低い無差別曲面（u_B ≈ ${u_B.toFixed(2)} < u₀ ≈ ${u_0.toFixed(2)}）の接点が新最適点 <strong>B</strong>（同じ紫）。消費者は損をした。`,
+      legend: [
+        ['uBSurface', HEX(COL_UB),  '低い無差別曲面 u = u_B'],
+        ['b3Plane',   HEX(COL_BB3), '新予算面 B₃'],
+        ['pointA',    HEX(COL_AB1), '元の最適 A（参考）'],
+        ['pointB',    HEX(COL_BB3), '新しい最適点 B'],
+      ],
+      pairHtml: `<div class="pair-title">価格効果 A → B（粗効果）</div>` +
+        pairRow(`(${G.x}, ${G.z})`,
+          effGross.dx > 0 ? '粗代替' : (effGross.dx < 0 ? '粗補完' : '粗中立'),
+          effGross.dx > 0 ? 'sub' : 'comp',
+          `Δ${G.x}=${fmt(effGross.dx)}`) +
+        pairRow(`(${G.y}, ${G.z})`,
+          effGross.dy < 0 ? '粗補完' : (effGross.dy > 0 ? '粗代替' : '粗中立'),
+          effGross.dy < 0 ? 'comp' : 'sub',
+          `Δ${G.y}=${fmt(effGross.dy)}`) +
+        `<div class="effect-vec">${G.z} 自身: Δ${G.z}=${fmt(effGross.dz)}（需要法則）</div>` +
+        `<div class="effect-vec" style="margin-top:5px;color:#b07a1c;">⚠ 粗の関係は所得効果に汚染される。真の関係は次フェーズで Slutsky 分解。</div>`,
+    },
+    3: {
+      visible: ['u0Surface', 'b1Plane', 'b2Plane', 'b3Plane', 'pointA', 'pointB', 'pointC', 'arrowAC', 'arrowCB'],
+      desc: `<strong>補償予算面 B₂</strong>（緑、B₃ と平行で外側）が u₀ に接する点が <strong>C</strong>（同じ緑）。<strong>A → C</strong> 代替効果、<strong>C → B</strong> 所得効果。`,
+      legend: [
+        ['u0Surface', HEX(COL_U0),  '無差別曲面 u = u₀'],
+        ['b1Plane',   HEX(COL_AB1), '初期予算面 B₁'],
+        ['b2Plane',   HEX(COL_CB2), '補償予算面 B₂'],
+        ['b3Plane',   HEX(COL_BB3), '新予算面 B₃'],
+        ['pointA',    HEX(COL_AB1), '最適点 A（初期）'],
+        ['pointC',    HEX(COL_CB2), '最適点 C（補償）'],
+        ['pointB',    HEX(COL_BB3), '最適点 B（新）'],
+        ['arrowAC',   '#111',       '代替効果 A → C'],
+        ['arrowCB',   '#666',       '所得効果 C → B'],
+      ],
+      pairHtml: `<div class="pair-title">財 ${G.z} の値上げに対する純粋な代替効果（A → C の符号）</div>` +
+        pairRow(`(${G.x}, ${G.z})`, xzTag, xzClass,
+          `代替 Δ${G.x}_h=${fmt(effSubs.dx)}`) +
+        pairRow(`(${G.y}, ${G.z})`, yzTag, yzClass,
+          `代替 Δ${G.y}_h=${fmt(effSubs.dy)} ${yzCmp} ← ${yzReason}`) +
+        `<div class="effect-vec" style="margin-top:6px;">所得効果 C → B: Δ${G.x}=${fmt(effInc.dx)}、Δ${G.y}=${fmt(effInc.dy)}、Δ${G.z}=${fmt(effInc.dz)}</div>`,
+    },
+  };
+}
+
+let currentPhase = 0;
+
+function clearPhase3Toggles() {
+  // 合計効果矢印を消す
+  if (totalArrow) {
+    scene.remove(totalArrow);
+    totalArrow = null;
+    document.getElementById('btn-total').classList.remove('active');
+  }
+  // 投影を消す（projGroups は後段で定義）
+  ['xy', 'yz', 'xz'].forEach(p => {
+    if (projGroups[p]) {
+      scene.remove(projGroups[p]);
+      projGroups[p] = null;
+      document.getElementById(`btn-proj-${p}`).classList.remove('active');
+    }
+  });
+}
+
+function showPhase(n) {
+  const cfg = getPhaseConfig()[n];
+  // オブジェクトの可視性
+  Object.entries(objects).forEach(([key, obj]) => {
+    obj.visible = cfg.visible.includes(key);
+  });
+  // 説明
+  document.getElementById('phase-desc').innerHTML = cfg.desc;
+  // 凡例
+  const surfaceOrPlane = new Set(['u0Surface', 'uBSurface', 'b1Plane', 'b2Plane', 'b3Plane']);
+  const legendHtml = cfg.legend.map(([key, color, label]) => {
+    const op = surfaceOrPlane.has(key) ? 0.55 : 1;
+    return `<div class="legend-item"><div class="legend-color" style="background:${color};opacity:${op}"></div><span>${label}</span></div>`;
+  }).join('');
+  document.getElementById('legend').innerHTML = legendHtml;
+  // 財ペア関係パネル
+  document.getElementById('pair-panel').innerHTML = cfg.pairHtml || '';
+  // フェーズボタンのアクティブ表示
+  document.querySelectorAll('.phase-btn').forEach(b => {
+    b.classList.toggle('active', Number(b.dataset.phase) === n);
+  });
+  // フェーズ④以外では追加コントロールを無効化＆クリア
+  const inP3 = (n === 3);
+  if (!inP3) clearPhase3Toggles();
+  document.getElementById('btn-total').disabled = !inP3;
+  ['xy', 'yz', 'xz'].forEach(p => {
+    document.getElementById(`btn-proj-${p}`).disabled = !inP3;
+  });
+  currentPhase = n;
+}
+
+// フェーズボタンのバインド
+document.querySelectorAll('.phase-btn').forEach(b => {
+  b.addEventListener('click', () => showPhase(Number(b.dataset.phase)));
+});
+
+// ============================================================
+// 投影 (トグル)
+// ============================================================
+const projGroups = { xy: null, yz: null, xz: null };
+const PROJ_COLOR = 0x666666;
+
+function makeProjectionGroup(plane) {
+  const group = new THREE.Group();
+  function proj(p) {
+    if (plane === 'xy') return new THREE.Vector3(p.x, p.y, 0);
+    if (plane === 'yz') return new THREE.Vector3(0, p.y, p.z);
+    return new THREE.Vector3(p.x, 0, p.z);
+  }
+  const pA = proj(state.A), pC = proj(state.C), pB = proj(state.B);
+
+  // 投影点（各点の色を保持して識別しやすく）
+  function projPoint(pos3d, projPos, color) {
+    const sph = new THREE.Mesh(
+      new THREE.SphereGeometry(0.09, 16, 16),
+      new THREE.MeshBasicMaterial({ color })
+    );
+    sph.position.copy(projPos);
+    group.add(sph);
+    // 落下線
+    const dashMat = new THREE.LineDashedMaterial({
+      color, dashSize: 0.16, gapSize: 0.12, opacity: 0.6, transparent: true
+    });
+    const g = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(pos3d.x, pos3d.y, pos3d.z), projPos
+    ]);
+    const l = new THREE.Line(g, dashMat);
+    l.computeLineDistances();
+    group.add(l);
+  }
+  projPoint(state.A, pA, COL_AB1);
+  projPoint(state.C, pC, COL_CB2);
+  projPoint(state.B, pB, COL_BB3);
+
+  // 投影ベクトル A→C（代替効果）と C→B（所得効果）
+  function projArrow(from, to, color) {
+    const d = to.clone().sub(from);
+    const len = d.length();
+    if (len < 0.02) return;
+    d.normalize();
+    const a = new THREE.ArrowHelper(d, from, len, color, 0.20, 0.11);
+    group.add(a);
+  }
+  projArrow(pA, pC, 0x111111);
+  projArrow(pC, pB, 0x666666);
+  return group;
+}
+
+function toggleProjection(plane) {
+  const btn = document.getElementById(`btn-proj-${plane}`);
+  if (btn.disabled) return;
+  if (projGroups[plane]) {
+    scene.remove(projGroups[plane]);
+    disposeObject(projGroups[plane]);
+    projGroups[plane] = null;
+    btn.classList.remove('active');
+  } else {
+    const g = makeProjectionGroup(plane);
+    scene.add(g);
+    projGroups[plane] = g;
+    btn.classList.add('active');
+  }
+}
+document.getElementById('btn-proj-xy').addEventListener('click', () => toggleProjection('xy'));
+document.getElementById('btn-proj-yz').addEventListener('click', () => toggleProjection('yz'));
+document.getElementById('btn-proj-xz').addEventListener('click', () => toggleProjection('xz'));
+
+// ============================================================
+// シーン再構築（state変更時に呼ぶ）
+// ============================================================
+// 最適点群を視野に収めるようカメラを再配置
+function fitCameraToOptima() {
+  const cx = (state.A.x + state.B.x + state.C.x) / 3;
+  const cy = (state.A.y + state.B.y + state.C.y) / 3;
+  const cz = (state.A.z + state.B.z + state.C.z) / 3;
+  const d = AXIS_LEN * 1.4;
+  camera.position.set(cx + d * 0.9, cy + d * 0.55, cz + d * 0.9);
+  controls.target.set(cx, cy, cz);
+  controls.update();
+}
+
+function rebuildScene() {
+  Object.values(objects).forEach(o => {
+    scene.remove(o);
+    disposeObject(o);
+  });
+  if (totalArrow) {
+    scene.remove(totalArrow);
+    disposeObject(totalArrow);
+    totalArrow = null;
+    document.getElementById('btn-total').classList.remove('active');
+  }
+  ['xy', 'yz', 'xz'].forEach(p => {
+    if (projGroups[p]) {
+      scene.remove(projGroups[p]);
+      disposeObject(projGroups[p]);
+      projGroups[p] = null;
+      document.getElementById(`btn-proj-${p}`).classList.remove('active');
+    }
+  });
+  recomputeState();
+  // 軸スケールを最適点に合わせて更新
+  const prevAxisLen = AXIS_LEN;
+  AXIS_LEN = computeAxisLen();
+  rebuildAxes();  // 毎回再構築（初期化時にも必要、コストは軽い）
+  // 新しいオブジェクトを生成・追加
+  objects = buildObjects();
+  Object.values(objects).forEach(o => scene.add(o));
+  // 座標表示
+  document.getElementById('coords').innerHTML =
+    `A = (${state.A.x.toFixed(2)}, ${state.A.y.toFixed(2)}, ${state.A.z.toFixed(2)})  u=${state.u_0.toFixed(3)}<br>` +
+    `C = (${state.C.x.toFixed(2)}, ${state.C.y.toFixed(2)}, ${state.C.z.toFixed(2)})  u=${utility(state.u_param, state.C.x, state.C.y, state.C.z).toFixed(3)}<br>` +
+    `B = (${state.B.x.toFixed(2)}, ${state.B.y.toFixed(2)}, ${state.B.z.toFixed(2)})  u=${state.u_B.toFixed(3)}`;
+  // 軸が変わったら自動でカメラを追従（ユーザ操作後は止める）
+  if (autoFitCamera && AXIS_LEN !== prevAxisLen) {
+    fitCameraToOptima();
+  }
+  showPhase(currentPhase);
+}
+
+// ============================================================
+// スライダーのバインド（連続パラメータ変更）
+// ============================================================
+const pzSlider  = document.getElementById('pz-slider');
+const sSlider   = document.getElementById('s-slider');
+const opaSlider = document.getElementById('opa-slider');
+const pzVal     = document.getElementById('pz-val');
+const sVal      = document.getElementById('s-val');
+const opaVal    = document.getElementById('opa-val');
+
+// s が 0 や 1 に近すぎる値を避ける
+function safeS(s) {
+  if (Math.abs(s) < 0.05) return s >= 0 ? 0.05 : -0.05;
+  if (s > 0.95) return 0.95;
+  return s;
+}
+
+// throttle: 連続ドラッグでも軽快に動くよう、requestAnimationFrame で間引き
+let pendingRebuild = false;
+function scheduleRebuild() {
+  if (pendingRebuild) return;
+  pendingRebuild = true;
+  requestAnimationFrame(() => {
+    pendingRebuild = false;
+    rebuildScene();
+  });
+}
+
+pzSlider.addEventListener('input', () => {
+  const v = parseFloat(pzSlider.value);
+  state.currentPz = v;
+  pzVal.textContent = v.toFixed(2);
+  scheduleRebuild();
+});
+
+sSlider.addEventListener('input', () => {
+  const raw = parseFloat(sSlider.value);
+  const s = safeS(raw);
+  state.u_param.s = s;
+  sVal.textContent = s.toFixed(2);  // 実際に使う値（0付近はクランプ）
+  scheduleRebuild();
+});
+
+opaSlider.addEventListener('input', () => {
+  const v = parseFloat(opaSlider.value);
+  state.opacity = v;
+  opaVal.textContent = v.toFixed(2);
+  applyOpacity();  // mesh rebuild 不要・即座に反映
+});
+
+document.getElementById('btn-fit-view').addEventListener('click', () => {
+  autoFitCamera = true;
+  fitCameraToOptima();
+});
+
+// 初期構築
+rebuildScene();
+
+// ============================================================
+// レンダーループ / リサイズ
+// ============================================================
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = container.clientWidth / container.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(container.clientWidth, container.clientHeight);
+});
+</script>
+</body>
+</html>
