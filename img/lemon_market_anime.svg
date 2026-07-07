@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" style="font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif">
+<!-- レモン市場（逆淘汰）のアニメ：4.3節の中古スマホの数値例に対応
+     5段階 × 4s = 20s, calcMode="discrete"
+     keyTimes: 0;0.2;0.4;0.6;0.8;1
+     段階: ①設定 ②買い手は区別できず平均2.3万円 ③良いスマホの売り手が退出 ④悪だけ残り0.6万円 ⑤逆淘汰 -->
+
+<!-- ===== 静的レイアウト ===== -->
+<text x="34" y="40" fill="#333" font-size="16" font-weight="700">中古スマホ市場</text>
+<text x="34" y="60" fill="#888" font-size="11">良いスマホと悪いスマホが半々．品質は売り手だけが知っている</text>
+
+<!-- 良いスマホの行 -->
+<text x="62" y="140" text-anchor="middle" fill="#1a3c6e" font-size="15" font-weight="700">良い</text>
+<g>
+  <!-- 3台（x=110,190,270） -->
+  <g transform="translate(110,100)">
+    <rect width="44" height="72" rx="8" fill="#dfe9f5" stroke="#1a3c6e" stroke-width="1.5"/>
+    <rect x="6" y="8" width="32" height="48" rx="2" fill="#f4f8fc" stroke="#1a3c6e" stroke-width="0.8"/>
+    <circle cx="22" cy="64" r="3" fill="#1a3c6e"/>
+    <text x="38" y="4" fill="#e6a817" font-size="13">✦</text>
+  </g>
+  <g transform="translate(190,100)">
+    <rect width="44" height="72" rx="8" fill="#dfe9f5" stroke="#1a3c6e" stroke-width="1.5"/>
+    <rect x="6" y="8" width="32" height="48" rx="2" fill="#f4f8fc" stroke="#1a3c6e" stroke-width="0.8"/>
+    <circle cx="22" cy="64" r="3" fill="#1a3c6e"/>
+    <text x="38" y="4" fill="#e6a817" font-size="13">✦</text>
+  </g>
+  <g transform="translate(270,100)">
+    <rect width="44" height="72" rx="8" fill="#dfe9f5" stroke="#1a3c6e" stroke-width="1.5"/>
+    <rect x="6" y="8" width="32" height="48" rx="2" fill="#f4f8fc" stroke="#1a3c6e" stroke-width="0.8"/>
+    <circle cx="22" cy="64" r="3" fill="#1a3c6e"/>
+    <text x="38" y="4" fill="#e6a817" font-size="13">✦</text>
+  </g>
+</g>
+<text x="110" y="192" fill="#555" font-size="12">売り手の評価 3万円 ／ 買い手の評価 4万円</text>
+
+<!-- 悪いスマホの行 -->
+<text x="62" y="290" text-anchor="middle" fill="#8a7a1e" font-size="15" font-weight="700">悪い</text>
+<g>
+  <g transform="translate(110,250)">
+    <rect width="44" height="72" rx="8" fill="#f5f0c8" stroke="#8a7a1e" stroke-width="1.5"/>
+    <rect x="6" y="8" width="32" height="48" rx="2" fill="#fbf8e2" stroke="#8a7a1e" stroke-width="0.8"/>
+    <circle cx="22" cy="64" r="3" fill="#8a7a1e"/>
+    <polyline points="12,12 20,24 14,34 24,46" fill="none" stroke="#b0413e" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(190,250)">
+    <rect width="44" height="72" rx="8" fill="#f5f0c8" stroke="#8a7a1e" stroke-width="1.5"/>
+    <rect x="6" y="8" width="32" height="48" rx="2" fill="#fbf8e2" stroke="#8a7a1e" stroke-width="0.8"/>
+    <circle cx="22" cy="64" r="3" fill="#8a7a1e"/>
+    <polyline points="28,10 20,22 28,32 18,48" fill="none" stroke="#b0413e" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(270,250)">
+    <rect width="44" height="72" rx="8" fill="#f5f0c8" stroke="#8a7a1e" stroke-width="1.5"/>
+    <rect x="6" y="8" width="32" height="48" rx="2" fill="#fbf8e2" stroke="#8a7a1e" stroke-width="0.8"/>
+    <circle cx="22" cy="64" r="3" fill="#8a7a1e"/>
+    <polyline points="14,14 24,26 16,38 26,50" fill="none" stroke="#b0413e" stroke-width="1.6"/>
+  </g>
+</g>
+<text x="110" y="342" fill="#555" font-size="12">売り手の評価 0.4万円 ／ 買い手の評価 0.6万円</text>
+
+<!-- 買い手（右） -->
+<circle cx="600" cy="240" r="14" fill="#2a6f4e"/>
+<path d="M576,284 a24,24 0 0 1 48,0 z" fill="#2a6f4e"/>
+<text x="600" y="304" text-anchor="middle" fill="#2a6f4e" font-size="14" font-weight="700">買い手</text>
+
+<!-- 吹き出し（枠は共通・中身は段階ごと） -->
+<path d="M478,80 h216 a10,10 0 0 1 10,10 v90 a10,10 0 0 1 -10,10 h-90 l-14,22 -4,-22 h-108 a10,10 0 0 1 -10,-10 v-90 a10,10 0 0 1 10,-10 z" fill="#fbfaf6" stroke="#bbb" stroke-width="1.2"/>
+
+<!-- ===== 段階②：買い手からは区別がつかない ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;1;0;0;0;0"/>
+  <rect x="92" y="86" width="248" height="240" rx="12" fill="none" stroke="#888" stroke-width="2" stroke-dasharray="7,5"/>
+  <text x="216" y="368" text-anchor="middle" fill="#666" font-size="12" font-weight="700">買い手から見るとどれも同じに見える</text>
+</g>
+
+<!-- ===== 段階③〜⑤：良いスマホの売り手が退出 ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;1;1;1;1"/>
+  <rect x="100" y="90" width="230" height="110" fill="rgba(255,255,255,0.75)"/>
+  <g stroke="#c0392b" stroke-width="4" stroke-linecap="round">
+    <line x1="116" y1="106" x2="148" y2="166"/><line x1="148" y1="106" x2="116" y2="166"/>
+    <line x1="196" y1="106" x2="228" y2="166"/><line x1="228" y1="106" x2="196" y2="166"/>
+    <line x1="276" y1="106" x2="308" y2="166"/><line x1="308" y1="106" x2="276" y2="166"/>
+  </g>
+  <text x="345" y="130" fill="#c0392b" font-size="13" font-weight="700">退出</text>
+</g>
+
+<!-- ===== 吹き出しの中身（段階ごと） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="1;0;0;0;0;0"/>
+  <text x="596" y="130" text-anchor="middle" fill="#555" font-size="14">この中古スマホは</text>
+  <text x="596" y="152" text-anchor="middle" fill="#555" font-size="14">良い？ 悪い？</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;1;1;0;0;0"/>
+  <text x="596" y="112" text-anchor="middle" fill="#555" font-size="13">区別がつかないから平均で考えよう</text>
+  <text x="596" y="140" text-anchor="middle" fill="#333" font-size="14">(4 + 0.6) ÷ 2 = 2.3万円</text>
+  <text x="596" y="165" text-anchor="middle" fill="#c0392b" font-size="13" font-weight="700">2.3万円までしか払えない</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;0;1;1;1"/>
+  <text x="596" y="112" text-anchor="middle" fill="#555" font-size="13">残っているのは悪いスマホだけだ</text>
+  <text x="596" y="145" text-anchor="middle" fill="#c0392b" font-size="14" font-weight="700">0.6万円までしか払わない</text>
+</g>
+
+<!-- ===== 段階③の理由表示（良い売り手側） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;1;0;0;0"/>
+  <text x="110" y="222" fill="#c0392b" font-size="13" font-weight="700">3万円の価値があるのに 2.3万円でしか売れない → 売らない</text>
+</g>
+
+<!-- ===== 段階⑤：結果の帯 ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;0;0;1;1"/>
+  <rect x="100" y="386" width="520" height="34" rx="8" fill="#fdeeee" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="360" y="408" text-anchor="middle" fill="#c0392b" font-size="14" font-weight="700">取引されるのは悪いスマホだけ ＝ 逆淘汰（レモン市場）</text>
+</g>
+
+<!-- ===== 手順キャプション（下段） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="1;0;0;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">中古スマホ市場：良い3台と悪い3台．どちらかは売り手にしかわからない</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;1;0;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">買い手には区別がつかない → 平均の価値 (4+0.6)÷2＝2.3万円までしか払えない</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;1;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">良いスマホの売り手（評価3万円）は2.3万円では売りたくない → 市場から退出</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;0;1;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">市場に残るのは悪いスマホだけ．買い手もそれを見抜き，0.6万円までしか払わない</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;0;0;1;1"/>
+  <text x="34" y="458" fill="#555" font-size="13">悪いスマホだけが取引され，良いスマホの取引は消えた．余剰は平均0.6万円→0.1万円に低下</text>
+</g>
+</svg>

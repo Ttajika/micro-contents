@@ -100,7 +100,6 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 <li><a href="#fig-decision-tree-comp">図 8.1.3　旅行ルートの意思決定の木</a></li>
 <li><a href="#fig-decision-tree-comp-solve">図 8.1.4　逆算推論法で解いた旅行ルートの意思決定の木：各ノードの直下にそのノードで得られる</a></li>
 <li><a href="#fig-game-tree1">図 8.2.1　ゲームの木の例：意思決定ノード $x_0,x_1,x_2$ にはその番のプレイヤ</a></li>
-<li><a href="#fig-game-tree1-solve">図 8.2.2　ゲームの木の逆算推論法による求解</a></li>
 <li><a href="#fig-game-ex1">図 8.2.3　練習1のゲームの木</a></li>
 <li><a href="#fig-game-ex1-solve">図 8.2.4　練習1の求解：太線が各ノードでの最適な選択</a></li>
 <li><a href="#fig-game-ex2">図 8.2.5　練習2のゲームの木</a></li>
@@ -113,13 +112,15 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 <li><a href="#fig-entry-tree">図 8.4.2　参入ゲーム（逐次手番）．新規企業が先に動き，既存企業はそれを見てから動く．破線が</a></li>
 <li><a href="#fig-mixed-tree">図 8.4.3　逐次と同時が混ざった不完全情報ゲーム．第1段階の参入は逐次手番（既存企業は参入を</a></li>
 <li><a href="#fig-mixed-reduced">図 8.4.4　縮約したゲーム．同時手番の部分ゲームを，その均衡利得 $(1,1)$ で置きかえ</a></li>
-<li><a href="#fig-standard">図 8.4.5　規格争い参入ゲーム．第2段階の部分ゲーム $G_1$（箱の中の同時手番）は，規格</a></li>
-<li><a href="#fig-standard-twist">図 8.4.6　規格争い参入ゲームの変形版．</a></li>
-<li><a href="#fig-centipede-imperfect-recall">図 8.4.7　不完全記憶のゲームの例：破線で結ばれたノードは同じ情報集合に属し，区別できない．</a></li>
+<li><a href="#fig-standard">図 8.4.6　規格争い参入ゲーム．第2段階の部分ゲーム $G_1$（箱の中の同時手番）は，規格</a></li>
+<li><a href="#fig-standard-twist">図 8.4.7　規格争い参入ゲームの変形版．</a></li>
+<li><a href="#fig-centipede-imperfect-recall">図 8.4.8　不完全記憶のゲームの例：破線で結ばれたノードは同じ情報集合に属し，区別できない．</a></li>
 <li class="toc-ch"><a href="#ch9">第 9 章　ルールづくりのゲーム理論</a></li>
 <li><a href="#fig-holdup-nocontract">図 9.1.1　契約がないときのゲームの木（手番は最初が部下，次が上司．括弧内の利得は (上司,</a></li>
 <li><a href="#fig-holdup-contract">図 9.1.2　契約があるとき（罰金10万円により上司の利得が10→0に変化）</a></li>
 <li><a href="#fig-moral-hazard">図 9.1.3　努力選択と確率的成果</a></li>
+<li class="toc-ch"><a href="#ch11">第 11 章　ミクロ理論で制度を設計する</a></li>
+<li><a href="#fig-gsp-auction">図 11.1.2　キーワードオークション（GSP）のしくみ．入札額の高い順に上の枠から割り当てられ</a></li>
 </ul></nav>
 
 <h2 class="ch-head" id="ch3">第 3 章　需要と供給</h2>
@@ -430,14 +431,6 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <button class="copy" type="button" data-anchor="fig-game-tree1">🔗 リンクをコピー</button>
 </section>
 
-<section class="img-item" id="fig-game-tree1-solve">
-  <div class="num">図 8.2.2</div>
-  <img class="fig" src="img/game-tree1-solve.svg" alt="ゲームの木の逆算推論法による求解" loading="lazy">
-  <figcaption class="cap">ゲームの木の逆算推論法による求解</figcaption>
-  <a class="dl" href="img/game-tree1-solve.svg" download="game-tree1-solve.svg">⬇ 画像をダウンロード</a>
-  <button class="copy" type="button" data-anchor="fig-game-tree1-solve">🔗 リンクをコピー</button>
-</section>
-
 <section class="img-item" id="fig-game-ex1">
   <div class="num">図 8.2.3</div>
   <img class="fig" src="img/game-tree-ex1.svg" alt="練習1のゲームの木" loading="lazy">
@@ -535,7 +528,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 </section>
 
 <section class="img-item" id="fig-standard">
-  <div class="num">図 8.4.5</div>
+  <div class="num">図 8.4.6</div>
   <img class="fig" src="img/game-tree-standard.svg" alt="規格争い参入ゲーム．第2段階の部分ゲーム $G_1$（箱の中の同時手番）は，規格Aでそろう $(2,1)$ と規格Bでそろう $(-1,2)$ という二つのナッシュ均衡をもつ調整ゲームである．終端ノードの利得は（新規企業，既存企業）" loading="lazy">
   <figcaption class="cap">規格争い参入ゲーム．第2段階の部分ゲーム $G_1$（箱の中の同時手番）は，規格Aでそろう $(2,1)$ と規格Bでそろう $(-1,2)$ という二つのナッシュ均衡をもつ調整ゲームである．終端ノードの利得は（新規企業，既存企業）</figcaption>
   <a class="dl" href="img/game-tree-standard.svg" download="game-tree-standard.svg">⬇ 画像をダウンロード</a>
@@ -543,7 +536,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 </section>
 
 <section class="img-item" id="fig-standard-twist">
-  <div class="num">図 8.4.6</div>
+  <div class="num">図 8.4.7</div>
   <img class="fig" src="img/game-tree-standard-twist.svg" alt="規格争い参入ゲームの変形版．" loading="lazy">
   <figcaption class="cap">規格争い参入ゲームの変形版．</figcaption>
   <a class="dl" href="img/game-tree-standard-twist.svg" download="game-tree-standard-twist.svg">⬇ 画像をダウンロード</a>
@@ -551,7 +544,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 </section>
 
 <section class="img-item" id="fig-centipede-imperfect-recall">
-  <div class="num">図 8.4.7</div>
+  <div class="num">図 8.4.8</div>
   <img class="fig" src="img/centipede_imperfect_recall.svg" alt="不完全記憶のゲームの例：破線で結ばれたノードは同じ情報集合に属し，区別できない．Aのノード $x_0,x_2,x_4$ は情報集合 $I_1$，Bのノード $x_1,x_3$ は情報集合 $I_2$ にまとまっている" loading="lazy">
   <figcaption class="cap">不完全記憶のゲームの例：破線で結ばれたノードは同じ情報集合に属し，区別できない．Aのノード $x_0,x_2,x_4$ は情報集合 $I_1$，Bのノード $x_1,x_3$ は情報集合 $I_2$ にまとまっている</figcaption>
   <a class="dl" href="img/centipede_imperfect_recall.svg" download="centipede_imperfect_recall.svg">⬇ 画像をダウンロード</a>
@@ -582,6 +575,16 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <figcaption class="cap">努力選択と確率的成果</figcaption>
   <a class="dl" href="img/game-tree-holdup-moral.svg" download="game-tree-holdup-moral.svg">⬇ 画像をダウンロード</a>
   <button class="copy" type="button" data-anchor="fig-moral-hazard">🔗 リンクをコピー</button>
+</section>
+
+<h2 class="ch-head" id="ch11">第 11 章　ミクロ理論で制度を設計する</h2>
+
+<section class="img-item" id="fig-gsp-auction">
+  <div class="num">図 11.1.2</div>
+  <img class="fig" src="img/gsp_auction.svg" alt="キーワードオークション（GSP）のしくみ．入札額の高い順に上の枠から割り当てられ，支払うのは自分の入札額ではなく「1つ下の順位の入札額」である" loading="lazy">
+  <figcaption class="cap">キーワードオークション（GSP）のしくみ．入札額の高い順に上の枠から割り当てられ，支払うのは自分の入札額ではなく「1つ下の順位の入札額」である</figcaption>
+  <a class="dl" href="img/gsp_auction.svg" download="gsp_auction.svg">⬇ 画像をダウンロード</a>
+  <button class="copy" type="button" data-anchor="fig-gsp-auction">🔗 リンクをコピー</button>
 </section>
 
 </div>

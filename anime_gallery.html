@@ -68,7 +68,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 <body>
 <div class="wrap">
 <h1>アニメーション一覧</h1>
-<p class="lead">『ミクロ経済学（仮題）』（多鹿 智哉・栗田 健一）本文中のアニメーション32点。各図番号は本文と対応します。本文に印刷されたQRコードからこのページの該当アニメへ飛べます。<br><a href="image_gallery.html" style="color:#2563eb">→ 静止画の図版一覧はこちら</a></p>
+<p class="lead">『ミクロ経済学（仮題）』（多鹿 智哉・栗田 健一）本文中のアニメーション37点。各図番号は本文と対応します。本文に印刷されたQRコードからこのページの該当アニメへ飛べます。<br><a href="image_gallery.html" style="color:#2563eb">→ 静止画の図版一覧はこちら</a></p>
 <nav class="toc"><ul>
 <li class="toc-ch"><a href="#ch3">第 3 章　需要と供給</a></li>
 <li><a href="#anime-demand-read">図 3.2.2　需要曲線の読み方：価格3000のときの需要量は2</a></li>
@@ -82,6 +82,9 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 <li><a href="#anim-tax-equilibrium">図 3.8.6　従量税のもとでの市場均衡</a></li>
 <li><a href="#anim-tax-surplus-steps">図 3.8.7　課税のある市場での余剰（階段状の需要・供給曲線）</a></li>
 <li><a href="#anim-tax-surplus-smooth">図 3.8.8　課税のある市場での余剰（滑らかな需要・供給曲線）</a></li>
+<li class="toc-ch"><a href="#ch4">第 4 章　市場の失敗</a></li>
+<li><a href="#anime-pigou">図 4.2.2　外部性の内部化の流れ．騒音被害500万円を売り手の費用に足すと供給曲線が500だ</a></li>
+<li><a href="#anime-lemon">図 4.3.1　逆淘汰（レモン市場）の流れ．買い手は品質を区別できないので平均でしか値をつけられ</a></li>
 <li class="toc-ch"><a href="#ch5">第 5 章　企業の行動</a></li>
 <li><a href="#anime-mc-supply-curve">図 5.2.1　限界費用と供給曲線</a></li>
 <li><a href="#anime-supply-from-mc">図 5.4.2　供給曲線が限界費用曲線からどのように作られるかを示すアニメーション．操業停止点よ</a></li>
@@ -103,10 +106,15 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 <li><a href="#fig-pareto-efficient">図 7.3.2　無差別曲線が接する配分：レオンの改善領域（右上）とケネスの改善領域（左下）は接点</a></li>
 <li><a href="#FWT">図 7.4.1　厚生経済学の第一基本定理の説明アニメーション．市場均衡の資源配分がパレート効率的</a></li>
 <li><a href="#SWT">図 7.4.2　厚生経済学の第二基本定理の説明アニメーション．任意のパレート効率的な配分が，適切</a></li>
+<li class="toc-ch"><a href="#ch8">第 8 章　ゲーム理論</a></li>
+<li><a href="#fig-game-tree1-solve">図 8.2.2　ゲームの木の逆算推論法による求解．終端に近いノード $x_1, x_2$ から順</a></li>
+<li><a href="#anime-subgame">図 8.4.5　部分ゲーム完全均衡の求め方．同時手番の部分ゲーム $G_1$ を切り出して戦略形</a></li>
 <li class="toc-ch"><a href="#ch9">第 9 章　ルールづくりのゲーム理論</a></li>
 <li><a href="#anime-matching-boston">図 9.4.1　受入即決方式（ボストン方式）の手順：例1のケース</a></li>
 <li><a href="#anime-gs">図 9.4.2　受入保留方式（ゲール・シャプレイ）の手順：例1のケース．青の破線○は暫定保留，緑</a></li>
 <li><a href="#anime-ttc">図 9.4.3　最良交換サイクル（TTC）アルゴリズムの手順：表の例</a></li>
+<li class="toc-ch"><a href="#ch11">第 11 章　ミクロ理論で制度を設計する</a></li>
+<li><a href="#anime-smra">図 11.1.1　同時競り上げ方式のイメージ．欲しい人が重なった財（超過需要）の価格を少しずつ上げ</a></li>
 </ul></nav>
 
 <h2 class="ch-head" id="ch3">第 3 章　需要と供給</h2>
@@ -199,6 +207,24 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <button class="copy" type="button" data-anchor="anim-tax-surplus-smooth">🔗 リンクをコピー</button>
 </section>
 
+<h2 class="ch-head" id="ch4">第 4 章　市場の失敗</h2>
+
+<section class="anime-item" id="anime-pigou">
+  <div class="num">図 4.2.2</div>
+  <div class="svg-anim" data-src="img/pigou_anime.svg"></div>
+  <figcaption class="cap">外部性の内部化の流れ．騒音被害500万円を売り手の費用に足すと供給曲線が500だけ上にシフトし，新しい交点では取引量が3軒から2軒に減る</figcaption>
+  <a class="dl" href="img/pigou_anime.svg" download="pigou_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-pigou">🔗 リンクをコピー</button>
+</section>
+
+<section class="anime-item" id="anime-lemon">
+  <div class="num">図 4.3.1</div>
+  <div class="svg-anim" data-src="img/lemon_market_anime.svg"></div>
+  <figcaption class="cap">逆淘汰（レモン市場）の流れ．買い手は品質を区別できないので平均でしか値をつけられず，良い財の売り手から市場を去っていく</figcaption>
+  <a class="dl" href="img/lemon_market_anime.svg" download="lemon_market_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-lemon">🔗 リンクをコピー</button>
+</section>
+
 <h2 class="ch-head" id="ch5">第 5 章　企業の行動</h2>
 
 <section class="anime-item" id="anime-mc-supply-curve">
@@ -219,7 +245,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 
 <section class="anime-item" id="anime-isoquant">
   <div class="num">図 5.7.1</div>
-  <iframe src="img/isoquant_movie.html" loading="lazy" style="width:100%;height:760px;border:1px solid #e5e7eb;border-radius:8px;"></iframe>
+  <iframe src="img/isoquant_movie.html" loading="lazy" style="width:100%;height:900px;border:1px solid #e5e7eb;border-radius:8px;"></iframe>
   <figcaption class="cap">等産出量曲線の解説アニメーション．同じ生産量を達成する労働 $L$ と資本 $K$ の組み合わせを結んだ曲線である．</figcaption>
   <a class="dl" href="img/isoquant_movie.html" download="isoquant_movie.html">⬇ HTML をダウンロード</a>
   <button class="copy" type="button" data-anchor="anime-isoquant">🔗 リンクをコピー</button>
@@ -253,7 +279,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 
 <section class="anime-item" id="anime-indifference">
   <div class="num">図 6.4.1</div>
-  <iframe src="img/indifference_movie.html" loading="lazy" style="width:100%;height:760px;border:1px solid #e5e7eb;border-radius:8px;"></iframe>
+  <iframe src="img/indifference_movie.html" loading="lazy" style="width:100%;height:900px;border:1px solid #e5e7eb;border-radius:8px;"></iframe>
   <figcaption class="cap">無差別曲線の作り方を示すアニメーション．無差別な（効用が等しい）消費計画の点を結ぶと無差別曲線が得られる．</figcaption>
   <a class="dl" href="img/indifference_movie.html" download="indifference_movie.html">⬇ HTML をダウンロード</a>
   <button class="copy" type="button" data-anchor="anime-indifference">🔗 リンクをコピー</button>
@@ -349,6 +375,24 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <button class="copy" type="button" data-anchor="SWT">🔗 リンクをコピー</button>
 </section>
 
+<h2 class="ch-head" id="ch8">第 8 章　ゲーム理論</h2>
+
+<section class="anime-item" id="fig-game-tree1-solve">
+  <div class="num">図 8.2.2</div>
+  <div class="svg-anim" data-src="img/backward_induction_anime.svg"></div>
+  <figcaption class="cap">ゲームの木の逆算推論法による求解．終端に近いノード $x_1, x_2$ から順に解き，最後に $x_0$ を解く（太線が各ノードでの最適な選択）</figcaption>
+  <a class="dl" href="img/backward_induction_anime.svg" download="backward_induction_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="fig-game-tree1-solve">🔗 リンクをコピー</button>
+</section>
+
+<section class="anime-item" id="anime-subgame">
+  <div class="num">図 8.4.5</div>
+  <div class="svg-anim" data-src="img/subgame_reduction_anime.svg"></div>
+  <figcaption class="cap">部分ゲーム完全均衡の求め方．同時手番の部分ゲーム $G_1$ を切り出して戦略形ゲームとして解き，その均衡利得で縮約してから逆算推論法でさかのぼる</figcaption>
+  <a class="dl" href="img/subgame_reduction_anime.svg" download="subgame_reduction_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-subgame">🔗 リンクをコピー</button>
+</section>
+
 <h2 class="ch-head" id="ch9">第 9 章　ルールづくりのゲーム理論</h2>
 
 <section class="anime-item" id="anime-matching-boston">
@@ -373,6 +417,16 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   <figcaption class="cap">最良交換サイクル（TTC）アルゴリズムの手順：表の例</figcaption>
   <a class="dl" href="img/ttc_anime.svg" download="ttc_anime.svg">⬇ SVG をダウンロード</a>
   <button class="copy" type="button" data-anchor="anime-ttc">🔗 リンクをコピー</button>
+</section>
+
+<h2 class="ch-head" id="ch11">第 11 章　ミクロ理論で制度を設計する</h2>
+
+<section class="anime-item" id="anime-smra">
+  <div class="num">図 11.1.1</div>
+  <div class="svg-anim" data-src="img/smra_anime.svg"></div>
+  <figcaption class="cap">同時競り上げ方式のイメージ．欲しい人が重なった財（超過需要）の価格を少しずつ上げ，どの財も欲しい人が1人になったら終了する</figcaption>
+  <a class="dl" href="img/smra_anime.svg" download="smra_anime.svg">⬇ SVG をダウンロード</a>
+  <button class="copy" type="button" data-anchor="anime-smra">🔗 リンクをコピー</button>
 </section>
 
 </div>

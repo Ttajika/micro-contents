@@ -1,0 +1,242 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" style="font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif">
+<!-- 同時競り上げ方式（SMRA）のイメージアニメ
+     7段階 × 3s = 21s, calcMode="discrete"
+     keyTimes: 0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1
+     段階: ①価格100で開始 ②R1入札 ③B,C値上げ(110) ④R2入札 ⑤C,D値上げ(C120,D110) ⑥R3入札 ⑦終了 -->
+<defs>
+  <marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1a3c6e"/></marker>
+  <marker id="arrE" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker>
+  <marker id="arrN" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2a8a3e"/></marker>
+</defs>
+
+<!-- ===== 静的レイアウト ===== -->
+<text x="34" y="40" fill="#333" font-size="16" font-weight="700">入札者</text>
+<text x="500" y="40" fill="#333" font-size="16" font-weight="700">財（4種類）</text>
+<text x="649" y="40" fill="#888" font-size="11" text-anchor="middle">いまの価格</text>
+
+<!-- 入札者：アダム（青） -->
+<circle cx="90" cy="112" r="13" fill="#1a3c6e"/>
+<path d="M68,152 a22,22 0 0 1 44,0 z" fill="#1a3c6e"/>
+<text x="90" y="172" text-anchor="middle" fill="#1a3c6e" font-size="14" font-weight="700">アダム</text>
+<!-- 入札者：イヴ（赤） -->
+<circle cx="90" cy="222" r="13" fill="#c0392b"/>
+<path d="M68,262 a22,22 0 0 1 44,0 z" fill="#c0392b"/>
+<text x="90" y="282" text-anchor="middle" fill="#c0392b" font-size="14" font-weight="700">イヴ</text>
+<!-- 入札者：ノア（緑） -->
+<circle cx="90" cy="332" r="13" fill="#2a8a3e"/>
+<path d="M68,372 a22,22 0 0 1 44,0 z" fill="#2a8a3e"/>
+<text x="90" y="392" text-anchor="middle" fill="#2a8a3e" font-size="14" font-weight="700">ノア</text>
+
+<!-- ===== 超過需要ハイライト（アイコンの背面に描く） ===== -->
+<!-- 段階③：B と C -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;1;0;0;0;0;0"/>
+  <rect x="514" y="164" width="82" height="72" rx="10" fill="rgba(230,126,34,0.10)" stroke="#e67e22" stroke-width="3"/>
+  <rect x="514" y="264" width="82" height="72" rx="10" fill="rgba(230,126,34,0.10)" stroke="#e67e22" stroke-width="3"/>
+  <text x="555" y="249" text-anchor="middle" fill="#d35400" font-size="12" font-weight="700">超過需要</text>
+  <text x="555" y="349" text-anchor="middle" fill="#d35400" font-size="12" font-weight="700">超過需要</text>
+</g>
+<!-- 段階⑤：C と D -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;1;0;0;0"/>
+  <rect x="514" y="264" width="82" height="72" rx="10" fill="rgba(230,126,34,0.10)" stroke="#e67e22" stroke-width="3"/>
+  <rect x="514" y="364" width="82" height="72" rx="10" fill="rgba(230,126,34,0.10)" stroke="#e67e22" stroke-width="3"/>
+  <text x="555" y="349" text-anchor="middle" fill="#d35400" font-size="12" font-weight="700">超過需要</text>
+  <text x="555" y="449" text-anchor="middle" fill="#d35400" font-size="12" font-weight="700">超過需要</text>
+</g>
+
+<!-- ===== 財のアイコン ===== -->
+<!-- 財A（yc=100）：三角屋根の一戸建て -->
+<g>
+  <rect x="527" y="94" width="56" height="36" fill="#fdf3e3" stroke="#a97142" stroke-width="1.5"/>
+  <polygon points="520,96 555,70 590,96" fill="#c96f3b"/>
+  <rect x="548" y="110" width="14" height="20" fill="#a97142"/>
+  <rect x="533" y="102" width="11" height="9" fill="#e8d5b5" stroke="#a97142" stroke-width="1"/>
+  <rect x="567" y="102" width="11" height="9" fill="#e8d5b5" stroke="#a97142" stroke-width="1"/>
+</g>
+<!-- 財B（yc=200）：3階建てのビル -->
+<g>
+  <rect x="528" y="176" width="54" height="54" fill="#e8eef5" stroke="#5b7898" stroke-width="1.5"/>
+  <rect x="524" y="170" width="62" height="6" fill="#5b7898"/>
+  <rect x="537" y="184" width="10" height="8" fill="#5b7898" opacity="0.7"/>
+  <rect x="563" y="184" width="10" height="8" fill="#5b7898" opacity="0.7"/>
+  <rect x="537" y="200" width="10" height="8" fill="#5b7898" opacity="0.7"/>
+  <rect x="563" y="200" width="10" height="8" fill="#5b7898" opacity="0.7"/>
+  <rect x="537" y="216" width="10" height="8" fill="#5b7898" opacity="0.7"/>
+  <rect x="563" y="216" width="10" height="8" fill="#5b7898" opacity="0.7"/>
+</g>
+<!-- 財C（yc=300）：ひさし付きの店 -->
+<g>
+  <rect x="527" y="284" width="56" height="46" fill="#fdf8ec" stroke="#888" stroke-width="1.5"/>
+  <rect x="522" y="272" width="66" height="13" fill="#2f8f8f"/>
+  <rect x="530" y="272" width="8" height="13" fill="#8fc6c6"/>
+  <rect x="546" y="272" width="8" height="13" fill="#8fc6c6"/>
+  <rect x="562" y="272" width="8" height="13" fill="#8fc6c6"/>
+  <rect x="578" y="272" width="8" height="13" fill="#8fc6c6"/>
+  <rect x="535" y="300" width="16" height="30" fill="#b8875b"/>
+  <rect x="558" y="300" width="18" height="14" fill="#9fc5c5" stroke="#888" stroke-width="1"/>
+</g>
+<!-- 財D（yc=400）：煙突つきのコテージ -->
+<g>
+  <rect x="527" y="392" width="56" height="38" fill="#f3eefa" stroke="#7d5ba6" stroke-width="1.5"/>
+  <polygon points="520,392 535,372 575,372 590,392" fill="#7d5ba6"/>
+  <rect x="569" y="360" width="9" height="16" fill="#7d5ba6"/>
+  <rect x="547" y="410" width="14" height="20" fill="#7d5ba6"/>
+  <circle cx="537" cy="404" r="5" fill="#e2d5f2" stroke="#7d5ba6" stroke-width="1"/>
+</g>
+
+<!-- ===== 価格タグ ===== -->
+<rect x="612" y="85" width="74" height="30" rx="6" fill="#f5f1ec" stroke="#ddd"/>
+<text x="626" y="106" fill="#333" font-size="15" font-weight="700">A</text>
+<rect x="612" y="185" width="74" height="30" rx="6" fill="#f5f1ec" stroke="#ddd"/>
+<text x="626" y="206" fill="#333" font-size="15" font-weight="700">B</text>
+<rect x="612" y="285" width="74" height="30" rx="6" fill="#f5f1ec" stroke="#ddd"/>
+<text x="626" y="306" fill="#333" font-size="15" font-weight="700">C</text>
+<rect x="612" y="385" width="74" height="30" rx="6" fill="#f5f1ec" stroke="#ddd"/>
+<text x="626" y="406" fill="#333" font-size="15" font-weight="700">D</text>
+
+<!-- A：ずっと100 -->
+<text x="663" y="106" text-anchor="middle" fill="#333" font-size="15" font-weight="700">100</text>
+
+<!-- B：100（①②）→110（③で赤く上昇表示）→110（④以降） -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="1;1;0;0;0;0;0;0"/>
+  <text x="663" y="206" text-anchor="middle" fill="#333" font-size="15" font-weight="700">100</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;1;0;0;0;0;0"/>
+  <text x="663" y="206" text-anchor="middle" fill="#c0392b" font-size="15" font-weight="700">110</text>
+  <text x="663" y="180" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">▲ +10</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;1;1;1;1;1"/>
+  <text x="663" y="206" text-anchor="middle" fill="#333" font-size="15" font-weight="700">110</text>
+</g>
+
+<!-- C：100（①②）→110（③赤）→110（④）→120（⑤赤）→120（⑥⑦） -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="1;1;0;0;0;0;0;0"/>
+  <text x="663" y="306" text-anchor="middle" fill="#333" font-size="15" font-weight="700">100</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;1;0;0;0;0;0"/>
+  <text x="663" y="306" text-anchor="middle" fill="#c0392b" font-size="15" font-weight="700">110</text>
+  <text x="663" y="280" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">▲ +10</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;1;0;0;0;0"/>
+  <text x="663" y="306" text-anchor="middle" fill="#333" font-size="15" font-weight="700">110</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;1;0;0;0"/>
+  <text x="663" y="306" text-anchor="middle" fill="#c0392b" font-size="15" font-weight="700">120</text>
+  <text x="663" y="280" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">▲ +10</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;0;1;1;1"/>
+  <text x="663" y="306" text-anchor="middle" fill="#333" font-size="15" font-weight="700">120</text>
+</g>
+
+<!-- D：100（①〜④）→110（⑤赤）→110（⑥⑦） -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="1;1;1;1;0;0;0;0"/>
+  <text x="663" y="406" text-anchor="middle" fill="#333" font-size="15" font-weight="700">100</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;1;0;0;0"/>
+  <text x="663" y="406" text-anchor="middle" fill="#c0392b" font-size="15" font-weight="700">110</text>
+  <text x="663" y="380" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">▲ +10</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;0;1;1;1"/>
+  <text x="663" y="406" text-anchor="middle" fill="#333" font-size="15" font-weight="700">110</text>
+</g>
+
+<!-- ===== ラウンド1の入札矢印（②③） A→A,B / E→C,D / N→B,C ===== -->
+<g opacity="0" fill="none">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;1;1;0;0;0;0;0"/>
+  <path d="M125,124 L505,92" stroke="#1a3c6e" stroke-width="2.2" marker-end="url(#arrA)"/>
+  <path d="M125,136 L505,192" stroke="#1a3c6e" stroke-width="2.2" marker-end="url(#arrA)"/>
+  <path d="M125,234 L505,300" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrE)"/>
+  <path d="M125,246 L505,400" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrE)"/>
+  <path d="M125,344 L505,208" stroke="#2a8a3e" stroke-width="2.2" marker-end="url(#arrN)"/>
+  <path d="M125,356 L505,308" stroke="#2a8a3e" stroke-width="2.2" marker-end="url(#arrN)"/>
+</g>
+
+<!-- ===== ラウンド2の入札矢印（④⑤） A→A,D / E→C,D / N→B,C ===== -->
+<g opacity="0" fill="none">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;1;1;0;0;0"/>
+  <path d="M125,124 L505,92" stroke="#1a3c6e" stroke-width="2.2" marker-end="url(#arrA)"/>
+  <path d="M125,136 L505,392" stroke="#1a3c6e" stroke-width="2.2" marker-end="url(#arrA)"/>
+  <path d="M125,234 L505,300" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrE)"/>
+  <path d="M125,246 L505,400" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrE)"/>
+  <path d="M125,344 L505,208" stroke="#2a8a3e" stroke-width="2.2" marker-end="url(#arrN)"/>
+  <path d="M125,356 L505,308" stroke="#2a8a3e" stroke-width="2.2" marker-end="url(#arrN)"/>
+</g>
+
+<!-- ===== ラウンド3の入札矢印（⑥⑦） A→A / E→D / N→B,C ===== -->
+<g opacity="0" fill="none">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;0;1;1;1"/>
+  <path d="M125,130 L505,92" stroke="#1a3c6e" stroke-width="2.2" marker-end="url(#arrA)"/>
+  <path d="M125,240 L505,400" stroke="#c0392b" stroke-width="2.2" marker-end="url(#arrE)"/>
+  <path d="M125,344 L505,208" stroke="#2a8a3e" stroke-width="2.2" marker-end="url(#arrN)"/>
+  <path d="M125,356 L505,308" stroke="#2a8a3e" stroke-width="2.2" marker-end="url(#arrN)"/>
+</g>
+
+<!-- ===== ラウンド表示 ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;1;1;0;0;0;0;0"/>
+  <text x="290" y="40" fill="#555" font-size="17" font-weight="700">ラウンド1</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;1;1;0;0;0"/>
+  <text x="290" y="40" fill="#555" font-size="17" font-weight="700">ラウンド2</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;0;1;0;0"/>
+  <text x="290" y="40" fill="#555" font-size="17" font-weight="700">ラウンド3</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;0;0;1;1"/>
+  <text x="290" y="40" fill="#2a8a3e" font-size="17" font-weight="700">終了！</text>
+</g>
+
+<!-- ===== 終了時の落札者表示（⑦） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;0;0;1;1"/>
+  <text x="555" y="145" text-anchor="middle" fill="#1a3c6e" font-size="13" font-weight="700">→ アダム</text>
+  <text x="555" y="245" text-anchor="middle" fill="#2a8a3e" font-size="13" font-weight="700">→ ノア</text>
+  <text x="555" y="345" text-anchor="middle" fill="#2a8a3e" font-size="13" font-weight="700">→ ノア</text>
+  <text x="555" y="445" text-anchor="middle" fill="#c0392b" font-size="13" font-weight="700">→ イヴ</text>
+</g>
+
+<!-- ===== 手順キャプション（下段・各段階のみ表示） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="1;0;0;0;0;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">売り手が，すべての財に価格100をつけて開始する</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;1;0;0;0;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">ラウンド1：各人が「いまの価格で買いたい財」に入札する（矢印）</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;1;0;0;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">BとCは2人が欲しがっている（超過需要）→ 価格を10上げる</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;1;0;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">ラウンド2：値上がりを見て選び直す（アダムはBをやめてDへ）</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;1;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">こんどはCとDが超過需要 → 価格を10上げる</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;0;1;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">ラウンド3：アダムはAだけ，イヴはDだけに絞る</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="21s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" values="0;0;0;0;0;0;1;1"/>
+  <text x="34" y="458" fill="#555" font-size="13">どの財も買いたい人が1人だけ → 終了．いまの価格で売買が成立する</text>
+</g>
+</svg>
