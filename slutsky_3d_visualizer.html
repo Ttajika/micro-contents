@@ -241,14 +241,6 @@ body {
     </div>
     <div class="slider-group">
       <div class="slider-label">
-        <span>CES パラメータ s</span>
-        <span class="slider-value" id="s-val">-0.80</span>
-      </div>
-      <input type="range" id="s-slider" aria-label="CES パラメータ s" min="-2" max="0.9" step="0.05" value="-0.8">
-      <div class="slider-hint">s &lt; 0：y,z は純補完財 / s &gt; 0：純代替財 / s → 1：完全代替 / s → -∞：レオンチェフ</div>
-    </div>
-    <div class="slider-group">
-      <div class="slider-label">
         <span>面の透明度</span>
         <span class="slider-value" id="opa-val">0.50</span>
       </div>
@@ -258,7 +250,8 @@ body {
     <button type="button" id="btn-fit-view">視野を最適点に合わせる</button>
     <div id="info">
       <code>u(x,y,z) = x^0.3 + (y^-0.8 + z^-0.8)^(-1.25)</code><br>
-      価格変化: 財 z の価格 1 → 3
+      CES パラメータ s = -0.8 に固定（この設定では y と z は補完財）<br>
+      価格変化: 財 z の価格 1 → 現在値（既定 3）
       <div class="coords" id="coords"></div>
     </div>
   </div>
@@ -765,15 +758,19 @@ const G = { x: '<span class="gx">x</span>', y: '<span class="gy">y</span>', z: '
 
 function getPhaseConfig() {
   const { u_param, u_0, u_B, initialPz, currentPz, effGross, effSubs, effInc } = state;
-  // (y, z) の純代替/補完判定（s の符号で決まる）
-  const yzIsComp = u_param.s < 0;
-  const yzTag = yzIsComp ? '純補完' : '純代替';
+  // (y, z) の代替財/補完財の判定：実際に計算した補償交差効果 Δy_h の符号で決める。
+  // 用語は本文 6.7 節に合わせる（無印の「代替財/補完財」＝代替効果で定義した概念、
+  // 「粗代替財/粗補完財」＝所得効果に汚染された概念）。
+  // 代替財/補完財は ∂h_y/∂p_z の符号で定義され、CES パラメータ s の符号だけでは決まらない
+  // （水準 x^m/B にも依存する）ので、s から推測しないこと。
+  const yzIsComp = effSubs.dy < 0;
+  const yzTag = effSubs.dy < 0 ? '補完財' : (effSubs.dy > 0 ? '代替財' : '中立');
   const yzClass = yzIsComp ? 'comp' : 'sub';
-  const yzReason = yzIsComp ? `s=${u_param.s.toFixed(2)} < 0 による` : `s=${u_param.s.toFixed(2)} > 0 による`;
-  const yzCmp = yzIsComp ? '< 0' : '> 0';
-  // (x, z) は加法分離下で常に純代替
+  const yzReason = '補償需要の変化の符号による';
+  const yzCmp = effSubs.dy < 0 ? '< 0' : (effSubs.dy > 0 ? '> 0' : '= 0');
+  // (x, z) は加法分離下で常に代替財
   // 効果値の符号で異常時もタグを変える
-  const xzTag = effSubs.dx > 0 ? '純代替' : (effSubs.dx < 0 ? '純補完' : '中立');
+  const xzTag = effSubs.dx > 0 ? '代替財' : (effSubs.dx < 0 ? '補完財' : '中立');
   const xzClass = effSubs.dx > 0 ? 'sub' : (effSubs.dx < 0 ? 'comp' : 'sub');
 
   return {
@@ -1021,18 +1018,15 @@ function rebuildScene() {
 // スライダーのバインド（連続パラメータ変更）
 // ============================================================
 const pzSlider  = document.getElementById('pz-slider');
-const sSlider   = document.getElementById('s-slider');
 const opaSlider = document.getElementById('opa-slider');
 const pzVal     = document.getElementById('pz-val');
-const sVal      = document.getElementById('s-val');
 const opaVal    = document.getElementById('opa-val');
 
-// s が 0 や 1 に近すぎる値を避ける
-function safeS(s) {
-  if (Math.abs(s) < 0.05) return s >= 0 ? 0.05 : -0.05;
-  if (s > 0.95) return 0.95;
-  return s;
-}
+// CES パラメータ s は基準値 -0.8 に固定（state.u_param.s）。
+// s を動かすと無差別曲面の再構築が必要で重く、かつ s が 0 に近い領域では
+// 重みなし CES (y^s+z^s)^(1/s) の単位費用が発散して x が予算を食い尽くし、
+// 残余所得 M = 所得 - p_x x が負になって y,z が負の値になる（s ≈ -0.35〜-0.05）。
+// 基準値では p_z ∈ [1,5] の全域で内点解が保たれる。
 
 // throttle: 連続ドラッグでも軽快に動くよう、requestAnimationFrame で間引き
 let pendingRebuild = false;
@@ -1049,14 +1043,6 @@ pzSlider.addEventListener('input', () => {
   const v = parseFloat(pzSlider.value);
   state.currentPz = v;
   pzVal.textContent = v.toFixed(2);
-  scheduleRebuild();
-});
-
-sSlider.addEventListener('input', () => {
-  const raw = parseFloat(sSlider.value);
-  const s = safeS(raw);
-  state.u_param.s = s;
-  sVal.textContent = s.toFixed(2);  // 実際に使う値（0付近はクランプ）
   scheduleRebuild();
 });
 

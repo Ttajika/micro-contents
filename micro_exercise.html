@@ -498,6 +498,25 @@ table.data th {
 .modern-table th.diag { background: var(--exercise-bg); color: var(--text); font-weight: 600; }
 .modern-table td.spacer { border: none !important; height: 10px; padding: 0 !important; background: transparent; }
 
+/* ━━━ ゲームの利得表（micro-notes.html と共通デザイン） ━━━ */
+.payoff {
+  border-collapse: collapse;
+  margin: 14px auto;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+}
+.payoff th, .payoff td {
+  border: 1px solid var(--border);
+  padding: 9px 18px;
+  text-align: center;
+  vertical-align: middle;
+}
+.payoff td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.payoff .corner { border: none; background: transparent; }
+.payoff .pl { background: #f8fafc; color: var(--text-dim); font-weight: 600; }
+.payoff .st { background: #fbfbfa; color: var(--text-dim); font-weight: 600; }
+
 ul, ol { padding-left: 1.6em; margin: 0.5em 0; }
 li { margin: 0.3em 0; }
 
@@ -772,14 +791,14 @@ body.hide-advanced [data-level="advanced"] { display: none; }
   <div class="doc-meta">多鹿 智哉・栗田 健一</div>
 </div>
 
-<p>本問題集は教材『ミクロ経済学』に対応した練習問題集である．各章は教材の対応する章と同じ順序で並んでいる．問題には「答えを表示」ボタンで解答例を確認できる．「考えてみよう」「調べてみよう」では，答えがひとつではない問いを提示している．</p>
+<p>本問題集は教材『ミクロ経済学』（以下では「教科書」と呼ぶ）に対応した練習問題集である．各章は教材の対応する章と同じ順序で並んでいる．問題には「答えを表示」ボタンで解答例を確認できる．</p>
 
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      第1章 ミクロ経済学の方法
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <article class="chapter" id="ch-micro-method">
-<h1>ミクロ経済学の方法</h1>
+<!-- <h1>ミクロ経済学の方法</h1> -->
 
 </article>
 
@@ -887,7 +906,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
       </ul>
       <p>このように，誰の効用も下げずに高木とルツの厚生を改善できる．したがって課税下の市場均衡はパレート効率的ではない．</p>
 
-      <p>言い換えれば，死荷重損失$200$は「税収を維持したまま課税方法を変えれば，誰の効用も下げずに皆で分け合える余地」を意味する．取引量に依存しない一括税は取引のマージンを歪めないので，同じ税収でも従量税より効率的である．（もっとも現実には所得や能力を観察できない一括税にはそれ自体の困難があり，これは最適課税論の中心的論点の一つである．）</p>
+      <p>言い換えれば，死荷重損失$200$は「税収を維持したまま課税方法を変えれば，誰の効用も下げずに皆で分け合える余地」を意味する．取引量に依存しない一括税（つまり取引量に依らず税金を徴収する）は消費者と生産者の価格を変えないので，同じ税収でも従量税より効率的である．（もっとも現実には所得や能力を観察できない一括税にはそれ自体の困難があり，これは最適課税論の中心的論点の一つである．）</p>
     </div>
   </div>
 </div>
@@ -905,7 +924,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
 <div class="exercise">
   <div class="box-label"><span class="box-title">外部性と他人を思いやることの是非</span></div>
   <div class="box-body">
-    <p>以下の会話を読み，Aさんの疑問に対して答えなさい．（ミクロ経済学の議論が踏まえられているか，論理的な解答であるかどうかが採点基準であり結論は採点には影響しない．）</p>
+    <p>以下の会話を読み，Aさんの疑問に対して答えなさい．答えは複数ありうる．</p>
     <p>学生A「先生，市場の効率性と外部性のところを読んで思ったことがあるんですけど」</p>
     <p>教授B「はい，なんでしょうか？」</p>
     <p>学生A「他人のことを思いやることって，他人の行動が自分の効用に入るので外部性になるじゃないですか？」</p>
@@ -913,9 +932,9 @@ body.hide-advanced [data-level="advanced"] { display: none; }
     <p>学生A「でも外部性が入ると市場取引が非効率になるじゃないですか．ということは他人を思いやると市場が非効率になるってことですか？他人を思いやってはいけないのですか？」</p>
     <button class="reveal-btn">答えを表示</button>
     <div class="reveal-answer">
-      <p>解答例1：市場取引では自分の財の購入量を決定するだけなので取引そのものには変化がない．思いやりの分，自分自身の効用が増えるだけなので社会的には余剰の総量は大きくなるので良い．</p>
-      <p>解答例2：市場取引では自分の財の購入量を決定するだけなので取引そのものには変化がない．しかし思いやりが自分自身の効用と他者の効用を足して2で割ったものになる場合，他者の消費は自分でコントロールできない分だけ，不満が増える．この外部性によって社会的に余剰が小さくなるので良くない．</p>
-      <p>解答例3：市場取引では変化がないが，公共財の供給を考える場合，相手の効用が自分に入る分だけ，公共財の供給量が増える．公共財はもともと過小供給なので思いやりの分，公共財の供給量が増える．そのため思いやりを持つことで社会の余剰は改善する．</p>
+      <p>解答例1：市場取引では自分の財の購入量を決定するだけなので取引そのものには変化がない．思いやりの分，自分自身の効用が増えるだけなので社会的総余剰の総量は大きくなるので良い．</p>
+      <p>解答例2：市場取引では自分の財の購入量を決定するだけなので取引そのものには変化がない．しかし思いやりが自分自身の効用と他者の効用を足して2で割ったものになる場合，他者の消費は自分でコントロールできない分だけ，不満が増える．この外部性によって社会的総余剰が小さくなるので良くない．</p>
+      <p>解答例3：市場取引では変化がないが，公共財の供給を考える場合，相手の効用が自分に入る分だけ，公共財の供給量が増える．公共財はもともと過小供給なので思いやりの分，公共財の供給量が増える．そのため思いやりを持つことで社会的総余剰は改善する．</p>
     </div>
   </div>
 </div>
@@ -1107,7 +1126,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
 
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     第6章 企業の行動
+     第5章 企業の行動
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <article class="chapter" id="ch-firm">
 <h1>企業の行動</h1>
@@ -1202,7 +1221,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
 
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     第7章 消費者の行動
+     第6章 消費者の行動
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <article class="chapter" id="ch-consumer">
 <h1>消費者の行動</h1>
@@ -1377,7 +1396,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
 
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     第8章 複数財市場の均衡
+     第7章 複数財市場の均衡
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <article class="chapter" id="ch-general-equilibrium">
 <h1>複数財市場の均衡</h1>
@@ -1404,7 +1423,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
     <p>第一厚生定理（厚生経済学の第一基本定理）の主張を1行で説明しなさい．</p>
     <button class="reveal-btn">答えを表示</button>
     <div class="reveal-answer">
-      <p>競争均衡（ワルラス均衡）で達成される配分はパレート効率的である．</p>
+      <p>市場均衡（完全競争均衡，ワルラス均衡）で達成される配分はパレート効率的である．</p>
     </div>
   </div>
 </div>
@@ -1415,7 +1434,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
     <p>第二厚生定理（厚生経済学の第二基本定理）の主張を1行で説明しなさい．</p>
     <button class="reveal-btn">答えを表示</button>
     <div class="reveal-answer">
-      <p>任意のパレート効率的な配分は，初期保有を適切に再分配することで競争均衡（ワルラス均衡）として実現できる．</p>
+      <p>すべてのパレート効率的な配分は，初期保有を適切に再分配することで市場均衡（完全競争均衡，ワルラス均衡）として実現できる．</p>
     </div>
   </div>
 </div>
@@ -1481,18 +1500,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
 
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     第9章 不確実性の経済学
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<!-- <article class="chapter" id="ch-uncertainty">
-<h1>不確実性の経済学</h1>
-
-<div class="exercise" data-level="advanced" data-type="numeric" data-id="expected-utility-lottery"></div>
-
-</article> -->
-
-
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     第10章 ゲーム理論
+     第8章 ゲーム理論
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <article class="chapter" id="ch-game">
 <h1>ゲーム理論</h1>
@@ -1504,11 +1512,21 @@ body.hide-advanced [data-level="advanced"] { display: none; }
     <p>（潜在的な）犯罪者と警察のゲームを考える．犯罪者の行動は二択であり，犯罪をするかどうかである．警察の行動は見回りをするかどうかである．犯罪者は犯罪をしなければ利得$0$である．警察も犯罪者が犯罪を犯さず，自身も見回りをしなければ利得は$0$である．</p>
     <p>犯罪者は犯罪を犯すと利得$3$を得るが，逮捕されると$-5$の利得を追加的に得る．警察は犯罪を犯されると利得$-3$を得る．また，見回りをするとそのために追加的に利得$-2$を得るが，犯罪者が犯罪をした場合（そしてそのときのみ），確実に逮捕できるとする．警察は逮捕できれば報奨として利得$2$を追加的に得る．</p>
     <p>つまり，表で書けばこの通りのゲームである（各セルの利得は警察，犯罪者の順）．</p>
-    <table class="modern-table" style="margin: 0 auto;">
-      <tr><th></th><th></th><th colspan="2" style="text-align:center;">犯罪者</th></tr>
-      <tr><th></th><th></th><th>犯罪する</th><th>しない</th></tr>
-      <tr><th rowspan="2">警察</th><th>見回りする</th><td class="center">$-1,\, -2$</td><td class="center">$-2,\, 0$</td></tr>
-      <tr><th>しない</th><td class="center">$-3,\, 3$</td><td class="center">$0,\, 0$</td></tr>
+    <table class="payoff">
+      <tr>
+        <td class="corner" colspan="2" rowspan="2"></td>
+        <th class="pl" colspan="2">犯罪者</th>
+      </tr>
+      <tr>
+        <th class="st">犯罪する</th><th class="st">しない</th>
+      </tr>
+      <tr>
+        <th class="pl" rowspan="2">警察</th>
+        <th class="st">見回りする</th><td>$-1,\, -2$</td><td>$-2,\, 0$</td>
+      </tr>
+      <tr>
+        <th class="st">しない</th><td>$-3,\, 3$</td><td>$0,\, 0$</td>
+      </tr>
     </table>
     <ol>
       <li>混合戦略のナッシュ均衡を求めなさい．</li>
@@ -1530,6 +1548,43 @@ body.hide-advanced [data-level="advanced"] { display: none; }
 <div class="exercise" data-type="numeric" data-id="mixed-nash-2x2"></div>
 
 
+<div class="exercise"  data-level="advanced">
+  <div class="box-label"></div>
+  <div class="box-body">
+    <p>次の戦略型ゲームのナッシュ均衡を混合戦略の範囲ですべて求めなさい．</p>
+    <figure id="tbl-q9">
+      <table class="payoff">
+        <tr>
+          <th class="corner"></th>
+          <th class="st">$A_1$</th><th class="st">$A_2$</th><th class="st">$A_3$</th>
+          <th class="st">$\cdots$</th><th class="st">$A_{2019}$</th><th class="st">$A_{2020}$</th>
+        </tr>
+        <tr>
+          <th class="st">U</th>
+          <td>$0,\,2020$</td><td>$1,\,2019$</td><td>$0,\,2018$</td>
+          <td>$\cdots$</td><td>$0,\,2$</td><td>$1,\,1$</td>
+        </tr>
+        <tr>
+          <th class="st">D</th>
+          <td>$1,\,1$</td><td>$0,\,2$</td><td>$1,\,3$</td>
+          <td>$\cdots$</td><td>$1,\,2019$</td><td>$0,\,2020$</td>
+        </tr>
+      </table>
+    </figure>
+    <button class="reveal-btn">答えを表示</button>
+    <div class="reveal-answer">
+        <p>UかDを選ぶプレイヤーを行プレイヤーと呼び，もう1人を列プレイヤーと呼ぶ．行プレイヤーが $U$ を確率 $s$ で選ぶとする．列 $A_j$ を選んだときの列プレイヤーの期待利得は $s(2021-j)+(1-s)j=2021s+j(1-2s)$ である．</p>
+        <ul>
+          <li>$s &lt; 1/2$ なら $j$ について増加するので列は $A_{2020}$ を選ぶ．すると行は $U$ が最適となり $s=1$．矛盾．</li>
+          <li>$s>1/2$ なら列は $A_1$ を選び，行は $D$ が最適で $s=0$．矛盾．</li>
+          <li>$s=1/2$ のときだけ列はすべての $A_j$ に無差別（期待利得は一定値 $1010.5$）になり，自由に混ぜることができる．</li>
+        </ul>
+        <p>行が $U$ から得る利得は列が偶数番号 $A_2,A_4,\dots,A_{2020}$ を選ぶ確率，$D$ から得る利得は奇数番号 $A_1,A_3,\dots,A_{2019}$ を選ぶ確率である．行が $U,D$ を $1/2$ ずつにする（無差別になる）には，列が偶数番号を選ぶ合計確率と奇数番号を選ぶ合計確率がともに $1/2$ でなければならない．</p>
+        <p>したがって混合戦略ナッシュ均衡は，行が $U,D$ を各 $1/2$，列は偶数番号の合計確率・奇数番号の合計確率がともに $1/2$ になるような任意の混合戦略，である．純粋戦略ナッシュ均衡は存在しない．</p>
+    </div>
+  </div>
+</div>
+
 
 <div class="exercise" data-type="extensive-imperfect"></div>
 
@@ -1537,28 +1592,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
 
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     第11章 不完備情報のゲーム理論
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<!-- <article class="chapter" id="ch-game-incomplete">
-<h1>不完備情報のゲーム理論</h1>
-
-<section class="section" id="sec-conditional-prob">
-<h2>条件付き確率</h2>
-</section>
-
-<section class="section" id="sec-incomplete-type">
-<h2>不完備情報ゲームとベイズ・ナッシュ均衡</h2>
-</section>
-
-<section class="section" id="sec-signaling">
-<h2>シグナリングと完全ベイズ均衡</h2>
-</section>
-
-</article> -->
-
-
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     第12章 ルールづくりのゲーム理論
+     第9章 ルールづくりのゲーム理論
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <article class="chapter" id="ch-mechanism">
 <h1>ルールづくりのゲーム理論</h1>
@@ -1582,15 +1616,15 @@ body.hide-advanced [data-level="advanced"] { display: none; }
 <div class="exercise">
   <div class="box-label"><span class="box-title">名前による差別なしの価格設定（人参の販売）</span></div>
   <div class="box-body">
-    <p>2人の消費者，アダムとイヴがいる．アダムは1本目の人参に80円の支払い用意があり，さらに2本目の人参に対しては40円の支払い用意がある．イヴは1本目の人参に60円の支払い用意があり，さらに2本目の人参に対しては50円の支払い用意がある．二人ともそれ以上の人参はいらない．</p>
+    <p>2人の消費者，アダムとイヴがいる．アダムは1本目の人参に80円の支払意思額があり，さらに2本目の人参に対しては40円の支払意思額がある．イヴは1本目の人参に60円の支払意思額があり，さらに2本目の人参に対しては50円の支払意思額がある．二人ともそれ以上の人参はいらない．</p>
     <ol>
       <li>アダムとイヴが一切協力せず，バラバラに行動するとしよう．このとき，人参をどのように売れば利益が最大になるか，答えなさい．ただし消費者の名前で差別をしてはいけない．</li>
       <li>アダムとイヴが二人で協力して人参を購入しようとしている．このとき，人参をどのように売れば利益が最大になるか，答えなさい．ただし消費者の名前で差別をしてはいけない．</li>
     </ol>
     <button class="reveal-btn">答えを表示</button>
     <div class="reveal-answer">
-      <p>(1) アダムの支払い用意は2本で合計120円，イヴの支払い用意は2本で合計110円となる．2本セット110円で売る．そうすると，イヴにはこれ以上支払わせることはできない．名前で差別はできないのでアダムにもこれ以上支払わせることはできない．よってこの方法が利益を最大にする．このときの利益は$220$円になる．</p>
-      <p>(2) アダムとイヴは協力して人参を購入するので，4本セット230円で売る．このとき，アダムとイヴの支払い用意すべてを利益にできるのでこれ以上利益は増えない．このときの利益は$230$円である．</p>
+      <p>(1) アダムの支払意思額は2本で合計120円，イヴの支払意思額は2本で合計110円となる．2本セット110円で売る．そうすると，イヴにはこれ以上支払わせることはできない．名前で差別はできないのでアダムにもこれ以上支払わせることはできない．よってこの方法が利益を最大にする．このときの利益は$220$円になる．</p>
+      <p>(2) アダムとイヴは協力して人参を購入するので，4本セット230円で売る．このとき，アダムとイヴの支払意思額すべてを利益にできるのでこれ以上利益は増えない．このときの利益は$230$円である．</p>
     </div>
   </div>
 </div>
@@ -4114,12 +4148,14 @@ NumericProblem.register('elasticity-basic', {
     },
     prompt(s) {
       let html = '2 人プレイヤー A, B のゲームを考える．各セルは（A の利得，B の利得）である．';
-      html += '<table class="modern-table" style="margin: 0 auto;">';
-      html += '<tr><th></th><th>$B_0$</th><th>$B_1$</th><th>$B_2$</th></tr>';
+      html += '<table class="payoff">';
+      html += '<tr><td class="corner" colspan="2" rowspan="2"></td><th class="pl" colspan="3">B</th></tr>';
+      html += '<tr><th class="st">$B_0$</th><th class="st">$B_1$</th><th class="st">$B_2$</th></tr>';
       for (let i = 0; i < 3; i++) {
-        html += `<tr><th>$A_${i}$</th>`;
+        html += i === 0 ? '<tr><th class="pl" rowspan="3">A</th>' : '<tr>';
+        html += `<th class="st">$A_${i}$</th>`;
         for (let j = 0; j < 3; j++) {
-          html += `<td class="center">$(${s.matrix[i][j][0]}, ${s.matrix[i][j][1]})$</td>`;
+          html += `<td>$(${s.matrix[i][j][0]}, ${s.matrix[i][j][1]})$</td>`;
         }
         html += '</tr>';
       }
@@ -4179,10 +4215,11 @@ NumericProblem.register('elasticity-basic', {
     prompt(s) {
       const cell = (a, b) => `$(${a}, ${b})$`;
       return `次の 2 人ゲームを考える（各セルは（A の利得，B の利得））．<br>` +
-        `<table class="modern-table" style="margin: 0 auto;">` +
-        `<tr><th></th><th>$B_0$</th><th>$B_1$</th></tr>` +
-        `<tr><th>$A_0$</th><td class="center">${cell(s.a00, s.b00)}</td><td class="center">${cell(s.a01, s.b01)}</td></tr>` +
-        `<tr><th>$A_1$</th><td class="center">${cell(s.a10, s.b10)}</td><td class="center">${cell(s.a11, s.b11)}</td></tr>` +
+        `<table class="payoff">` +
+        `<tr><td class="corner" colspan="2" rowspan="2"></td><th class="pl" colspan="2">B</th></tr>` +
+        `<tr><th class="st">$B_0$</th><th class="st">$B_1$</th></tr>` +
+        `<tr><th class="pl" rowspan="2">A</th><th class="st">$A_0$</th><td>${cell(s.a00, s.b00)}</td><td>${cell(s.a01, s.b01)}</td></tr>` +
+        `<tr><th class="st">$A_1$</th><td>${cell(s.a10, s.b10)}</td><td>${cell(s.a11, s.b11)}</td></tr>` +
         `</table>` +
         `<p>純粋戦略ではない混合戦略ナッシュ均衡において，A が $A_0$ を取る確率 $p$ と，B が $B_0$ を取る確率 $q$ を求めなさい．（小数第3位以下を切り捨てて小数第2位まで答えること）</p>`;
     },

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web補助資料 B：表の読み方 — ミクロ経済学</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']],
+    macros: {
+      R: '\\mathbb{R}', P: '\\mathsf{Pr}',
+      condi: '\\mathrel{|}',
+      pd: ['\\frac{\\partial #1}{\\partial #2}', 2],
+      dd: ['\\frac{d #1}{d #2}', 2],
+      eqdef: '\\mathrel{:=}',
+      uu: '\\underline{u}', ou: '\\overline{u}',
+      d: '\\ d',
+      // 費用記号（多文字イタリック）：MathJax は文字間が空きすぎるので負のカーニングで詰める
+      MC:  '\\mathit{M\\mkern-2muC}',
+      AC:  '\\mathit{A\\mkern-3muC}',
+      AVC: '\\mathit{A\\mkern-3muV\\mkern-2muC}',
+      FC:  '\\mathit{F\\mkern-2muC}',
+      VC:  '\\mathit{V\\mkern-2muC}',
+      MP:  '\\mathit{M\\mkern-2muP}',
+      MU:  '\\mathit{M\\mkern-2muU}',
+      MRS: '\\mathit{M\\mkern-2muR\\mkern-2muS}',
+    },
+    tags: 'ams',
+  },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+    // <span class="fn">（脚注本体）は無視し，ポップアップ表示時に個別 typeset する。
+    ignoreHtmlClass: '(^|\\s)fn(\\s|$)',
+  },
+};
+</script>
+<!-- MathJax はローカル同梱（vendor/mathjax）．本文 micro-notes.html と同じく
+     オフライン・印刷でも確実にレンダリングするため CDN ではなく相対パスで読み込む． -->
+<script src="vendor/mathjax/tex-chtml.js" async></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Noto+Serif:wght@400;700&family=JetBrains+Mono:wght@400&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --border: #e2e2e0;
+  --text: #1a1a1a;
+  --text-dim: #6b7280;
+  --accent: #1d4ed8;
+  --accent-light: #eff6ff;
+  --accent-mid: #bfdbfe;
+  --header-bg: #1e293b;
+
+  /* box colors（本文 micro-notes.html と共通） */
+  --def-bg: #eff6ff;  --def-border: #3b82f6;
+  --thm-bg: #eef2ff;  --thm-border: #6366f1;
+  --prop-bg: #f5f3ff; --prop-border: #8b5cf6;
+  --lem-bg: #faf5ff;  --lem-border: #a78bfa;
+  --cor-bg: #fdf4ff;  --cor-border: #c084fc;
+  --rmk-bg: #f8fafc;  --rmk-border: #94a3b8;
+  --ex-bg: #f0fdf4;   --ex-border: #22c55e;
+  --exercise-bg: #fff7ed; --exercise-border: #f97316;
+}
+
+body {
+  font-family: 'Noto Serif JP', serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+:lang(el) {
+  font-family: 'Noto Serif', 'Noto Serif JP', serif;
+  font-feature-settings: "palt";
+}
+
+header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+header h1 { font-size: 15px; font-weight: 700; }
+header .tag {
+  font-size: 11px;
+  font-weight: 400;
+  padding: 2px 8px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 3px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.5px;
+}
+header .nav { margin-left: auto; display: flex; gap: 16px; }
+header .nav a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 13px;
+}
+header .nav a:hover { color: rgba(255,255,255,0.9); }
+
+#content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 6rem;
+}
+
+.doc-title {
+  text-align: center;
+  padding: 0 0 2rem;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.doc-title h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-title .doc-meta {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.note {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+  background: var(--accent-light);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 0 0 2.5em;
+  line-height: 1.7;
+}
+
+p { margin: 0.8em 0; }
+ul, ol { margin: 0.6em 0 0.8em 1.6em; }
+li { margin-bottom: 0.3em; }
+strong { font-weight: 700; }
+
+.appendix { counter-reset: appendix-section; }
+.ap-section {
+  counter-increment: appendix-section;
+  margin-bottom: 2.6rem;
+  scroll-margin-top: 1.5rem;
+}
+.ap-section > h2 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1.5px solid var(--border);
+  scroll-margin-top: 1.5rem;
+}
+.ap-section > h2::before {
+  content: "補." counter(appendix-section) "　";
+  color: var(--accent);
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* ━━━ MODERN TABLE ━━━ */
+.modern-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 16px 0;
+  font-size: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.04), 0 2px 8px rgba(15,23,42,0.05);
+}
+.modern-table th {
+  background: #f8fafc;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  text-align: left;
+  padding: 11px 18px;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.05em;
+}
+.modern-table td {
+  padding: 11px 18px;
+  border-bottom: 1px solid #f1f1ef;
+  vertical-align: top;
+}
+.modern-table tr:last-child td,
+.modern-table tr:last-child th { border-bottom: none; }
+.modern-table tr:hover td { background: var(--accent-light); }
+.modern-table .center { text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>表の読み方</h1>
+  <span class="tag">Web補助資料 B</span>
+  <div class="nav">
+    <a href="online_appendix.html">Web補助資料 一覧</a>
+  </div>
+</header>
+
+<div id="content">
+
+<div class="doc-title">
+  <h1>表の読み方</h1>
+  <div class="doc-meta">Web補助資料 B ／ 多鹿 智哉</div>
+</div>
+
+<p class="note">
+本書では多くの場面で表が登場する．表は情報を整理して伝える便利な道具だが，「行」と「列」が何を表しているかを取り違えると意味が逆になってしまうこともある．ここでは表の基本的な構造と，本書で繰り返し用いる代表的な表の読み方をまとめる．
+</p>
+
+<article class="appendix" id="appendix-tables">
+
+<section class="ap-section" id="ap-table-basic">
+<h2>行と列の基本</h2>
+
+<p>例として次のような表を考えよう．</p>
+
+<table class="modern-table">
+  <tr><th></th><th>月</th><th>火</th><th>水</th></tr>
+  <tr><th>気温（℃）</th><td class="center">10</td><td class="center">12</td><td class="center">8</td></tr>
+  <tr><th>降水確率（%）</th><td class="center">20</td><td class="center">60</td><td class="center">90</td></tr>
+</table>
+
+<p>表の横方向の並びを<strong>行（row）</strong>と呼ぶ．上の表には「気温（℃）」の行（$10, 12, 8$ が並ぶ）と「降水確率（%）」の行（$20, 60, 90$ が並ぶ）の2つの行がある．これに対して縦方向の並びを<strong>列（column）</strong>と呼び，上の表には「月」の列（$10$ と $20$ が並ぶ）・「火」の列（$12$ と $60$）・「水」の列（$8$ と $90$）の3つの列がある．</p>
+
+<p>左端の列に並ぶ名前（ここでは「気温」と「降水確率」）を<strong>行ラベル</strong>，最上段の行に並ぶ名前（ここでは「月」「火」「水」）を<strong>列ラベル</strong>と呼ぶ．そして表の中身に並ぶ一つひとつのマス（たとえば $12$ や $60$ が入っている四角）を<strong>セル</strong>と呼ぶ．各セルの意味は，そのセルが属する行ラベルと列ラベルの組合せで決まる．たとえば「火」の列・「気温」の行のセルにある $12$ は「火曜日の気温は $12$ ℃」を意味する．</p>
+
+<p>同じ情報は行と列を入れ替えても表せるが，どちらを選ぶかによって表の見え方や比較しやすさが変わる．</p>
+</section>
+
+
+<section class="ap-section" id="ap-tips">
+<h2>表を読むときのチェックリスト</h2>
+
+<p>本書には選好表，効用表，市場の参加者表など役割の異なる表がいくつか登場する．いずれの表を読むときも，以下の点を確認すれば迷わない．</p>
+
+<ul>
+  <li><strong>行と列のラベルを最初に確認する．</strong>左端と最上段に書かれているのは何か．</li>
+  <li><strong>セルの単位と意味を意識する．</strong>「効用」「金額」「確率」「『はい／いいえ』」など，セルが何を表しているかで読み方はまったく違う．</li>
+  <li><strong>行を縦に読むか，列を横に読むかで何がわかるか</strong>を意識する．たとえば効用表で行を縦に読むとその人の状態間の好みが見え，列を横に読むと同じ状態における人々の効用差が見える．</li>
+  <li><strong>対角線や空欄の意味</strong>を確認する．自分自身との比較は「—」と書くなど，表ごとの慣用がある．</li>
+  <li><strong>表の周辺の注釈</strong>を読む．本書の問題では表の直前か直後に「読み方：…」という説明がついていることが多い．</li>
+</ul>
+</section>
+
+</article>
+
+</div><!-- /#content -->
+
+</body>
+</html>

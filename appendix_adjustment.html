@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web補助資料 C：市場均衡の調整過程 — ミクロ経済学</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']],
+    macros: {
+      R: '\\mathbb{R}', P: '\\mathsf{Pr}',
+      condi: '\\mathrel{|}',
+      pd: ['\\frac{\\partial #1}{\\partial #2}', 2],
+      dd: ['\\frac{d #1}{d #2}', 2],
+      eqdef: '\\mathrel{:=}',
+      uu: '\\underline{u}', ou: '\\overline{u}',
+      d: '\\ d',
+      // 費用記号（多文字イタリック）：MathJax は文字間が空きすぎるので負のカーニングで詰める
+      MC:  '\\mathit{M\\mkern-2muC}',
+      AC:  '\\mathit{A\\mkern-3muC}',
+      AVC: '\\mathit{A\\mkern-3muV\\mkern-2muC}',
+      FC:  '\\mathit{F\\mkern-2muC}',
+      VC:  '\\mathit{V\\mkern-2muC}',
+      MP:  '\\mathit{M\\mkern-2muP}',
+      MU:  '\\mathit{M\\mkern-2muU}',
+      MRS: '\\mathit{M\\mkern-2muR\\mkern-2muS}',
+    },
+    tags: 'ams',
+  },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+    // <span class="fn">（脚注本体）は無視し，ポップアップ表示時に個別 typeset する。
+    ignoreHtmlClass: '(^|\\s)fn(\\s|$)',
+  },
+};
+</script>
+<!-- MathJax はローカル同梱（vendor/mathjax）．本文 micro-notes.html と同じく
+     オフライン・印刷でも確実にレンダリングするため CDN ではなく相対パスで読み込む． -->
+<script src="vendor/mathjax/tex-chtml.js" async></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Noto+Serif:wght@400;700&family=JetBrains+Mono:wght@400&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --border: #e2e2e0;
+  --text: #1a1a1a;
+  --text-dim: #6b7280;
+  --accent: #1d4ed8;
+  --accent-light: #eff6ff;
+  --accent-mid: #bfdbfe;
+  --header-bg: #1e293b;
+
+  /* box colors（本文 micro-notes.html と共通） */
+  --def-bg: #eff6ff;  --def-border: #3b82f6;
+  --thm-bg: #eef2ff;  --thm-border: #6366f1;
+  --prop-bg: #f5f3ff; --prop-border: #8b5cf6;
+  --lem-bg: #faf5ff;  --lem-border: #a78bfa;
+  --cor-bg: #fdf4ff;  --cor-border: #c084fc;
+  --rmk-bg: #f8fafc;  --rmk-border: #94a3b8;
+  --ex-bg: #f0fdf4;   --ex-border: #22c55e;
+  --exercise-bg: #fff7ed; --exercise-border: #f97316;
+
+  --warn-bg: #fff7ed;
+  --warn-border: #f97316;
+  --stub-bg: #fefce8;
+  --stub-border: #ca8a04;
+}
+
+body {
+  font-family: 'Noto Serif JP', serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+:lang(el) {
+  font-family: 'Noto Serif', 'Noto Serif JP', serif;
+  font-feature-settings: "palt";
+}
+
+header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+header h1 {
+  font-size: 15px;
+  font-weight: 700;
+}
+header .tag {
+  font-size: 11px;
+  font-weight: 400;
+  padding: 2px 8px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 3px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.5px;
+}
+header .nav {
+  margin-left: auto;
+  display: flex;
+  gap: 16px;
+}
+header .nav a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 13px;
+}
+header .nav a:hover { color: rgba(255,255,255,0.9); }
+
+#content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 6rem;
+}
+
+.doc-title {
+  text-align: center;
+  padding: 0 0 2rem;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.doc-title h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-title .doc-meta {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+h2 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 2.4rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1.5px solid var(--border);
+}
+h2 .num {
+  display: inline-block;
+  margin-right: 0.5em;
+  color: var(--accent);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 15.5px;
+  font-weight: 700;
+  margin: 1.6rem 0 0.6rem;
+  padding-left: 0.6rem;
+  border-left: 3px solid var(--accent);
+}
+
+p { margin: 0.8em 0; }
+
+ul, ol { margin: 0.6em 0 0.8em 1.6em; }
+li { margin-bottom: 0.3em; }
+
+.def, .rmk, .warn, .stub {
+  background: var(--def-bg);
+  border-left: 4px solid var(--def-border);
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin: 1.2em 0;
+}
+.rmk { background: var(--rmk-bg); border-left-color: var(--rmk-border); }
+.warn { background: var(--warn-bg); border-left-color: var(--warn-border); }
+.stub {
+  background: var(--stub-bg);
+  border-left-color: var(--stub-border);
+  border-style: dashed;
+  border-width: 0 0 0 4px;
+}
+.box-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.4px;
+}
+.def .box-label { color: var(--def-border); }
+.rmk .box-label { color: var(--rmk-border); }
+.warn .box-label { color: var(--warn-border); }
+.stub .box-label { color: var(--stub-border); }
+
+figure { margin: 1.5em 0; text-align: center; }
+figure svg { max-width: 100%; height: auto; }
+figcaption {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  margin-top: 0.5em;
+}
+
+.note {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+  background: var(--accent-light);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 1.2em 0;
+}
+
+.toc-mini {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 14px 18px;
+  margin: 1.5em 0 2em;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13.5px;
+}
+.toc-mini .toc-title {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.toc-mini ul { margin: 0; padding-left: 1.4em; }
+.toc-mini ul ul { padding-left: 1.2em; margin-top: 4px; }
+.toc-mini li { margin-bottom: 4px; }
+.toc-mini a { color: var(--accent); text-decoration: none; }
+.toc-mini a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>市場均衡の調整過程</h1>
+  <span class="tag">Web補助資料 C</span>
+  <div class="nav">
+    <a href="online_appendix.html">Web補助資料 一覧</a>
+  </div>
+</header>
+
+<div id="content">
+
+<div class="doc-title">
+  <h1>市場均衡の調整過程</h1>
+  <div class="doc-meta">Web補助資料 C ／ 多鹿 智哉</div>
+</div>
+
+<p class="note">
+本付録は本文第3章の延長で，<strong>市場均衡がどのようにして達成されるか</strong>という動学的な問題を扱う．本書本文では市場均衡を「需要と供給が一致する点」として静学的に導入し，その『壊れにくさ』はマッチング理論的な意味（裏取引で破壊できないこと，3.1節）で議論したが，伝統的な経済学ではワルラス調整過程やマーシャル調整過程と呼ばれる別系統の安定性概念も重要な役割を演じてきた．本書は本文ではこの種の動学を扱わない．しかし公務員試験を含む伝統的な試験範囲では出題が続いており，本付録ではその基本と限界を解説する．
+</p>
+
+<div class="toc-mini">
+  <div class="toc-title">この補論の構成</div>
+  <ul>
+    <li><a href="#sec-walras">C.1 ワルラス過程と価格調整による安定性</a></li>
+    <li><a href="#sec-marshall">C.2 マーシャル過程と数量調整による安定性</a></li>
+    <li><a href="#sec-cobweb">C.3 蜘蛛の巣過程</a></li>
+    <li><a href="#sec-critique">C.4 ワルラス・マーシャル安定性の批判的検討</a>
+      <ul>
+        <li><a href="#sub-critique-walras">C.4.1 ワルラス過程の正当化</a></li>
+        <li><a href="#sub-critique-marshall1">C.4.2 マーシャル過程の解釈①：自発的取引</a></li>
+        <li><a href="#sub-critique-marshall2">C.4.3 マーシャル過程の解釈②：生産者主導の数量調整</a></li>
+        <li><a href="#sub-critique-marshall3">C.4.4 マーシャル過程の解釈③：マーシャルの調整者</a></li>
+        <li><a href="#sub-critique-conclusion">C.4.5 まとめ</a></li>
+      </ul>
+    </li>
+    <li><a href="#sec-modern">C.5 現代的視点：学習動学・進化動学への系譜</a></li>
+  </ul>
+</div>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<h2 id="sec-walras"><span class="num">C.1</span>ワルラス過程と価格調整による安定性</h2>
+
+<p>市場均衡が「需要量と供給量が一致する状態」だとして，もし現実の価格が均衡からずれていたら何が起きるのか．ワルラス（Léon Walras）の答えは「<strong>価格そのものが調整される</strong>」というものだった．以下にその基本を整理する．</p>
+
+<div class="def">
+  <div class="box-label">ワルラス過程</div>
+  <p>もし $D(p) \gt S(p)$（超過需要）ならば価格を上げよ．もし $D(p) \lt S(p)$（超過供給）ならば価格を下げよ．数学に詳しい読者のために連続時間の動学として微分方程式を用いて書けば次の通りに書ける．</p>
+  \[
+    \dot p = \alpha \bigl(D(p) - S(p)\bigr), \quad \alpha \gt 0.
+  \]
+  ここで$\dot p$とは変化量を指すものだと思えばいい．つまり$\dot p>0$なら価格が上昇させるという意味であるし，$\dot p\lt0$なら価格を減少させるという意味である．そして$\dot p=0$なら価格はそこから動かない．
+</div>
+
+<p>均衡価格 $p^*$ では $D(p^*) = S(p^*)$ なので $\dot p = 0$ で動かない．均衡価格より少しずれたとき元に戻ってくるかどうかを調べてみる．</p>
+
+<p>このとき，均衡から外れた価格を$p$とすると，$p=p^*+(p-p^*)$と書けることに注意しよう．そうすれば
+\begin{align}
+D(p)&\approx D(p^*)+D'(p^*)(p-p^*)\\
+S(p)&\approx S(p^*)+S'(p^*)(p-p^*)
+\end{align}
+と書くことができる．そうすれれば変化量の $\dot p$ は
+\[\dot p= \alpha \bigl(D(p) - S(p)\bigr)\approx \alpha \bigl(D'(p^*) - S'(p^*)\bigr)(p - p^*)\]
+と書くことができる．
+</p>
+  
+<p>この調整過程がうまくいくときとは，均衡価格から外れたとしても調整過程によって元に戻ってくれることである．つまり均衡価格より高くなってしまったとき（$p>p^*$）には$\dot p\lt 0$であれば価格は低下し元に戻る，均衡価格より低くなってしまったとき（$p\lt p^*$）には$\dot p\gt 0$であれば価格は上昇し元に戻る．これが成り立つためには係数 $\alpha (D'(p^*) - S'(p^*))$ が負である必要がある．そしてそのときに $p$ は $p^*$ に戻ってくる．これが <strong>ワルラス安定</strong> の条件である．</p>
+
+<div class="def">
+  <div class="box-label">ワルラス安定の条件</div>
+  <p>均衡価格 $p^*$ において
+  \[
+    D'(p^*) \lt S'(p^*).
+  \]
+  この条件を満たすとき，均衡 $p^*$ はワルラス過程に対して<strong>局所安定</strong>であるという．</p>
+</div>
+
+<p>標準的な右下がり需要 $D'\lt 0$ と右上がり供給 $S' \gt 0$ なら $D' \lt 0 \lt S'$ なので自動的に成立する．逆に右上がり需要や右下がり供給を含むケースでは違反することがあり，これが「不安定均衡」の例として教科書でしばしば描かれる．</p>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<h2 id="sec-marshall"><span class="num">C.2</span>マーシャル過程と数量調整による安定性</h2>
+
+<p>マーシャル（Alfred Marshall）はワルラスとは違うストーリーを描いた．調整されるのは <strong>取引量</strong> であって，価格ではない．</p>
+
+<div class="def">
+  <div class="box-label">マーシャル過程</div>
+  <p>逆需要関数を $P_D$，逆供給関数を $P_S$ とする．もし $P_D(q) \gt P_S(q)$ ならば取引量を増やせ．もし $P_D(q) \lt P_S(q)$ ならば取引量を減らせ．数学に詳しい読者に向けて連続時間で書けば</p>
+  \[
+    \dot q = \beta \bigl(P_D(q) - P_S(q)\bigr), \quad \beta \gt 0.
+  \]
+</div>
+
+<p>ワルラス過程との違いはワルラス過程の価格の部分を取引量として読み替えるだけである．均衡取引量 $q^*$ では $P_D(q^*) = P_S(q^*)$ で動かない．均衡取引量$q^*$より少しずれたとき元に戻ってくるかどうかを調べてみる．
+
+<p>このとき，均衡から外れた取引量を$q$とすると，$q=q^*+(q-q^*)$と書けることに注意しよう．そうすれば
+\begin{align}
+P_D(q)&\approx P_D(q^*)+P_D'(q^*)(q-q^*)\\
+P_S(q)&\approx P_S(q^*)+P_S'(q^*)(q-q^*)
+\end{align}
+と書くことができる．そうすれれば変化量の $\dot q$ は
+\[\dot q= \alpha \bigl(P_D(q) - P_S(q)\bigr)\approx \alpha \bigl(P_D'(q^*) - P_S'(q^*)\bigr)(q - q^*)\]
+と書くことができる．
+</p>
+  
+<p>この調整過程がうまくいくときとは，均衡取引量から外れたとしても調整過程によって元に戻ってくれることである．つまり均衡取引量より多くなってしまったとき（$q>q^*$）には$\dot q\lt 0$であれば取引量は減少し元に戻る，均衡取引量より多くなってしまったとき（$p\lt p^*$）には$\dot q\gt 0$であれば価格は上昇し元に戻る．これが成り立つためには係数 $\alpha (P_D'(p^*) - P_S'(p^*))$ が負である必要がある．そしてそのときに $q$ は $q^*$ に戻ってくる．これが <strong>マーシャル安定</strong> の条件である．</p>
+
+
+
+<div class="def">
+  <div class="box-label">マーシャル安定の条件</div>
+  <p>均衡取引量 $q^*$ において
+  \[
+    P_D'(q^*) \lt P_S'(q^*).
+  \]
+  この条件を満たすとき，均衡 $q^*$ はマーシャル過程に対して<strong>局所安定</strong>であるという．</p>
+</div>
+
+<p>標準的な右下がり需要・右上がり供給では $P_D' \lt 0 \lt P_S'$ なのでこちらも自動的に成立する．病的なケース（右下がり供給など）では，ワルラス安定とマーシャル安定が一致しないことが起こりうる．</p>
+
+<div class="rmk">
+  <div class="box-label">ワルラス安定とマーシャル安定の関係</div>
+  <p>標準的な右下がり需要・右上がり供給では両者は同値（どちらも自動的に成立）．両者が分岐するのは右下がり供給を含む場合などで，このような病的なケースを<strong>意図的に問題用紙の上に描いた</strong>うえで「どちらの定義で安定か」を比較するのが伝統的な試験問題の典型パターンである．この問題型自体の妥当性については C.4 で批判的に検討する．</p>
+</div>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<h2 id="sec-cobweb"><span class="num">C.3</span>蜘蛛の巣過程</h2>
+
+<p>ワルラス・マーシャルの調整過程は連続時間の微分方程式として書かれており，調整速度を決めるパラメータ $\alpha, \beta$ にも明確な経済的解釈がない．これに対してより明快に，かつ現代的な期待形成論にも接続する動学モデルとして <strong>蜘蛛の巣過程</strong> がある．以下では離散時間の枠組みで定式化する．</p>
+
+<p>例えば次のストーリーを考えよう．生産者は前日の価格を見て，それが最適になる供給量を決める．一方で，消費者はあくまで今日の価格で需要量を決める．したがって$ t$日目の価格を$ p_t$とすれば，$ D(p_t)=S(p_{t-1})$となるように今日の価格$ p_t$が決まる．逆需要関数$p_D(q)$とは需要量が$q$になるような価格を指すものであった．したがって，需要量がちょうど$S(p_{t-1})$になる価格は$P_D(S(p_{t-1}))$であるので$ p_{t}=P_D(S(p_{t-1}))$と書けることになる．このような価格調整の過程を<strong>蜘蛛の巣過程</strong>と呼ぶ．</p>
+
+<p>もし今の価格が均衡価格ならば$D(p^*)=S(p^*)$であることから$p_t=p_{t-1}=p^*$であるので調整がストップする．問題は実際に均衡価格にたどり着けるかどうかである．</p>
+
+<p>もし，均衡価格にたどり着けるのであれば，均衡価格の周辺で「今日と明日の価格の差が縮まる」という現象が起きる．もしそうでなければ今日と明日の価格差が広がっていく．そうすると価格はどこへも辿り着かない．</p>
+
+<p>「今日と明日の価格の差が縮まる」を数式で書けば$|p_{t+1}-p_t|\lt |p_{t}-p_{t-1}|$である．$p_{t}=P_D(S(p_{t-1}))$および$p_{t+1}=P_D(S(p_{t}))$であることに注意すれば，不等式は
+
+\[|P_D(S(p_{t}))-P_D(S(p_{t-1}))|\lt |p_{t}-p_{t-1}|\]
+と書き換えられることになる．もう少し整理すると
+
+\[\left|\frac{P_D(S(p_{t}))-P_D(S(p_{t-1}))}{p_{t}-p_{t-1}}\right|\lt 1\]
+となる．
+
+さて，微分を使えば$S(p_{t})\approx S(p_{t-1})+S'(p_{t-1})(p_t-p_{t-1})$と書くことができる．さらに
+
+\[P_D(S(p_t))\approx P_D(S(p_{t-1}))+P'_D(S(p_{t-1}))(S(p_{t})-S(p_{t-1}))\]
+と書くこともできることに注意しよう．そうすれば
+\[P_D(S(p_{t}))-P_D(S(p_{t-1}))\approx P'_D(S(p_{t-1}))(S(p_{t})-S(p_{t-1})) \approx P'_D(S(p_{t-1}))S'(p_{t-1})(p_t-p_{t-1})\]
+となるので，これを代入すれば
+
+\[\left|\frac{P_D(S(p_{t}))-P_D(S(p_{t-1}))}{p_{t}-p_{t-1}}\right|\approx P'_D(S(p_{t-1}))S'(p_{t-1})\]
+である．これを変形すると次の式になる．
+\[P'_D(S(p_{t-1}))S'(p_{t-1})|\lt 1\]
+
+市場均衡価格の周辺では$p_t\approx p_{t-1}\approx p^*$であるので，蜘蛛の巣過程が安定であるための条件は
+\[|P'_D(S(p^*))S'(p^*)|\lt 1\]
+である<span class="fn">逆需要関数と需要関数の微分の値には次の関係がある：$P'_D(S(p^*))=\frac{1}{D'(p^*)}$．したがって，蜘蛛の巣過程が安定である条件は$|S'(p^*)|\lt |D'(p^*)|$と書くこともできる．</span>．
+
+</p>
+
+
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<h2 id="sec-critique"><span class="num">C.4</span>ワルラス・マーシャル安定性の批判的検討</h2>
+
+<p>C.1〜C.2 で見たように，ワルラス安定もマーシャル安定も定義は明確で検証しやすい．問題は <strong>なぜその定義なのか</strong>，言い換えれば <strong>背後にある調整過程が経済的にどう正当化されるか</strong> である．本節では，特に病的なケース（右上がり需要・右下がり供給）に同じ定義を機械的に適用することの根拠を順に検討し，それが思ったほど自明ではないことを示す．</p>
+
+
+<h3 id="sub-critique-walras">C.4.1 ワルラス過程の正当化：ワルラスの競り人</h3>
+
+<p>ワルラス過程を考えること自体の正当化としては，<strong>ワルラスの競り人</strong>という考え方がある．競り人がまず価格を宣言し，そのもとで消費者と生産者がそれぞれ需要量・供給量を宣言する．集計された需給の差を見て，競り人がワルラス過程に従って価格を調整していく．現実の市場にこんな競り人がいるわけではないが，ある種の理想化された価格形成のモデルとして，ワルラス過程はワルラスの競り人によって正当化される．</p>
+
+<!-- <p>右下がり需要・右上がり供給の標準ケースでは，この比喩は比較的自然に機能する．難点が出てくるのは病的なケースで，これは C.4.4 で扱う．</p> -->
+
+
+<h3 id="sub-critique-marshall1">C.4.2 マーシャル過程の解釈①：消費者と生産者の自発的取引</h3>
+
+<p>マーシャル過程を実現する仕組みのもっとも素朴な解釈は，逆需要関数を消費者の（追加的な1単位の消費に対する）<strong>支払意思額</strong>，逆供給関数を生産者の<strong>限界費用</strong>と考えるものである．このとき $P_D(q) \gt P_S(q)$ であれば「支払意思額の方が限界費用より高い」のだから，新たな取引が成立して取引量が増える．逆に $P_D(q) \lt P_S(q)$ であれば取引量が減る．これがそのままマーシャル過程である．</p>
+
+<p>この解釈で行くと，<strong>標準的な右下がり需要・右上がり供給の場合は何の問題もない</strong>．右下がりの支払意思額がそのまま需要曲線に，右上がりの限界費用がそのまま供給曲線になる．</p>
+
+<p>問題は<strong>右上がりの需要曲線や，右下がりの供給曲線</strong>を考えるときである．これらの場合，支払意思額が右上がりであるとか，限界費用が右下がりであると素直に解釈することはできない．たとえば限界費用が右下がりだとすると，価格 $p$ で生産者がいくら作りたいかは次のようになる：</p>
+
+<ul>
+  <li>限界費用 $MC(q)$ が $q$ について減少するなら，どこかの $q$ までは $MC(q) \gt p$，それ以上では $MC(q) \lt p$．</li>
+  <li>$MC(q) \lt p$ の領域では1単位作るたびに利益が上がるので，<strong>無限に作りたい</strong>．</li>
+  <li>$MC(q) \gt p$ の領域では赤字なので作らない．</li>
+  <li>結果，「価格が一定値以下なら生産量0，それを超えると無限大」という不連続な供給関数になる．</li>
+</ul>
+
+<p>これでは右下がりの連続な供給曲線を限界費用の集計として再現できない．需要側についても同様で，右上がりの需要曲線は支払意思額の集計として素直に解釈できない．つまり<strong>右上がり需要・右下がり供給の場合，需要曲線を支払意思額に，供給曲線を限界費用に対応させることができないので，自発的取引としてのマーシャル過程の解釈はそのままでは使えない</strong>．</p>
+
+
+<h3 id="sub-critique-marshall2">C.4.3 マーシャル過程の解釈②：生産者主導の数量調整</h3>
+
+<p>もう一つの解釈として，次のような生産者主導のプロセスを考えてみよう．まず生産者が供給量 $Q$ を提示する．消費者がそれに応答して，その量を買う価格 $P_D(Q)$ を提示する．そして，その価格で生産者がもっと作りたくなれば生産量を増やし，そうでなければ減らす．均衡取引量 $q^*$ に近づくためには，最初に提示した $Q$ が $q^*$ より大きいときには次に提示する量が下がり，逆に $Q \lt q^*$ なら次の量が上がる必要がある．</p>
+
+<p>しかしこの考え方を取ると，<strong>マーシャル安定の定義（傾きの大小比較）と，「実際に均衡に収束するか」の判定が一致しないケースが生じる</strong>．以下の例を見てみよう．</p>
+
+<figure>
+  <img src="img/stability_a.svg">
+  <figcaption>図 C.1：両曲線とも右下がりで，需要 $P_D$ の方が供給 $P_S$ より傾きが急（ $P_D' \lt P_S'$，マーシャル安定の定義を満たす）．しかし生産者主導の調整では，初期 $Q \lt q^*$ から $Q' \lt Q$ となり均衡から遠ざかる．</figcaption>
+</figure>
+
+<p>この図では，需要曲線（逆需要関数）の傾きの方が供給曲線（逆供給関数）の傾きより急（負の方向に大きい）であるため，定義上は $P_D'(q^*) \lt P_S'(q^*)$ で<strong>マーシャル安定</strong>である．しかし生産者主導の調整プロセスで考えれば，生産者が $Q \lt q^*$ を提示したとき，消費者が応答する価格 $P_D(Q)$ は均衡価格 $p^*$ より高くなる．この生産者は<strong>右下がり供給</strong>，つまり「価格が低い方がたくさん作りたい」という人なので，より高い価格 $P_D(Q)$ では<strong>より少ない量 $Q' \lt Q$</strong> しか作りたくない．つまり提示量はさらに減り，均衡から離れていく．</p>
+
+<p>この種の図は「マーシャル安定だがワルラス安定ではない」例として教科書でしばしば描かれ，傾きで定義する限りはたしかに正しい．しかし実際の調整プロセスとして「生産者主導の数量調整」を採用すると，<strong>マーシャル安定の定義と論理が通らない</strong>のである．</p>
+
+
+<h3 id="sub-critique-marshall3">C.4.4 マーシャル過程の解釈③：マーシャルの調整者</h3>
+
+<p>最後の試みとして，ワルラスの競り人を真似て，<strong>マーシャルの調整者</strong>というものを考えてみよう．この調整者はまず取引量 $Q$ を宣言する．次に，消費者と生産者にそれぞれ「その量を買いたくなる価格」「その量を売りたくなる価格」を尋ねる．買いたくなる価格 $P_D(Q)$ の方が売りたくなる価格 $P_S(Q)$ より高ければ取引量を増やし，そうでなければ減らす．これはマーシャル安定の定義と整合的になる．</p>
+
+<p>しかしこの調整者の問いには，もう一段の問題がある．消費者や生産者が複数いる場合，誰に聞いた答えかが自明ではないのである．実際，複数の消費者や生産者がいる場合には<strong>「市場の逆需要 $P_D(Q)$」は「個々の消費者に取引量 $Q$ を割り振ったときの支払意思額」とは別の概念</strong>である．市場の $P_D(Q)$ は「価格 $p$ のもとで需要量が $Q$ になる」という関係を解いて得られるもので，個別の消費者の支払意思額をプロットしたものとはわけが違うのである．</p>
+
+<!-- <p>標準的な右下がり需要なら個別需要を素直に水平和すれば市場需要が出るので，両者は一致する．しかし右上がり需要のような病的なケースでは，<strong>そもそも逆需要 $P_D(Q)$ が関数として定義できない</strong>ことすら起こりうる（同じ $Q$ に対して2つ以上の $p$ が対応する）．したがって「調整者が消費者に問う」というメタファーは，標準的でないケースでは答えるべき相手と問われている対象が一致しなくなる．</p> -->
+
+
+<h3 id="sub-critique-conclusion">C.4.5 まとめ</h3>
+
+<p>ワルラス安定もマーシャル安定も，<strong>標準的な右下がり需要・右上がり供給の世界では，それぞれの調整過程が直観的にも論理的にも自然に正当化できる</strong>．問題は，それを超えて右上がり需要や右下がり供給を含む病的なケースに同じ定義を適用したときに生じる．本節で見たように：</p>
+
+<ol>
+  <li>支払意思額・限界費用としての解釈は，曲線の符号が標準と違うときに破綻する．</li>
+  <li>生産者主導の数量調整プロセスは，マーシャル安定の定義と一致しない結論を出すことがある．</li>
+  <li>マーシャルの調整者というメタファーも，複数の消費者・生産者がいる場合には機能しない．</li>
+</ol>
+
+<p>つまり，<strong>右下がり供給を含む図でワルラス・マーシャル安定を比較する定型問題は，定義の代数的な比較としては正しいが，背後にある調整過程の経済的な内実が伴っているかは別問題である</strong>．伝統的な試験ではこの定義を機械的に適用すれば足りるが，その答えが現実の市場の動学を捉えているかは，本節のような検討を経て初めて評価できる．</p>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<h2 id="sec-modern"><span class="num">C.5</span>現代的視点：学習動学・進化動学への系譜</h2>
+
+<p>ワルラス過程・マーシャル過程は19世紀末から20世紀前半にかけて経済学の中心的な動学概念だったが，現代の主流は別の系譜に移っている．本節では簡単に俯瞰する．</p>
+
+<ul>
+  <li><strong>合理的期待・鞍点安定性</strong>：1970年代以降，マクロ経済学では Lucas らによる合理的期待革命を経て，動学の中心は微分方程式系の鞍点安定性（Blanchard-Kahn 条件）に移った．これは「価格が需給差に応答して動く」のではなく「経済主体が将来の価格を合理的に予測し，現在の意思決定もそれに整合する」という別系統の動学である．</li>
+  <li><strong>学習動学（learning dynamics）</strong>：合理的期待の前段階として，経済主体が均衡を学習していく過程を扱う．適応的学習（adaptive learning），最小2乗学習（least-squares learning）など．蜘蛛の巣の適応的期待版もこの系譜に位置づけられる．</li>
+  <li><strong>進化ゲーム理論</strong>：均衡選択の動学として進化的安定戦略（ESS）やレプリケータ動学が研究されている．これは伝統的なワルラス・マーシャル動学の自然な後継者の一つである．</li>
+  <li><strong>不均衡マクロ経済学</strong>：1970〜80年代の Barro-Grossman, Malinvaud らの研究はワルラス・マーシャルの調整過程を真正面から拡張したもので，本付録で扱った調整動学の最も精密な後継と言える．ただし現在の学部教育ではほぼ歴史的扱い．</li>
+</ul>
+
+<p>これらの研究系譜を見ると，ワルラス・マーシャルの調整動学は<strong>「動学を経済学に持ち込む」という発想自体の先駆け</strong>として歴史的に重要な役割を果たした．しかし「実際の市場の動学を捉える道具」としては現代の研究では中心的でなくなっている．伝統的な試験で問われる定義の機械的適用と，動学的な経済理論の最前線とを区別して理解することが大切である．</p> -->
+
+<div class="warn">
+  <div class="box-label">本書本文との関係</div>
+  <p>本付録の内容は，副読本本文では正面から扱わない．市場均衡の「壊れにくさ」については本書3.1〜3.3節で，個人の裏取引で破壊できないというマッチング理論的な意味で論じている．これは現代のメカニズムデザイン・マッチング理論への自然な接続を持つ別系統の安定性概念である．伝統的なワルラス・マーシャル安定と，マッチング的安定の二つを区別して理解しておくと良い．</p>
+</div>
+
+</div>
+
+</body>
+</html>

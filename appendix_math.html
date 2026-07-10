@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web補助資料 A：本書で使う数学 — ミクロ経済学</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']],
+    macros: {
+      R: '\\mathbb{R}', P: '\\mathsf{Pr}',
+      condi: '\\mathrel{|}',
+      pd: ['\\frac{\\partial #1}{\\partial #2}', 2],
+      dd: ['\\frac{d #1}{d #2}', 2],
+      eqdef: '\\mathrel{:=}',
+      uu: '\\underline{u}', ou: '\\overline{u}',
+      d: '\\ d',
+      // 費用記号（多文字イタリック）：MathJax は文字間が空きすぎるので負のカーニングで詰める
+      MC:  '\\mathit{M\\mkern-2muC}',
+      AC:  '\\mathit{A\\mkern-3muC}',
+      AVC: '\\mathit{A\\mkern-3muV\\mkern-2muC}',
+      FC:  '\\mathit{F\\mkern-2muC}',
+      VC:  '\\mathit{V\\mkern-2muC}',
+      MP:  '\\mathit{M\\mkern-2muP}',
+      MU:  '\\mathit{M\\mkern-2muU}',
+      MRS: '\\mathit{M\\mkern-2muR\\mkern-2muS}',
+    },
+    tags: 'ams',
+  },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+    // <span class="fn">（脚注本体）は無視し，ポップアップ表示時に個別 typeset する。
+    ignoreHtmlClass: '(^|\\s)fn(\\s|$)',
+  },
+};
+</script>
+<!-- MathJax はローカル同梱（vendor/mathjax）．本文 micro-notes.html と同じく
+     オフライン・印刷でも確実にレンダリングするため CDN ではなく相対パスで読み込む． -->
+<script src="vendor/mathjax/tex-chtml.js" async></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Noto+Serif:wght@400;700&family=JetBrains+Mono:wght@400&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --border: #e2e2e0;
+  --text: #1a1a1a;
+  --text-dim: #6b7280;
+  --accent: #1d4ed8;
+  --accent-light: #eff6ff;
+  --accent-mid: #bfdbfe;
+  --header-bg: #1e293b;
+
+  /* box colors（本文 micro-notes.html と共通） */
+  --def-bg: #eff6ff;  --def-border: #3b82f6;
+  --thm-bg: #eef2ff;  --thm-border: #6366f1;
+  --prop-bg: #f5f3ff; --prop-border: #8b5cf6;
+  --lem-bg: #faf5ff;  --lem-border: #a78bfa;
+  --cor-bg: #fdf4ff;  --cor-border: #c084fc;
+  --rmk-bg: #f8fafc;  --rmk-border: #94a3b8;
+  --ex-bg: #f0fdf4;   --ex-border: #22c55e;
+  --exercise-bg: #fff7ed; --exercise-border: #f97316;
+}
+
+body {
+  font-family: 'Noto Serif JP', serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+:lang(el) {
+  font-family: 'Noto Serif', 'Noto Serif JP', serif;
+  font-feature-settings: "palt";
+}
+
+header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+header h1 { font-size: 15px; font-weight: 700; }
+header .tag {
+  font-size: 11px;
+  font-weight: 400;
+  padding: 2px 8px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 3px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.5px;
+}
+header .nav { margin-left: auto; display: flex; gap: 16px; }
+header .nav a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 13px;
+}
+header .nav a:hover { color: rgba(255,255,255,0.9); }
+
+#content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 6rem;
+}
+
+.doc-title {
+  text-align: center;
+  padding: 0 0 2rem;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.doc-title h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-title .doc-meta {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.note {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+  background: var(--accent-light);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 0 0 2.5em;
+  line-height: 1.7;
+}
+
+p { margin: 0.8em 0; }
+ul, ol { margin: 0.6em 0 0.8em 1.6em; }
+li { margin-bottom: 0.3em; }
+strong { font-weight: 700; }
+
+/* ━━━ APPENDIX SECTIONS ━━━ */
+.appendix { counter-reset: appendix-section; }
+.ap-section {
+  counter-increment: appendix-section;
+  counter-reset: definition theorem proposition lemma corollary example exercise;
+  margin-bottom: 2.6rem;
+  scroll-margin-top: 1.5rem;
+}
+.ap-section > h2 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1.5px solid var(--border);
+  scroll-margin-top: 1.5rem;
+}
+.ap-section > h2::before {
+  content: "補." counter(appendix-section) "　";
+  color: var(--accent);
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+h3 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 15.5px;
+  font-weight: 700;
+  margin: 1.6rem 0 0.6rem;
+  padding-left: 0.6rem;
+  border-left: 3px solid var(--accent);
+}
+
+/* ━━━ BOXES (定義・命題・例・練習問題 等) ━━━ */
+.def, .thm, .prop, .lem, .cor, .rmk, .ex, .exercise {
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin: 1.2em 0;
+  position: relative;
+}
+.box-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.box-label .box-title { font-weight: 500; color: var(--text); }
+.box-label .box-title::before { content: "（"; }
+.box-label .box-title::after  { content: "）"; }
+.box-body { font-size: 15px; line-height: 1.85; }
+.box-body p { margin: 0.5em 0; }
+.box-body p:first-child { margin-top: 0; }
+.box-body p:last-child  { margin-bottom: 0; }
+.box-body ul, .box-body ol { padding-left: 1.5em; margin: 0.4em 0; }
+.box-body li { margin: 0.3em 0; }
+
+.prop {
+  background: var(--prop-bg);
+  border-left: 4px solid var(--prop-border);
+  counter-increment: proposition;
+}
+.prop .box-label { color: var(--prop-border); }
+.prop .box-label::before {
+  content: "命題 補." counter(appendix-section) "." counter(proposition);
+}
+.ex {
+  background: var(--ex-bg);
+  border-left: 4px solid var(--ex-border);
+  counter-increment: example;
+}
+.ex .box-label { color: #16a34a; }
+.ex .box-label::before {
+  content: "例 補." counter(appendix-section) "." counter(example);
+}
+.exercise {
+  background: var(--exercise-bg);
+  border-left: 4px solid var(--exercise-border);
+  counter-increment: exercise;
+}
+.exercise .box-label { color: #ea580c; }
+.exercise .box-label::before {
+  content: "練習問題 補." counter(appendix-section) "." counter(exercise);
+}
+
+/* ━━━ REVEAL (答えの開閉) ━━━ */
+.reveal-answer {
+  max-height: 0;
+  overflow: hidden;
+  background: #f0fdf4;
+  border-radius: 0 0 4px 4px;
+  font-size: 14.5px;
+  line-height: 1.85;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.reveal-answer.open {
+  max-height: 2000px;
+  padding: 10px 14px;
+  border-top: 1px solid #86efac;
+}
+.reveal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  padding: 5px 12px;
+  border: 1px solid var(--exercise-border);
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--exercise-border);
+  transition: background 0.15s;
+}
+.reveal-btn:hover { background: var(--exercise-bg); }
+.reveal-btn.open { color: #065f46; border-color: #22c55e; }
+.reveal-btn::before { content: '▶'; font-size: 9px; }
+.reveal-btn.open::before { content: '▼'; }
+
+/* ━━━ QR / VISUALIZER LINK BUTTON ━━━ */
+.qr-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 6px;
+  padding: 11px 22px 11px 20px;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(29,78,216,0.18), 0 4px 12px rgba(29,78,216,0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.qr-link::after {
+  content: '↗';
+  font-size: 13px;
+  opacity: 0.85;
+  transition: transform 0.15s ease;
+}
+.qr-link:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(29,78,216,0.22), 0 8px 18px rgba(29,78,216,0.18);
+  color: #fff;
+}
+.qr-link:hover::after { transform: translate(2px, -2px); }
+.qr-link:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(29,78,216,0.18);
+}
+
+/* ━━━ FOOTNOTE ━━━ */
+.fn-ref {
+  display: inline-block;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 0;
+  margin: 0 1px;
+  user-select: none;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.fn-ref::before { content: '['; }
+.fn-ref::after  { content: ']'; }
+.fn-ref:hover   { color: #1e3a8a; text-decoration: underline; }
+.fn-ref.active  { color: #1e3a8a; text-decoration: underline; }
+.fn-content     { display: none; }
+
+#fn-popup {
+  position: fixed;
+  z-index: 500;
+  background: var(--header-bg);
+  color: #f1f5f9;
+  padding: 12px 15px 12px 16px;
+  border-radius: 8px;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 13px;
+  line-height: 1.75;
+  max-width: 360px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.15s, transform 0.15s;
+}
+#fn-popup.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#fn-popup .popup-num {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #fbbf24;
+  margin-bottom: 6px;
+  padding-right: 20px;
+  letter-spacing: 0.5px;
+}
+#fn-popup .popup-close {
+  position: absolute;
+  top: 8px; right: 10px;
+  background: none; border: none;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  font-size: 13px;
+}
+#fn-popup .popup-close:hover { color: rgba(255,255,255,0.8); }
+#fn-popup #fnBody p { margin: 0.4em 0; }
+#fn-popup #fnBody p:first-child { margin-top: 0; }
+#fn-popup #fnBody p:last-child  { margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>本書で使う数学</h1>
+  <span class="tag">Web補助資料 A</span>
+  <div class="nav">
+    <a href="online_appendix.html">Web補助資料 一覧</a>
+  </div>
+</header>
+
+<div id="content">
+
+<div class="doc-title">
+  <h1>本書で使う数学</h1>
+  <div class="doc-meta">Web補助資料 A ／ 多鹿 智哉</div>
+</div>
+
+<p class="note">
+本書では数学の使用を最小限に抑えているが，それでも等式変形・関数・微分・最大化問題などは随所で登場する．ここでは本書を読み進める上で必要となる範囲の数学を簡単にまとめる．高校までの数学に自信がある読者は飛ばして構わない．
+</p>
+
+<article class="appendix" id="appendix-math">
+
+<section class="ap-section" id="ap-math-equation">
+<h2>等式変形</h2>
+
+<p>等式（$=$ で結ばれた式）に対してできる操作は次の3つに集約される．第一に，両辺に同じ数を足しても等式は成立したままである．たとえば $x = a$ ならば $x + b = a + b$ である．第二に，両辺に同じ数をかけても等式はそのままで，$x = a$ ならば $b x = b a$ となる．第三に，割る数が $0$ でなければ両辺を同じ数で割ってもよい．つまり $a x = a b$ かつ $a \neq 0$ ならば $x = b$ である．</p>
+</section>
+
+
+<section class="ap-section" id="ap-math-solve">
+<h2>等式を解く</h2>
+
+<p>変数を $x$ としたとき，$x = (x \text{を含まない式})$ という形にすることを <strong>「等式を $x$ について解く」</strong> と呼ぶ．次の例で具体的に見てみよう．</p>
+
+<p>例：$bx + 1 = 3$ を $x$ について解く．</p>
+
+\[
+\begin{aligned}
+& b x + 1 = 3 \\
+\Rightarrow{} & b x + 1 + (-1) = 3 + (-1) && \text{(両辺に $-1$ を足す)} \\
+\Rightarrow{} & b x = 2 && \text{(計算する)} \\
+\Rightarrow{} & \begin{cases} x = \dfrac{2}{b} & (\text{もし $b \neq 0$ なら}) \\ \text{解なし} & (\text{もし $b = 0$ なら}) \end{cases}
+\end{aligned}
+\]
+
+<p>このように両辺に同じ操作を繰り返して，$x$ を片側に「孤立」させるのが等式を解くという作業である．</p>
+</section>
+
+
+<section class="ap-section" id="ap-math-rearrange">
+<h2>式変形の道具</h2>
+
+<h3>くくる</h3>
+<p>$a x - b x$ という式があるとき，共通因数 $x$ を抜き出して $a x - b x = (a - b) x$ と書ける．これを <strong>「$x$ でくくる」</strong> という．</p>
+
+<h3>分数の和（通分）</h3>
+<p>$\dfrac{a}{b} + \dfrac{c}{d}$ は分母を<ruby>揃<rp>（</rp><rt>そろ</rt><rp>）</rp></ruby>えてから足す．$b, d \neq 0$ なので $\dfrac{a}{b} = \dfrac{a}{b} \cdot \dfrac{d}{d}$，$\dfrac{c}{d} = \dfrac{c}{d} \cdot \dfrac{b}{b}$ と書き直せて，</p>
+\[
+\frac{a}{b} + \frac{c}{d} = \frac{a d}{b d} + \frac{b c}{b d} = \frac{a d + b c}{b d}
+\]
+<p>と計算できる．このように分母を揃える作業を <strong>「通分」</strong> という．</p>
+
+<h3>分数分の分数</h3>
+<p>$\dfrac{a}{c/d}$ のように分数の中に分数が入る式は，分母分子に同じ数（ここでは $d$）をかけて簡単にする：</p>
+\[
+\frac{a}{c/d} = \frac{a \cdot d}{(c/d) \cdot d} = \frac{a d}{c}
+\]
+</section>
+
+
+<section class="ap-section" id="ap-math-function">
+<h2>関数</h2>
+
+<p>入力を出力に割り当てる仕組みを <strong>関数</strong> と呼び，関数には名前（多くは $f$ や $g$）をつける．たとえば $f(x) = 2 x + 1$ という関数では，名前は $f$，入力は $x$，出力は $f(x)$（<strong>関数の値</strong>とも呼ぶ）である．数学的な式に限らず，現実のものを関数とみなすこともできる．たとえば自動<ruby>販売<rp>（</rp><rt>はんばい</rt><rp>）</rp></ruby>機は，押したボタンを入力，出てくる飲み物を出力とする関数である．また入力する変数が複数あっても考え方は同じで，たとえば $u(x, y) = x \cdot y$ は $x$ と $y$ という二つの入力に $x \cdot y$ という出力を割り当てる関数である．</p>
+</section>
+
+
+<section class="ap-section" id="ap-math-derivative">
+<h2>微分</h2>
+
+<p>関数 $f$ の <strong>傾き</strong> とは，$x$ を少し増やしたときに $f(x)$ がその何倍増えるかを表す数値である．</p>
+
+\[
+\frac{f(x + h) - f(x)}{h}
+\]
+
+<p>これは「$x$ が $h$ だけ増えたとき，$f$ の値が $h$ の何倍増えたか」を計算する式である．$h$ をどんどん小さくしていくと，この値は接線の傾きに近づく．この極限を取って得られる値を，$x$ における $f$ の <strong>微分</strong> といい，記号で $f'(x)$ と書く．</p>
+
+<p><a href="https://vimeo.com/804148111" target="_blank" class="qr-link">$h$ が小さくなると接線の傾きに近づく（動画）</a></p>
+
+<p>つまり <strong>微分する</strong> とは <strong>接線の傾きを求める</strong> 作業である．直観的には，$x$ がほんの少し（$h$ だけ）増えたとき，$f$ の値は $f'(x) \cdot h$ だけ増える，と理解できる．</p>
+
+<p>傾きを求めると何が嬉しいのか．それは <strong>増加局面か減少局面かが分かる</strong> ことである．$f'(x) \gt 0$ なら $x$ を少し増やすと $f$ の値は増え，$f'(x) \lt 0$ なら $x$ を少し増やすと $f$ の値は減る．この性質は次節の最大化問題で本質的に使う．</p>
+
+<h3>微分の公式 1（定数と一次関数）</h3>
+<p>$f(x) = a$（定数）ならば $f'(x) = 0$．$f(x) = a x$ ならば $f'(x) = a$．</p>
+
+<h3>微分の公式 2（べき乗）</h3>
+<p>一般に，$f(x) = x^a$ ならば $f'(x) = a x^{a-1}$ である．</p>
+
+<p>なぜそうなるかを $f(x) = x^2 = \textcolor{blue}{x} \cdot \textcolor{red}{x}$ で考えてみる．まず $\textcolor{red}{x}$ だけを変数とみなせば，もう一方の $\textcolor{blue}{x}$ は係数になるので傾きは $\textcolor{blue}{x}$ である．つまり $\textcolor{red}{x}$ が $h$ 増えれば $f$ は $\textcolor{blue}{x} \cdot h$ 増える．逆に $\textcolor{blue}{x}$ だけを変数とみなせば，傾きは $\textcolor{red}{x}$ で，$\textcolor{blue}{x}$ が $h$ 増えれば $f$ は $\textcolor{red}{x} \cdot h$ 増える．実際には $x$ が $h$ 増えると $\textcolor{red}{x}$ も $\textcolor{blue}{x}$ も同時に $h$ 増えるので，$f$ は合計で $\textcolor{blue}{x} \cdot h + \textcolor{red}{x} \cdot h = 2 x \cdot h$ だけ増える．これは「$x$ が $h$ 増えると $f$ は $2x$ 倍だけ増える」ことを意味し，微分は $2x$（$= 2 x^{2-1}$）となる．</p>
+
+<div class="exercise">
+  <div class="box-label"><span class="box-title">べき乗の微分</span></div>
+  <div class="box-body">
+    <p>次の関数の微分を求めよ．</p>
+    <ol>
+      <li>$f(x) = x^4$</li>
+      <li>$f(x) = x^{1/2}$</li>
+      <li>$f(x) = x^{-3}$</li>
+    </ol>
+    <button class="reveal-btn">答えを表示</button>
+    <div class="reveal-answer">
+      <p>$f(x) = x^a$ ならば $f'(x) = a x^{a-1}$ を当てはめれば良い．</p>
+      <ol>
+        <li>$f'(x) = 4 x^3$</li>
+        <li>$f'(x) = \dfrac{1}{2} x^{-1/2} = \dfrac{1}{2 \sqrt{x}}$</li>
+        <li>$f'(x) = -3 x^{-4} = -\dfrac{3}{x^4}$</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<h3>微分の公式 3（定数倍と和）</h3>
+<p>定数倍については，$f(x) = a \, g(x)$ ならば $f'(x) = a \, g'(x)$ である．和については，$f(x) = h(x) + g(x)$ ならば $f'(x) = h'(x) + g'(x)$ である．</p>
+
+<div class="exercise">
+  <div class="box-label"><span class="box-title">定数倍と和の微分</span></div>
+  <div class="box-body">
+    <p>次の関数の微分を求めよ（$a$ は定数とする）．</p>
+    <ol>
+      <li>$f(x) = 3 x^2$</li>
+      <li>$f(x) = 2 x^3 + 3 a$</li>
+    </ol>
+    <button class="reveal-btn">答えを表示</button>
+    <div class="reveal-answer">
+      <ol>
+        <li>$f'(x) = 3 \cdot 2 x = 6 x$</li>
+        <li>$2 x^3$ の微分は $6 x^2$，$3 a$ は定数なので微分は $0$．したがって $f'(x) = 6 x^2$．</li>
+      </ol>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<section class="ap-section" id="ap-math-maximization">
+<h2>最大化問題</h2>
+
+<p>関数 $f(p)$ の $p$ に関する <strong>最大化解</strong> $p^*$ とは，どんな $p$ に対しても $f(p^*) \geq f(p)$ が成立するような $p^*$ のことである．このときの $f(p^*)$ を <strong>最大値</strong> と呼ぶ．</p>
+
+<p>これらを記号で表すと，最大値は</p>
+\[
+  \max_{p} f(p) = f(p^*),
+\]
+<p>最大化解は</p>
+\[
+  \arg\max_{p} f(p) = p^*
+\]
+<p>と書く<span class="fn">「$\arg\max$」は「argument of the maximum（最大値を達成する引数）」の略である．最大値 $\max_p f(p)$ は関数の出力の値（数）であるのに対し，最大化解 $\arg\max_p f(p)$ は入力の値（$p$）である，という違いに注意．</span>．たとえば $f(p) = -(p-2)^2 + 5$ という関数を考えると，$-(p-2)^2 \leq 0$ で等号は $p = 2$ のときだから，</p>
+\[
+  \max_{p} f(p) = 5, \qquad \arg\max_{p} f(p) = 2
+\]
+<p>となる<span class="fn">$f(p^*) = f(p^{**})$ となる別の点 $p^{**}$ がある場合のように，最大化解は一般に複数存在しうる．したがって厳密には $\arg\max_p f(p)$ は最大値を達成する $p$ の集合 $\{p \mid f(p) = \max_q f(q)\}$ を表すと考えるべきだが，本書では混乱を避けるため主に最大化解が一意に定まる場合を扱う．</span>．</p>
+
+<p>同じ $\max$ の記号は，関数だけでなく <strong>有限個の数のうち最大のもの</strong> を表すのにも使う．たとえば</p>
+\[
+  \max\{3, 7, 5\} = 7
+\]
+<p>のように書く．</p>
+
+<p>最小化問題についても同様に，<strong>最小値</strong> $\min_p f(p)$ と <strong>最小化解</strong> $\arg\min_p f(p)$ が定義され，数の集合に対しても $\min\{3, 7, 5\} = 3$ のように使う．$f$ を最小化することは $-f$ を最大化することに等しいので，以下の最大化のための道具立て（一階の条件など）はそのまま最小化にも使える．</p>
+
+<div class="prop">
+  <div class="box-label"><span class="box-title">最大化解の必要条件（一階の条件）</span></div>
+  <div class="box-body">
+    <p>$p^*$ が最大化解ならば $f'(p^*) = 0$．</p>
+    <p>（理由）$f'(p^*) \gt 0$ なら $p^*$ から $p$ を少し増やせば $f$ の値は大きくなる．$f'(p^*) \lt 0$ なら $p^*$ から $p$ を少し減らせば $f$ の値は大きくなる．どちらのケースでも $f(p^*)$ は最大値になっていない．したがって最大化解では $f'(p^*) = 0$ でなければならない．</p>
+  </div>
+</div>
+
+<h3>最大化解を求める手順</h3>
+<p>最大値が存在し，関数 $f$ がいたるところで微分でき，$p$ に制約がない場合は，まず $f'(p) = 0$ となる $p$ をすべて探し，そのなかで $f(p)$ の値が一番大きいものが最大化解である．</p>
+
+<div class="ex">
+  <div class="box-label"><span class="box-title">最大化問題の例</span></div>
+  <div class="box-body">
+    <p>$f(p) = -p^2 + 2 p$ の最大化解と最大値を求めよ．</p>
+    <p>微分すると $f'(p) = -2 p + 2$．$f'(p) = 0$ となるのは $p = 1$．このとき $f(1) = -1 + 2 = 1$．したがって最大化解は $p^* = 1$，最大値は $1$．</p>
+  </div>
+</div>
+</section>
+
+
+<section class="ap-section" id="ap-math-partial">
+<h2>偏微分</h2>
+
+<p><strong><ruby>偏微分<rp>（</rp><rt>へんびぶん</rt><rp>）</rp></ruby></strong> とは，関数に複数の変数があるときに，特定の一つの変数についてのみ微分する操作である．他の変数は定数として扱う．やること自体は通常の微分と同じである．</p>
+
+<p>本書では，関数 $f(x, y)$ を $x$ で偏微分したものを $\pd{f}{x}$と書く．</p>
+
+<div class="ex">
+  <div class="box-label"><span class="box-title">偏微分の例</span></div>
+  <div class="box-body">
+    <p><strong>例 1</strong>：$f(x, y) = x^2 + y^3$ のとき．$x$ で偏微分するときは $y$ を定数とみなすので，$y^3$ の項の微分は $0$ となり $\pd{f}{x} = 2 x$．逆に $y$ で偏微分するときは $x$ を定数とみなし，$x^2$ の項の微分が $0$ になるので $\pd{f}{y} = 3 y^2$．</p>
+
+    <p><strong>例 2</strong>：$f(x, y) = x^2 y^4$ のとき．$y$ で偏微分するときは $x^2$ は $y$ に関係しないので定数扱いとなり，$y^4$ の微分が $4 y^3$ であることから $\pd{f}{y} = 4 x^2 y^3$．同様にして $\pd{f}{x} = 2 x y^4$．</p>
+  </div>
+</div>
+</section>
+
+</article>
+
+</div><!-- /#content -->
+
+<!-- Footnote popup -->
+<div id="fn-popup">
+  <button class="popup-close" id="fnPopupClose">✕</button>
+  <div class="popup-num" id="fnNum"></div>
+  <div id="fnBody"></div>
+</div>
+
+<script>
+// ━━━ FOOTNOTE ━━━
+function place(popup, el) {
+  const r = el.getBoundingClientRect(), W = 320, m = 12;
+  let left = r.left, top = r.bottom + 8;
+  if (left + W > window.innerWidth - m) left = window.innerWidth - W - m;
+  if (left < m) left = m;
+  if (top + 160 > window.innerHeight) top = r.top - 8 - 160;
+  popup.style.cssText = `left:${left}px; top:${top}px;`;
+}
+
+function initFootnotes() {
+  const popup = document.getElementById('fn-popup');
+  const pNum  = document.getElementById('fnNum');
+  const pBody = document.getElementById('fnBody');
+  let active = null;
+  let globalCount = 0;
+
+  document.querySelectorAll('.fn').forEach(el => {
+    const num = ++globalCount;
+    el._fnRaw = el.innerHTML;
+    el.classList.add('fn-content');
+
+    const ref = document.createElement('sup');
+    ref.className = 'fn-ref';
+    ref.textContent = num;
+    el.parentNode.insertBefore(ref, el);
+
+    ref.addEventListener('click', e => {
+      e.stopPropagation();
+      if (active === ref && popup.classList.contains('show')) {
+        popup.classList.remove('show');
+        ref.classList.remove('active');
+        active = null;
+        return;
+      }
+      if (active) active.classList.remove('active');
+      active = ref;
+      ref.classList.add('active');
+      pNum.textContent = `注 ${num}`;
+      pBody.innerHTML = el._fnRaw;
+      place(popup, ref);
+      popup.classList.add('show');
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise([pBody]).then(() => place(popup, ref)).catch(() => {});
+      }
+    });
+  });
+
+  document.getElementById('fnPopupClose').addEventListener('click', () => {
+    popup.classList.remove('show');
+    if (active) active.classList.remove('active');
+    active = null;
+  });
+  document.addEventListener('click', e => {
+    if (!popup.contains(e.target) && !e.target.classList.contains('fn-ref')) {
+      popup.classList.remove('show');
+      if (active) active.classList.remove('active');
+      active = null;
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      popup.classList.remove('show');
+      if (active) active.classList.remove('active');
+      active = null;
+    }
+  });
+}
+
+// ━━━ REVEAL（答えの開閉） ━━━
+function initReveal() {
+  document.querySelectorAll('.reveal-btn').forEach(btn => {
+    const answer = btn.nextElementSibling;
+    const fit = () => { answer.style.maxHeight = answer.scrollHeight + 'px'; };
+    btn.addEventListener('click', () => {
+      const open = answer.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      if (open) {
+        fit();
+        answer.querySelectorAll('img').forEach(img => {
+          if (!img.complete) {
+            img.addEventListener('load', () => {
+              if (answer.classList.contains('open')) fit();
+            }, { once: true });
+          }
+        });
+      } else {
+        answer.style.maxHeight = null;
+      }
+    });
+  });
+}
+
+initFootnotes();
+initReveal();
+</script>
+
+</body>
+</html>

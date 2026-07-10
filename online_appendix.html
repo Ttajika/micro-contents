@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web補助資料 一覧 — ミクロ経済学（多鹿）</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Noto+Serif:wght@400;700&family=JetBrains+Mono:wght@400&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --border: #e2e2e0;
+  --text: #1a1a1a;
+  --text-dim: #6b7280;
+  --accent: #1d4ed8;
+  --accent-light: #eff6ff;
+  --accent-mid: #bfdbfe;
+  --header-bg: #1e293b;
+  --tag-bg: #fef3c7;
+  --tag-fg: #92400e;
+  --inbook-bg: #ecfdf5;
+  --inbook-fg: #065f46;
+}
+
+body {
+  font-family: 'Noto Serif JP', serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+:lang(el) {
+  font-family: 'Noto Serif', 'Noto Serif JP', serif;
+  font-feature-settings: "palt";
+}
+
+header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+header h1 {
+  font-size: 15px;
+  font-weight: 700;
+}
+header a {
+  margin-left: auto;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 13px;
+}
+header a:hover { color: rgba(255,255,255,0.9); }
+
+#content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 6rem;
+}
+
+.doc-title {
+  text-align: center;
+  padding: 0 0 2rem;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 2rem;
+}
+.doc-title h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-title .doc-meta {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.intro {
+  background: var(--accent-light);
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 0 0 2.5rem;
+  font-size: 14.5px;
+}
+
+h2 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 2.5rem 0 1.2rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.entry {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 18px 22px;
+  margin-bottom: 1.2rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.entry:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(29,78,216,0.06);
+}
+
+.entry-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.entry-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  background: var(--accent-light);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+.entry-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+.entry-title a { color: var(--accent); text-decoration: none; }
+.entry-title a:hover { text-decoration: underline; }
+.entry-tags {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+.tag {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+.tag.online {
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+}
+.tag.inbook {
+  background: var(--inbook-bg);
+  color: var(--inbook-fg);
+}
+.tag.wip {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.entry-meta {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.entry-meta span strong {
+  color: var(--text);
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.entry-summary {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #334155;
+}
+
+.entry.stub {
+  opacity: 0.7;
+  border-style: dashed;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Web補助資料 一覧</h1>
+</header>
+
+<div id="content">
+
+<div class="doc-title">
+  <h1>Web補助資料 一覧</h1>
+  <div class="doc-meta">ミクロ経済学（仮題） ／ 多鹿 智哉</div>
+</div>
+
+<div class="intro">
+  <p>副読本本体では扱いきれない発展的なトピック・批判的検討・補助的な数学などを，<strong>Web補助資料</strong> としてまとめている．<span class="tag online" style="margin-left:4px;">Web公開</span> は別ファイルとして公開している資料，<span class="tag inbook">本書収録</span> は副読本本体に収録されている内容を指す．</p>
+  <p>各付録は独立して読めるように書かれているが，「想定読者」「前提知識」が提示されているので，必要に応じて副読本本文を先に読むことを勧める．</p>
+</div>
+
+
+<h2>本書の方法・基礎</h2>
+
+<div class="entry">
+  <div class="entry-head">
+    <span class="entry-id">A</span>
+    <span class="entry-title"><a href="appendix_math.html">本書で使う数学</a></span>
+    <span class="entry-tags"><span class="tag online">Web公開</span></span>
+  </div>
+  <div class="entry-meta">
+    <span><strong>想定読者：</strong>高校までの数学に不安がある読者</span>
+    <span><strong>前提：</strong>不要</span>
+  </div>
+  <div class="entry-summary">
+    等式変形・関数・微分・最大化問題・偏微分など，本書を読み進める上で必要な数学の最小限のまとめ．高校数学に自信がある読者は飛ばしてよい．
+  </div>
+</div>
+
+<div class="entry">
+  <div class="entry-head">
+    <span class="entry-id">B</span>
+    <span class="entry-title"><a href="appendix_tables.html">表の読み方</a></span>
+    <span class="entry-tags"><span class="tag online">Web公開</span></span>
+  </div>
+  <div class="entry-meta">
+    <span><strong>想定読者：</strong>本書全般</span>
+    <span><strong>前提：</strong>不要</span>
+  </div>
+  <div class="entry-summary">
+    本書では選好表・効用表・市場参加者表など，役割の異なる複数の表が登場する．行と列の意味の取り違えで議論を見失わないための読み方をまとめた付録．
+  </div>
+</div>
+
+
+<h2>市場均衡の動学</h2>
+
+<div class="entry">
+  <div class="entry-head">
+    <span class="entry-id">C</span>
+    <span class="entry-title"><a href="appendix_adjustment.html">市場均衡の調整過程</a></span>
+    <span class="entry-tags">
+      <span class="tag online">Web公開</span>
+      <span class="tag wip">執筆中</span>
+    </span>
+  </div>
+  <div class="entry-meta">
+    <span><strong>想定読者：</strong>伝統的試験範囲（公務員試験等）を準備する読者／動学的なミクロ理論に関心のある読者</span>
+    <span><strong>前提：</strong>本書3.1〜3.3節（市場均衡）／微分の基礎</span>
+  </div>
+  <div class="entry-summary">
+    市場均衡が「需要と供給が一致する点」だとして，<strong>ずれたときに本当に均衡に戻るのか</strong>を扱う．ワルラス過程（価格調整）とマーシャル過程（数量調整）の形式的定式化と安定条件，より明快な動学モデルとしてのコブの巣模型，伝統的な試験問題が依拠する病的ケース（右下がり供給など）における正当化の困難の批判的検討，現代マクロ・学習動学への系譜まで，本書本体には収まらない動学的議論をまとめている．本書本文では市場均衡の安定性は<strong>マッチング理論的な意味（裏取引で壊せない）</strong>でしか論じていない（3.1〜3.3節）．伝統的な調整動学はこの付録で扱う．
+  </div>
+</div>
+
+
+<div class="entry">
+  <div class="entry-head">
+    <span class="entry-id">D</span>
+    <span class="entry-title"><a href="appendix_monopoly.html">独占と寡占の理論</a></span>
+    <span class="entry-tags">
+      <span class="tag online">Web公開</span>
+      <span class="tag wip">執筆中</span>
+    </span>
+  </div>
+  <div class="entry-meta">
+    <span><strong>想定読者：</strong>標準的ミクロ試験範囲（公務員試験等）を準備する読者／価格設定者の連続モデルでの定量分析に関心のある読者</span>
+    <span><strong>前提：</strong>本書第4章（市場の失敗）／微分の基礎</span>
+  </div>
+  <div class="entry-summary">
+    本書本文では「価格設定者の存在による市場の失敗」を離散市場のカルテル例で示したが，伝統的試験範囲では連続需要・供給モデルでの独占（MR = MC）・ラーナー指標，および寡占（クールノー・ベルトラン・ホテリング）・カルテルの不安定性などが標準的に問われる．これらに加えて，競争戦略の二段階モデルとプラットフォーム市場（二面市場）もまとめて本付録で扱う．
+  </div>
+</div>
+
+
+<h2>その他の付録（執筆予定）</h2>
+
+<div class="entry stub">
+  <div class="entry-head">
+    <span class="entry-id">E</span>
+    <span class="entry-title">不確実性下の意思決定</span>
+    <span class="entry-tags"><span class="tag online">Web公開</span><span class="tag wip">予定</span></span>
+  </div>
+  <div class="entry-meta">
+    <span><strong>想定読者：</strong>不確実性・期待効用に関心のある読者</span>
+    <span><strong>前提：</strong>本書第2章（意思決定）／確率の初歩</span>
+  </div>
+  <div class="entry-summary">
+    くじ・期待値・期待効用・リスクへの態度・保険による厚生改善など．本書本文には収めず Web補助資料に回す予定の項目．
+  </div>
+</div>
+
+<div class="entry stub">
+  <div class="entry-head">
+    <span class="entry-id">F</span>
+    <span class="entry-title">不完備情報のゲーム理論</span>
+    <span class="entry-tags"><span class="tag online">Web公開</span><span class="tag wip">予定</span></span>
+  </div>
+  <div class="entry-meta">
+    <span><strong>想定読者：</strong>シグナリング・スクリーニングなどの応用に踏み込みたい読者</span>
+    <span><strong>前提：</strong>本書第10章（ゲーム理論）／条件付き確率</span>
+  </div>
+  <div class="entry-summary">
+    タイプの導入，ベイズ・ナッシュ均衡，シグナリングと完全ベイズ均衡など．本書本文の射程外として Web補助資料に回す予定の項目．
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>
