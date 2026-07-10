@@ -17,6 +17,15 @@ window.MathJax = {
       eqdef: '\\mathrel{:=}',
       uu: '\\underline{u}', ou: '\\overline{u}',
       d: '\\ d',
+      // 費用記号（多文字イタリック）：MathJax は文字間が空きすぎるので負のカーニングで詰める
+      MC:  '\\mathit{M\\mkern-2muC}',
+      AC:  '\\mathit{A\\mkern-3muC}',
+      AVC: '\\mathit{A\\mkern-3muV\\mkern-2muC}',
+      FC:  '\\mathit{F\\mkern-2muC}',
+      VC:  '\\mathit{V\\mkern-2muC}',
+      MP:  '\\mathit{M\\mkern-2muP}',
+      MU:  '\\mathit{M\\mkern-2muU}',
+      MRS: '\\mathit{M\\mkern-2muR\\mkern-2muS}',
     },
     tags: 'ams',
   },
@@ -94,7 +103,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 <li class="toc-ch"><a href="#ch6">第 6 章　消費者の行動</a></li>
 <li><a href="#budget-line-anime">図 6.2.1　予算線の変化</a></li>
 <li><a href="#anime-indifference">図 6.4.1　無差別曲線の作り方を示すアニメーション．無差別な（効用が等しい）消費計画の点を結</a></li>
-<li><a href="#anime-mrs">図 6.4.7　無差別曲線の接線の傾きが限界代替率 $MRS$ を表すことを示すアニメーション．</a></li>
+<li><a href="#anime-mrs">図 6.4.7　無差別曲線の接線の傾きが限界代替率 $\MRS$ を表すことを示すアニメーション</a></li>
 <li><a href="#anime-utility-max">図 6.5.1　効用最大化のアニメーション</a></li>
 <li><a href="#fig-income-normal-inferior">図 6.6.2　所得の増加と効用最大化点の移動：x は正常財（所得増で消費増），y は途中まで正</a></li>
 <li><a href="#anim-slutsky">図 6.7.2　スルツキー分解（財$x$の価格上昇・粗補完財のケース）：当初の効用最大化点 $A</a></li>
@@ -288,7 +297,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 <section class="anime-item" id="anime-mrs">
   <div class="num">図 6.4.7</div>
   <div class="svg-anim" data-src="img/indifference_MRS_anime.svg"></div>
-  <figcaption class="cap">無差別曲線の接線の傾きが限界代替率 $MRS$ を表すことを示すアニメーション．財 $x$ を少しだけ増やすときに減らさなければならない財 $y$ の量を，その増分を $0$ に近づけた極限になっている．</figcaption>
+  <figcaption class="cap">無差別曲線の接線の傾きが限界代替率 $\MRS$ を表すことを示すアニメーション．</figcaption>
   <a class="dl" href="img/indifference_MRS_anime.svg" download="indifference_MRS_anime.svg">⬇ SVG をダウンロード</a>
   <button class="copy" type="button" data-anchor="anime-mrs">🔗 リンクをコピー</button>
 </section>

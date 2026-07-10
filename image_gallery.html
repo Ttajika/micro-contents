@@ -17,6 +17,15 @@ window.MathJax = {
       eqdef: '\\mathrel{:=}',
       uu: '\\underline{u}', ou: '\\overline{u}',
       d: '\\ d',
+      // 費用記号（多文字イタリック）：MathJax は文字間が空きすぎるので負のカーニングで詰める
+      MC:  '\\mathit{M\\mkern-2muC}',
+      AC:  '\\mathit{A\\mkern-3muC}',
+      AVC: '\\mathit{A\\mkern-3muV\\mkern-2muC}',
+      FC:  '\\mathit{F\\mkern-2muC}',
+      VC:  '\\mathit{V\\mkern-2muC}',
+      MP:  '\\mathit{M\\mkern-2muP}',
+      MU:  '\\mathit{M\\mkern-2muU}',
+      MRS: '\\mathit{M\\mkern-2muR\\mkern-2muS}',
     },
     tags: 'ams',
   },
@@ -73,7 +82,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 <li><a href="#externality_pigou">図 4.2.1　外部性の内部化．左の図は，騒音被害の分だけ売り手の費用が増えて供給曲線が上にシフ</a></li>
 <li><a href="#cartel_equilibrium">図 4.4.1　売り手が連合（カルテル）を組み，全員が費用3500万円と申告したときの市場均衡．</a></li>
 <li class="toc-ch"><a href="#ch5">第 5 章　企業の行動</a></li>
-<li><a href="#cost_curves_cubic">図 5.4.1　限界費用 $MC$，平均費用 $AC$，平均可変費用 $AVC$ の曲線．$AC</a></li>
+<li><a href="#cost_curves_cubic">図 5.4.1　限界費用 $\MC$，平均費用 $\AC$，平均可変費用 $\AVC$ の曲線．</a></li>
 <li><a href="#iso_cost">図 5.7.2　等費用曲線の図解</a></li>
 <li class="toc-ch"><a href="#ch6">第 6 章　消費者の行動</a></li>
 <li><a href="#fig-indifference-plane">図 6.4.2　塗りつぶした領域すべてが無差別になる例である．これは無差別曲「線」にはならない．</a></li>
@@ -235,8 +244,8 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 
 <section class="img-item" id="cost_curves_cubic">
   <div class="num">図 5.4.1</div>
-  <img class="fig" src="img/cost_curves.svg" alt="限界費用 $MC$，平均費用 $AC$，平均可変費用 $AVC$ の曲線．$AC$ の最小点が損益分岐点，$AVC$ の最小点が操業停止点を与える．" loading="lazy">
-  <figcaption class="cap">限界費用 $MC$，平均費用 $AC$，平均可変費用 $AVC$ の曲線．$AC$ の最小点が損益分岐点，$AVC$ の最小点が操業停止点を与える．</figcaption>
+  <img class="fig" src="img/cost_curves.svg" alt="限界費用 $\MC$，平均費用 $\AC$，平均可変費用 $\AVC$ の曲線．$\AC$ の最小点が損益分岐点，$\AVC$ の最小点が操業停止点を与える．" loading="lazy">
+  <figcaption class="cap">限界費用 $\MC$，平均費用 $\AC$，平均可変費用 $\AVC$ の曲線．$\AC$ の最小点が損益分岐点，$\AVC$ の最小点が操業停止点を与える．</figcaption>
   <a class="dl" href="img/cost_curves.svg" download="cost_curves.svg">⬇ 画像をダウンロード</a>
   <button class="copy" type="button" data-anchor="cost_curves_cubic">🔗 リンクをコピー</button>
 </section>
