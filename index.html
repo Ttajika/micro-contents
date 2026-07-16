@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-book-tpl="{book}Web副教材 — {authors}">ミクロ経済学（仮題）Web副教材 — 多鹿 智哉・栗田 健一</title>
 
-<meta name="description" data-book-tpl="学部向けミクロ経済学の教科書『{book}』（{authorsCompact}）のWeb副教材。アニメーション・図版・演習問題を収録。" content="学部向けミクロ経済学の教科書『ミクロ経済学（仮題）』（多鹿智哉・栗田健一）のWeb副教材。アニメーション・図版・演習問題を収録。">
-<meta property="og:title" data-book-tpl="{book}Web副教材" content="ミクロ経済学（仮題）Web副教材">
-<meta property="og:description" content="本文中の図をQRコードからアニメ・拡大図で確認できるWeb副教材。">
+<meta name="description" data-book-tpl="学部向けミクロ経済学の教科書『{book}』（{authorsCompact}）のWeb教材．アニメーション・図版・演習問題を収録．" content="学部向けミクロ経済学の教科書『ミクロ経済学（仮題）』（多鹿智哉・栗田健一）のWeb教材．アニメーション・図版・演習問題を収録．">
+<meta property="og:title" data-book-tpl="{book}Web教材" content="ミクロ経済学（仮題）Web教材">
+<meta property="og:description" content="本文中の図をQRコードからアニメ・拡大図で確認できるWeb教材．">
 <meta property="og:type" content="website">
 
 <style>
@@ -36,6 +36,11 @@
   .biblio dt { color:var(--sub); font-weight:600; }
   .biblio dd { margin:0; }
   .ph { color:#b45309; background:#fffbeb; padding:0 4px; border-radius:3px; font-size:.92em; }
+  .diff { list-style:none; padding:0; margin:16px 0; display:grid; gap:14px; }
+  .diff > li { background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 18px; }
+  .diff .h { font-weight:700; margin-bottom:6px; }
+  .diff .why { color:var(--sub); font-size:.94rem; margin:0; }
+  .diff .why::before { content:"なぜ　"; color:var(--accent); font-weight:600; }
   .toc-book { columns:2; column-gap:32px; }
   .toc-part { break-inside:avoid; margin:0 0 14px; }
   .toc-part h3 { margin:0 0 4px; font-size:.98rem; color:var(--accent); }
@@ -52,20 +57,20 @@
 <div class="wrap">
 
   <header>
-    <h1 data-book-tpl="{book}— Web副教材">ミクロ経済学（仮題）— Web副教材</h1>
+    <h1 data-book-tpl="{book}— Web教材">ミクロ経済学（仮題）— Web教材</h1>
     <p class="byline" data-book-tpl="{authors}">多鹿 智哉・栗田 健一</p>
   </header>
 
   <p class="lead">
-    学部向けミクロ経済学の教科書『<span data-book-tpl="{book}">ミクロ経済学（仮題）</span>』の Web 副教材ページです。
-    本文中の図はQRコードからこのサイトの該当ページへ飛び、アニメーションや拡大図で確認できます。
+    学部向けミクロ経済学の教科書『<span data-book-tpl="{book}">ミクロ経済学（仮題）</span>』の Web 副教材ページです．
+    本文中の図はQRコードからこのサイトの該当ページへ飛び，アニメーションや拡大図で確認できます．
   </p>
 
   <h2>書誌情報</h2>
   <dl class="biblio">
     <dt>書名</dt><dd data-book-tpl="{book}">ミクロ経済学（仮題）</dd>
     <dt>著者</dt><dd data-book-tpl="{authors}">多鹿 智哉・栗田 健一</dd>
-    <dt>出版社</dt><dd><span class="ph">［出版社名］</span></dd>
+    <dt>出版社</dt><dd>新世社</dd>
     <dt>刊行</dt><dd><span class="ph">［20XX年X月］</span></dd>
     <dt>判型・頁</dt><dd><span class="ph">［A5判・XXX頁］</span></dd>
     <dt>ISBN</dt><dd><span class="ph">［978-X-XXXX-XXXX-X］</span></dd>
@@ -74,33 +79,32 @@
 
   <h2>本書の特徴・対象読者</h2>
   <ul>
-    <li><strong>対象</strong>：<span class="ph">［学部1〜2年生／経済学部以外でも可 など］</span></li>
-    <li><strong>前提知識</strong>：<span class="ph">［高校数学程度。微分は本文・付録で補う など］</span></li>
-    <li><strong>分量の目安</strong>：<span class="ph">［半期／通年、X回相当］</span></li>
-    <li><strong>特徴</strong>：数学を抑えつつ論理は飛ばさず、図とアニメーションで直観を補う。<span class="ph">［その他の差別化点］</span></li>
+    <li><strong>対象</strong>：学部1〜2年生／経済学部以外でも可</li>
+    <li><strong>前提知識</strong>：用いる数学のレベルは四則演算と数字の比較がメイン，詳細な数学は本文・Web補助資料で補う．経済学の前提知識は不要．</li>
+    <li><strong>特徴</strong>：数学を抑えつつ論理は飛ばさず，図とアニメーションで直観を補う．</li>
   </ul>
 
   <h2>コンテンツ</h2>
   <div class="cards">
     <a class="card" href="anime_gallery.html">
       <div class="t">アニメーション一覧 →</div>
-      <div class="d">本文中のアニメ図版を、再生・シーク・速度変更つきで閲覧。</div>
+      <div class="d">本文中のアニメ図版を，再生・シーク・速度変更つきで閲覧．各アニメ図版はダウンロード可．</div>
     </a>
     <a class="card" href="image_gallery.html">
       <div class="t">図版一覧 →</div>
-      <div class="d">本文中の静止画図版を一覧。各図はダウンロード可。</div>
+      <div class="d">本文中の静止画図版を一覧．各図はダウンロード可．</div>
     </a>
     <a class="card" href="micro_exercise.html">
       <div class="t">演習問題 →</div>
-      <div class="d">章ごとの練習問題と解答例。</div>
+      <div class="d">章ごとの練習問題と解答例．</div>
     </a>
     <a class="card" href="references.html">
       <div class="t">引用文献 →</div>
-      <div class="d">本書の本文で言及・参照した学術論文・書籍の一覧（DOIリンクつき）。</div>
+      <div class="d">本書の本文で言及・参照した学術論文・書籍の一覧（DOIリンクつき）．</div>
     </a>
     <a class="card" href="visualizers.html">
       <div class="t">インタラクティブ教材 →</div>
-      <div class="d">値を動かして確かめるビジュアライザー集（余剰・課税／価格弾力性／スルツキー分解3D）。</div>
+      <div class="d">値を動かして確かめるビジュアライザー集（余剰・課税／価格弾力性／3財のスルツキー分解）．</div>
     </a>
   </div>
 
@@ -134,7 +138,7 @@
     <div class="toc-part">
       <h3>第 IV 部　ミクロ経済学の広がり</h3>
       <ol start="10">
-        <li>世界を記述するミクロ経済学</li>
+        <li>ミクロ経済学をデータで確かめる</li>
         <li>ミクロ理論で制度を設計する</li>
       </ol>
     </div>
@@ -143,55 +147,87 @@
 
   <h2>採用をご検討の先生方へ</h2>
   <p>
-    本書は学部1〜2年生でも読み進められるよう、数学を抑えつつ論理を飛ばさずに書いた副読本です。
-    講義での図版利用やQRコードを介したアニメ参照を前提に作っています。
+    本書は学部1〜2年生でも読み進められるよう，数学を抑えつつ論理を飛ばさずに書いた副読本です．
+    講義での図版利用やQRコードを介したアニメ参照を前提に作っています．
+    標準的なミクロ経済学の教科書の代わりというより，その脇に置いて「なぜそうなるのか」を
+    掴ませるための一冊として設計しています．
   </p>
+
+  <h3>標準的な教科書との違いと，その理由</h3>
+  <p>
+    多くの入門書の書き方を，本書はいくつかの点で意図的に外しています．
+    どれも「学部の初学者が最初のつまずきで脱落しないこと」を優先した結果です．
+  </p>
+  <ul class="diff">
+    <li>
+      <div class="h">日本語をやさしくして，難しいのは概念だけにする</div>
+      <p>本書は本文をおおむね平易に保ち，避けきれない語は脚注で短く補います．定義・定理の本文だけは厳密さを優先して言い換えません．</p>
+      <p class="why">概念そのものが難しいのに，日本語の難語で二重に躓かせない．用語の壁と論理の壁を分けて越えさせるためです．</p>
+    </li>
+    <li>
+      <div class="h">章の順番：</div>
+      <p>標準的な教科書は，消費者の理論（無差別曲線・効用最大化）と企業の理論（費用曲線）を積み上げてから
+        市場均衡に到達し，市場の失敗はさらにその後に置かれます．本書は逆です．第2章で意思決定の考え方（費用便益・機会費用）だけを整えたら，第3章ですぐ需要と供給・市場均衡・余剰へ進み，
+        第4章で市場の失敗まで先に見せ，部分均衡だけで市場の理論を一通り見せます．企業の行動・消費者の行動の本格的な理論は第5〜6章で，そのあとに複数市場の均衡を学ぶ構成にすることで，消費者理論とエッジワースボックスの接続を図っています．</p>
+      <p class="why">支払意思額と費用の比較だけで，市場均衡・余剰・市場の失敗という「面白い結論」までは行けます．
+        無差別曲線の長い準備が終わるまで市場に触れられない構成では，初学者は道具が何のためにあるか分からないまま
+        脱落しがちです．先に市場の姿を最小限の道具で体験させ，目的意識ができたところで理論の裏付けに戻ります．
+        また，先頭に置いた意思決定の章は市場分析だけでなく，後半のゲーム理論にもそのまま繋がる土台になります．</p>
+    </li>
+    <li>
+      <div class="h">静止図ではなく「動く図」で直観を補う</div>
+      <p>比較静学や無差別曲線のシフトなど，本来は動きで理解する事柄を，再生・シーク・速度変更のできるアニメーションで見せます．
+        紙面では各アニメを4コマの静止画に落とし，QRコードから同じ動画へ飛べるようにしています．</p>
+      <p class="why">「価格が動くと最適点がどう動くか」は，矢印つきの静止図を眺めるより，実際に動かして見るほうが速く腑に落ちます．</p>
+    </li>
+  </ul>
   <div class="note">
     
     お問い合わせ：<a href="mailto:tomoyatajika@gmail.com">tomoyatajika@gmail.com</a>
   </div>
 
   <h2>教員用リソース</h2>
-  <p>講義スライドや試験問題に合わせて図を作り替えたい先生方のために、作図のソースを公開しています。</p>
+  <p>講義スライドや試験問題に合わせて図を作り替えたい先生方のために，作図のソースを公開しています．</p>
   <ul>
-    <li><strong>本文の図版（SVG／画像）</strong>：<a href="image_gallery.html">図版一覧</a>・<a href="anime_gallery.html">アニメーション一覧</a>の各図から個別にダウンロードできます。</li>
-    <li><strong>ゲームの木の作図ツール（Typst）</strong>：展開形ゲームの木を記述する Typst パッケージ。
+    <li><strong>本文の図版（SVG／画像）</strong>：<a href="image_gallery.html">図版一覧</a>・<a href="anime_gallery.html">アニメーション一覧</a>の各図から個別にダウンロードできます．</li>
+    <li><strong>アニメーション（MP4）</strong>：<a href="anime_gallery.html">アニメーション一覧</a>の各図から MP4 版もダウンロードできます．PowerPoint 等のスライドに貼り付けてそのまま再生できます（SVG アニメはスライド上では動きません）．</li>
+      <ul>
+        <li>図版（画像）はおもにTypst+CeTZを用いて作成されています．ソースコードが必要な方は個別にご連絡ください．</li>
+      </ul>
+    <li><strong>ゲームの木の作図ツール（Typst）</strong>：展開形ゲームの木を記述する Typst パッケージ．
       <a href="https://github.com/Ttajika/Typst/tree/main/game-tree">GitHub で見る</a> ／
       <a href="https://github.com/Ttajika/Typst/archive/refs/heads/main.zip" download>ZIP でダウンロード</a></li>
   </ul>
   <p style="color:var(--sub); font-size:.92rem;">
-    ※ 利用条件は下の「二次利用ポリシー」に従ってください。
-    
+    ※ 利用条件は下の「二次利用ポリシー」に従ってください．
   </p>
 
   <h2>正誤表</h2>
   <p>
-    本文・図版の誤りが見つかった場合はここに掲載します。お気づきの点は
-    <a href="mailto:tomoyatajika@gmail.com">tomoyatajika@gmail.com</a> までご連絡ください。
+    本文・図版の誤りが見つかった場合はここに掲載します．お気づきの点は
+    <a href="mailto:tomoyatajika@gmail.com">tomoyatajika@gmail.com</a> までご連絡ください．
   </p>
   <div class="note">
     <span class="ph">［現時点で報告されている誤りはありません／最終更新：20XX-XX-XX］</span>
   </div>
 
   <h2>二次利用ポリシー</h2>
-  <div class="note todo">
-  </div>
   <ul>
-    <li><strong>講義での利用</strong>：採用教員は、授業内のスライド・配布資料に利用できる．
+    <li><strong>講義での利用</strong>：採用教員は，授業内のスライド・配布資料に利用できる．
     <li><strong>改変・再配布・商用利用</strong>：要相談</li>
   </ul>
   
   </p>
 
   <h2>出典表記の例</h2>
-  <p>本サイトの図版を引用・利用する際は、次のように出典を明記してください。</p>
+  <p>本サイトの図版を引用・利用する際は，次のように出典を明記してください．</p>
   <div class="note">
-    <span data-book-tpl="{authorsCompact}">多鹿智哉・栗田健一</span>『<span data-book-tpl="{book}">ミクロ経済学（仮題）</span>』<span class="ph">［出版社・刊行年］</span>、図X.Y.Z（Web副教材 https://ttajika.github.io/micro-contents/ より）
+    <span data-book-tpl="{authorsCompact}">多鹿智哉・栗田健一</span>『<span data-book-tpl="{book}">ミクロ経済学（仮題）</span>』<span class="ph">［出版社・刊行年］</span>，図X.Y.Z（Web副教材 https://ttajika.github.io/micro-contents/ より）
   </div>
 
   <footer>
-    最終更新：<span class="ph">［20XX-XX-XX］</span><br>
-    © <span data-book-tpl="{authors}">多鹿 智哉・栗田 健一</span>. 図版・本文の著作権は著者および出版社に帰属します。
+    最終更新：<span data-build-date>2026-07-17</span><br>
+    © <span data-book-tpl="{authors}">多鹿 智哉・栗田 健一</span>. 図版・本文の著作権は著者および出版社に帰属します．
   </footer>
 
 </div>
