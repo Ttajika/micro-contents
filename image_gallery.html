@@ -43,6 +43,9 @@ body{font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif;back
 .wrap{max-width:760px;margin:0 auto;padding:2rem 1.2rem 5rem}
 h1{font-family:'Noto Serif JP',serif;font-size:24px;color:#1e293b;border-bottom:2.5px solid #1e293b;padding-bottom:.5rem}
 .lead{color:#64748b;font-size:14px}
+.lead-notes{color:#64748b;font-size:13.5px;margin:.6rem 0 0;padding-left:1.5em;line-height:1.9}
+.lead-notes li{margin:3px 0}
+.lead-notes a{color:#2563eb}
 .toc{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:1rem 1.4rem;margin:1.5rem 0 2.5rem}
 .toc ul{list-style:none;margin:0;padding:0}
 .toc li{font-size:13px;margin:2px 0}
@@ -64,7 +67,13 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 <body>
 <div class="wrap">
 <h1>図版一覧</h1>
-<p class="lead">『ミクロ経済学（仮題）』（多鹿 智哉・栗田 健一）本文中の静止画図版56点。各図番号は本文と対応します。各図は下のボタンから画像ファイル（SVG／PDF）をダウンロードできます。LaTeX（Beamer・講義ノート・試験問題）に取り込むときは PDF 版を使ってください。<br><a href="anime_gallery.html" style="color:#2563eb">→ アニメーション一覧はこちら</a></p>
+<p class="lead">『ミクロ経済学（仮題）』（多鹿 智哉・栗田 健一）本文中の静止画図版56点。</p>
+<ul class="lead-notes">
+<li>各図番号は本文と対応します。各図は下のボタンから画像ファイル（SVG／PDF）をダウンロードできます。</li>
+<li><strong>PowerPoint などのスライドで使う方へ</strong>：SVG ファイルをスライドにドラッグ＆ドロップするだけで貼り付けられます（ベクタ画像なので拡大しても粗くなりません）。</li>
+<li><strong>LaTeX（Beamer・講義ノート・試験問題）で使う方へ</strong>：LaTeX は SVG を読み込めないので、「PDF をダウンロード」の方を使ってください。</li>
+<li><a href="anime_gallery.html">→ アニメーション一覧はこちら</a></li>
+</ul>
 <nav class="toc"><ul>
 <li class="toc-ch"><a href="#ch3">第 3 章　需要と供給</a></li>
 <li><a href="#fig-demand-discrete">図 3.2.1　需要曲線の図示</a></li>
