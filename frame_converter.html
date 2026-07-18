@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アニメ図版のPNG連番コンバータ — ミクロ経済学（仮題）</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif;background:#fafaf8;color:#1f2937;margin:0;line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:2rem 1.2rem 5rem}
+h1{font-family:'Noto Serif JP',serif;font-size:22px;color:#1e293b;border-bottom:2.5px solid #1e293b;padding-bottom:.5rem}
+.lead{color:#64748b;font-size:13.5px}
+.lead li{margin:3px 0}
+.panel{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:1.2rem 1.4rem;margin:1.2rem 0}
+label{display:block;font-size:13px;font-weight:700;margin:12px 0 4px}
+select,input[type=radio]{font-family:inherit}
+select{width:100%;padding:6px 8px;font-size:13.5px;border:1px solid #cbd5e1;border-radius:6px;background:#fff}
+.radios{display:flex;flex-wrap:wrap;gap:14px;font-size:13.5px}
+.radios label{display:inline-flex;align-items:center;gap:4px;font-weight:400;margin:0}
+button{padding:.5rem 1.2rem;font-size:14px;color:#fff;background:#2563eb;border:none;border-radius:6px;cursor:pointer;font-family:inherit;margin-top:14px}
+button:disabled{background:#94a3b8;cursor:wait}
+#status{font-size:13px;color:#64748b;margin-top:10px;min-height:1.4em}
+#result{display:none}
+#result a.dl{display:inline-block;margin:6px 0;padding:.4rem 1rem;font-size:13px;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;text-decoration:none}
+textarea{width:100%;height:3.2em;font-family:ui-monospace,monospace;font-size:12px;border:1px solid #cbd5e1;border-radius:6px;padding:6px;margin-top:6px}
+#preview{max-width:100%;border:1px solid #e5e7eb;border-radius:6px;margin-top:10px;display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>アニメ図版のPNG連番コンバータ</h1>
+<ul class="lead">
+<li>『ミクロ経済学（仮題）』のアニメ図版を，LaTeX の <code>animate</code> パッケージ等で使える PNG 連番（zip）に変換します．すべてブラウザ内で処理され，サーバーには何も送信されません．</li>
+<li>使い方の雛型（main.tex）は <a href="animate_kit.zip" download>animate_kit.zip</a> に入っています．<strong>PDF内での再生は Adobe Acrobat 限定</strong>である点にご注意ください．</li>
+<li>コマ数は「変化点のみ（節約）」がおすすめです．段階表示のアニメなら見た目を損なわずファイル数を大幅に減らせます（なめらかに動く区間があるアニメのみ 5fps／15fps をご検討ください）．</li>
+<li><a href="anime_gallery.html">→ アニメーション一覧へ戻る</a></li>
+</ul>
+
+<div class="panel">
+  <label for="anime">図版を選ぶ</label>
+  <select id="anime"></select>
+  <label>コマ数</label>
+  <div class="radios">
+    <label><input type="radio" name="mode" value="key" checked>変化点のみ（節約・推奨）</label>
+    <label><input type="radio" name="mode" value="5">5fps</label>
+    <label><input type="radio" name="mode" value="15">15fps（なめらか・大容量）</label>
+  </div>
+  <label>解像度</label>
+  <div class="radios">
+    <label><input type="radio" name="scale" value="1">標準（1x）</label>
+    <label><input type="radio" name="scale" value="1.5" checked>高（1.5x）</label>
+    <label><input type="radio" name="scale" value="2">最高（2x）</label>
+  </div>
+  <button id="go">PNG連番を生成する</button>
+  <div id="status"></div>
+  <div id="result">
+    <a class="dl" id="dl" href="#">⬇ zip をダウンロード</a>
+    <div style="font-size:12.5px;color:#64748b">LaTeX（animate パッケージ）への貼り付け例：</div>
+    <textarea id="snippet" readonly onclick="this.select()"></textarea>
+    <img id="preview" alt="最終コマのプレビュー">
+  </div>
+</div>
+</div>
+
+<script>
+// ── 焼き込みロジック（tools/lib_frames.mjs から自動注入。手で編集しない）──
+function valueAt(animTag, f) {
+  const A = n => { const m = animTag.match(new RegExp(n + '="([^"]*)"')); return m ? m[1] : null; };
+  const at = A('attributeName');
+  const kt = (A('keyTimes') || '').split(';').map(Number);
+  const vals = (A('values') || '').split(';');
+  if (!at || kt.length < 2 || vals.length !== kt.length) return null;
+  let i = kt.length - 2;
+  for (let k = 0; k < kt.length - 1; k++) { if (f >= kt[k] && f <= kt[k + 1]) { i = k; break; } }
+  let val = vals[i];
+  if (i < kt.length - 1 && (kt[i + 1] - kt[i]) < 0.01 && f >= kt[i + 1]) val = vals[i + 1]; // 瞬間遷移は右側
+  return { at, val };
+}
+function bake(svg, f) {
+  const tagRe = /<[^>]*?>/g; let m;
+  const stack = []; const edits = {}; // pos -> {attr:val}
+  while ((m = tagRe.exec(svg))) {
+    const t = m[0], pos = m.index;
+    if (t.startsWith('<!--') || t.startsWith('<?') || t.startsWith('<![')) continue;
+    if (t.startsWith('</')) { stack.pop(); continue; }
+    const selfClose = t.endsWith('/>');
+    if (/^<animate(\b|Transform\b|Motion\b)/.test(t)) {
+      const parent = stack[stack.length - 1];
+      const r = valueAt(t, f);
+      if (parent && r) {
+        let attr = r.at, val = r.val;
+        if (/^<animateTransform\b/.test(t)) {
+          // animateTransform は parent の transform 属性に type(val) を焼く
+          const type = (t.match(/type="([^"]*)"/) || [])[1] || 'translate';
+          attr = 'transform'; val = `${type}(${val})`;
+        }
+        (edits[parent.pos] = edits[parent.pos] || {})[attr] = val;
+      }
+      continue; // animate系は出力で除去
+    }
+    if (!selfClose) stack.push({ pos });
+  }
+  // pass2: 出力
+  tagRe.lastIndex = 0; let out = '', lastEnd = 0;
+  while ((m = tagRe.exec(svg))) {
+    const t = m[0], pos = m.index;
+    out += svg.slice(lastEnd, pos); lastEnd = pos + t.length;
+    if (/^<animate(\b|Transform\b|Motion\b)/.test(t)) { continue; } // 除去
+    let tag = t;
+    if (edits[pos]) {
+      for (const [a, v] of Object.entries(edits[pos])) {
+        if (new RegExp('\\b' + a + '="[^"]*"').test(tag)) tag = tag.replace(new RegExp('\\b' + a + '="[^"]*"'), `${a}="${v}"`);
+        else tag = tag.replace(/\/?>$/, m2 => ` ${a}="${v}"` + m2);
+      }
+    }
+    out += tag;
+  }
+  out += svg.slice(lastEnd);
+  return out;
+}
+
+const ANIMES = [{"id":"anime-demand-read","number":"図 3.2.2","caption":"需要曲線の読み方：価格3000のときの需要量は2","src":"img/fig_demand_read.svg"},{"id":"fig-cs-steps","number":"図 3.4.2","caption":"消費者余剰の図解","src":"img/consumer_surplus_steps.svg"},{"id":"discrete-to-continuous","number":"図 3.4.4","caption":"階段状の需要・供給曲線から滑らかな需要・供給曲線へ","src":"img/discrete_to_continuous_anime.svg"},{"id":"anime-demand-shift-explain","number":"図 3.7.1","caption":"需要曲線の右シフトの仕組み","src":"img/demand_shift_explain.svg"},{"id":"anim-demand-shift","number":"図 3.7.2","caption":"需要曲線の右シフトによる市場均衡の変化","src":"img/demand_shift.svg"},{"id":"anim-shift-identify","number":"図 3.7.3","caption":"シフトの種類によって観察される均衡点の並び方","src":"img/demand_shift_identify.svg"},{"id":"price_cap","number":"図 3.8.1","caption":"価格規制の効果（階段状の需要・供給曲線）","src":"img/price_regulation_anime.svg"},{"id":"price_cap-smooth","number":"図 3.8.2","caption":"価格規制の効果（滑らかな需要・供給曲線）","src":"img/price_reg_smooth.svg"},{"id":"anim-tax-equilibrium","number":"図 3.8.6","caption":"従量税のもとでの市場均衡","src":"img/tax_equilibrium.svg"},{"id":"anim-tax-surplus-steps","number":"図 3.8.7","caption":"課税のある市場での余剰（階段状の需要・供給曲線）","src":"img/tax_surplus_steps.svg"},{"id":"anim-tax-surplus-smooth","number":"図 3.8.8","caption":"課税のある市場での余剰（滑らかな需要・供給曲線）","src":"img/tax_surplus_smooth.svg"},{"id":"anime-pigou","number":"図 4.2.2","caption":"外部性の内部化の流れ．騒音被害500万円を売り手の費用に足すと供給曲線が500だ","src":"img/pigou_anime.svg"},{"id":"anime-lemon","number":"図 4.3.1","caption":"逆淘汰（レモン市場）の流れ．買い手は品質を区別できないので平均でしか値をつけられ","src":"img/lemon_market_anime.svg"},{"id":"anime-mc-supply-curve","number":"図 5.2.1","caption":"限界費用と供給曲線","src":"img/mc_supply_curve.svg"},{"id":"anime-supply-from-mc","number":"図 5.4.2","caption":"供給曲線が限界費用曲線からどのように作られるかを示すアニメーション．操業停止点よ","src":"img/supply_from_mc.svg"},{"id":"anime-cost-min","number":"図 5.7.3","caption":"費用最小化のアニメーション","src":"img/cost_min_anime.svg"},{"id":"anime-cost-envelop","number":"図 5.7.4","caption":"短期費用と長期費用の関係のアニメーション","src":"img/cost_envelop_anime.svg"},{"id":"budget-line-anime","number":"図 6.2.1","caption":"予算線の変化","src":"img/budget_line_anime.svg"},{"id":"anime-mrs","number":"図 6.4.7","caption":"無差別曲線の接線の傾きが限界代替率 $\\MRS$ を表すことを示すアニメーション","src":"img/indifference_MRS_anime.svg"},{"id":"anime-utility-max","number":"図 6.5.1","caption":"効用最大化のアニメーション","src":"img/utility_max_anime.svg"},{"id":"fig-income-normal-inferior","number":"図 6.6.2","caption":"所得の増加と効用最大化点の移動：x は正常財（所得増で消費増），y は途中まで正","src":"img/income_normal_inferior_anime.svg"},{"id":"anim-slutsky","number":"図 6.7.2","caption":"スルツキー分解（財$x$の価格上昇・粗補完財のケース）：当初の効用最大化点 $A","src":"img/slutsky_anime.svg"},{"id":"fig-offer-curve","number":"図 6.8.2","caption":"賃金 w の上昇と効用最大化点の移動：予算線は賦存点 $(\\ell=24,\\ c","src":"img/wage_labor_supply_anime.svg"},{"id":"fig-exchange-budget","number":"図 6.9.1","caption":"価格の変化と予算線の回転：初期保有 $E=(e_x, e_y)$ を売って得たお","src":"img/exchange_budget_anime.svg"},{"id":"GE_edgeworth_anime","number":"図 7.3.1","caption":"エッジワースボックスの作り方を示すアニメーション．二人の消費者の予算制約の図を組","src":"img/GE_edgeworth_anime.svg"},{"id":"fig-pareto-improve","number":"図 7.4.1","caption":"無差別曲線が交差する配分：レオンの効用が上がるのは自分の無差別曲線より右上，ケネ","src":"img/GE_pareto_improve_anime.svg"},{"id":"fig-pareto-efficient","number":"図 7.4.2","caption":"無差別曲線が接する配分：レオンの改善領域（右上）とケネスの改善領域（左下）は接点","src":"img/GE_pareto_efficient_anime.svg"},{"id":"FWT","number":"図 7.5.1","caption":"厚生経済学の第一基本定理の説明アニメーション．市場均衡の資源配分がパレート効率的","src":"img/GE_FWT.svg"},{"id":"SWT","number":"図 7.5.2","caption":"厚生経済学の第二基本定理の説明アニメーション．任意のパレート効率的な配分が，適切","src":"img/GE_SWT.svg"},{"id":"fig-game-tree1-solve","number":"図 8.2.2","caption":"ゲームの木の逆算推論法による求解．終端に近いノード $x_1, x_2$ から順","src":"img/backward_induction_anime.svg"},{"id":"anime-subgame","number":"図 8.4.5","caption":"部分ゲーム完全均衡の求め方．同時手番の部分ゲーム $G_1$ を切り出して戦略形","src":"img/subgame_reduction_anime.svg"},{"id":"anime-matching-boston","number":"図 9.4.1","caption":"受入即決方式（ボストン方式）の手順：例1のケース","src":"img/matching_boston.svg"},{"id":"anime-gs","number":"図 9.4.2","caption":"受入保留方式（ゲール・シャプレイ）の手順：例1のケース．青の破線○は暫定保留，緑","src":"img/matching_gs.svg"},{"id":"anime-ttc","number":"図 9.4.3","caption":"最良交換サイクル（TTC）アルゴリズムの手順：表の例","src":"img/ttc_anime.svg"},{"id":"anime-smra","number":"図 11.1.1","caption":"同時競り上げ方式のイメージ．欲しい人が重なった財（超過需要）の価格を少しずつ上げ","src":"img/smra_anime.svg"},{"id":"anime-school-choice-ttc","number":"図 11.2.1","caption":"学校選択版TTCの手順：2校に各2席があり，4人を割り当てる例","src":"img/anime-school-choice-ttc.svg"}];
+
+const sel = document.getElementById('anime');
+for (const a of ANIMES) {
+  const o = document.createElement('option');
+  o.value = a.id; o.textContent = a.number + '　' + a.caption;
+  sel.appendChild(o);
+}
+
+function keyTimesOf(svg) {
+  const kt = new Set([0]);
+  const re = /keyTimes\s*=\s*"([^"]*)"/g; let m;
+  while ((m = re.exec(svg))) m[1].split(';').map(parseFloat).forEach(v => { if (!isNaN(v) && v < 1) kt.add(+v.toFixed(4)); });
+  kt.add(0.9999);
+  return [...kt].sort((a, b) => a - b);
+}
+function durOf(svg) {
+  const m = svg.match(/<animate[^>]*\bdur="([\d.]+)s?"/);
+  return m ? parseFloat(m[1]) : 12;
+}
+
+async function rasterize(bakedSvg, scale) {
+  const vb = (bakedSvg.match(/viewBox="([^"]*)"/) || [])[1].split(/\s+/).map(Number);
+  const url = URL.createObjectURL(new Blob([bakedSvg], { type: 'image/svg+xml' }));
+  try {
+    const img = new Image();
+    img.src = url; await img.decode();
+    const cv = document.createElement('canvas');
+    cv.width = Math.round(vb[2] * scale); cv.height = Math.round(vb[3] * scale);
+    const c = cv.getContext('2d');
+    c.fillStyle = '#fff'; c.fillRect(0, 0, cv.width, cv.height);
+    c.drawImage(img, 0, 0, cv.width, cv.height);
+    const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+    return new Uint8Array(await blob.arrayBuffer());
+  } finally { URL.revokeObjectURL(url); }
+}
+
+// ── 最小のZIP作成（無圧縮・store）─────────────────────────
+const CRC_T = (() => { const t = []; for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(u8) { let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = CRC_T[(c ^ u8[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function makeZip(files) { // files: [{name, data:Uint8Array}]
+  const enc = new TextEncoder(); const parts = []; const central = []; let offset = 0;
+  for (const f of files) {
+    const name = enc.encode(f.name), crc = crc32(f.data), n = f.data.length;
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(8, 0, true);
+    lh.setUint32(14, crc, true); lh.setUint32(18, n, true); lh.setUint32(22, n, true);
+    lh.setUint16(26, name.length, true);
+    parts.push(new Uint8Array(lh.buffer), name, f.data);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(10, 0, true);
+    ch.setUint32(16, crc, true); ch.setUint32(20, n, true); ch.setUint32(24, n, true);
+    ch.setUint16(28, name.length, true); ch.setUint32(42, offset, true);
+    central.push(new Uint8Array(ch.buffer), name);
+    offset += 30 + name.length + n;
+  }
+  const cdStart = offset; let cdLen = 0;
+  for (const c of central) cdLen += c.length;
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+  end.setUint32(12, cdLen, true); end.setUint32(16, cdStart, true);
+  return new Blob([...parts, ...central, new Uint8Array(end.buffer)], { type: 'application/zip' });
+}
+
+const go = document.getElementById('go'), status = document.getElementById('status');
+async function generate() {
+  go.disabled = true; document.getElementById('result').style.display = 'none';
+  try {
+    const a = ANIMES.find(x => x.id === sel.value);
+    const mode = document.querySelector('input[name=mode]:checked').value;
+    const scale = parseFloat(document.querySelector('input[name=scale]:checked').value);
+    status.textContent = 'SVG を読み込み中…';
+    const svg = await (await fetch(a.src)).text();
+    const dur = durOf(svg);
+    let fracs;
+    if (mode === 'key') fracs = keyTimesOf(svg);
+    else { const fps = +mode, n = Math.ceil(dur * fps) + 1; fracs = Array.from({ length: n }, (_, i) => Math.min(i / (dur * fps), 0.9999)); }
+    const files = []; let last = null;
+    for (let i = 0; i < fracs.length; i++) {
+      status.textContent = 'コマを生成中… ' + (i + 1) + ' / ' + fracs.length;
+      last = await rasterize(bake(svg, fracs[i]), scale);
+      files.push({ name: 'frames/' + a.id + '/f_' + i + '.png', data: last });
+      await new Promise(r => requestAnimationFrame(r));
+    }
+    const fps = mode === 'key' ? Math.max(1, Math.round(fracs.length / dur)) : +mode;
+    const snippet = '\\animategraphics[autoplay,loop,controls,width=.62\\linewidth]{' + fps + '}{frames/' + a.id + '/f_}{0}{' + (fracs.length - 1) + '}';
+    files.push({ name: 'frames/' + a.id + '/snippet.txt', data: new TextEncoder().encode(snippet + '\n') });
+    const zip = makeZip(files);
+    const dl = document.getElementById('dl');
+    dl.href = URL.createObjectURL(zip); dl.download = a.id + '_frames.zip';
+    document.getElementById('snippet').value = snippet;
+    const pv = document.getElementById('preview');
+    pv.src = URL.createObjectURL(new Blob([last], { type: 'image/png' })); pv.style.display = 'block';
+    document.getElementById('result').style.display = 'block';
+    status.textContent = '完成：' + fracs.length + 'コマ・' + (zip.size / (1 << 20)).toFixed(1) + ' MB（' + (mode === 'key' ? '変化点のみ' : mode + 'fps') + '）';
+  } catch (e) {
+    status.textContent = 'エラー：' + e.message;
+  } finally { go.disabled = false; }
+}
+go.addEventListener('click', generate);
+</script>
+</body>
+</html>
