@@ -5,15 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-book-tpl="{book}Web教材 — {authors}">ミクロ経済学（仮題）Web教材 — 多鹿 智哉・栗田 健一</title>
 
-<!-- ── SNS共有・検索向けメタ（公開前に内容確定）────────────── -->
 <meta name="description" data-book-tpl="学部向けミクロ経済学の教科書『{book}』（{authorsCompact}）のWeb教材．アニメーション・図版・演習問題を収録．" content="学部向けミクロ経済学の教科書『ミクロ経済学（仮題）』（多鹿智哉・栗田健一）のWeb教材．アニメーション・図版・演習問題を収録．">
 <meta property="og:title" data-book-tpl="{book}Web教材" content="ミクロ経済学（仮題）Web教材">
 <meta property="og:description" content="本文中の図をQRコードからアニメ・拡大図で確認できるWeb教材．">
 <meta property="og:type" content="website">
-<!-- <meta property="og:image" content="img/cover.png"> 書影が用意できたら設定 -->
-<!-- <link rel="icon" href="favicon.ico"> favicon を用意したら設定 -->
-<!-- 紙の本の発売前は検索インデックスを避けたい場合，次行を有効化する
-<meta name="robots" content="noindex, nofollow"> -->
 
 <style>
   :root { --ink:#1f2937; --sub:#6b7280; --line:#e5e7eb; --accent:#2563eb; --bg:#f9fafb; }
@@ -71,7 +66,6 @@
     本文中の図はQRコードからこのサイトの該当ページへ飛び，アニメーションや拡大図で確認できます．
   </p>
 
-  <!-- ── 書誌情報（確定したら ［…］ を置き換える）──────────── -->
   <h2>書誌情報</h2>
   <dl class="biblio">
     <dt>書名</dt><dd data-book-tpl="{book}">ミクロ経済学（仮題）</dd>
@@ -82,7 +76,6 @@
     <dt>ISBN</dt><dd><span class="ph">［978-X-XXXX-XXXX-X］</span></dd>
     <dt>定価</dt><dd><span class="ph">［X,XXX円＋税］</span></dd>
   </dl>
-  <!-- 書影が用意できたら：<img src="img/cover.png" alt="書影" style="max-width:200px"> -->
 
   <h2>本書の特徴・対象読者</h2>
   <ul>
@@ -103,7 +96,7 @@
     </a>
     <a class="card" href="micro_exercise.html">
       <div class="t">演習問題 →</div>
-      <div class="d">章ごとの練習問題と解答例．<!-- 公開範囲は要調整 --></div>
+      <div class="d">章ごとの練習問題と解答例．</div>
     </a>
     <a class="card" href="references.html">
       <div class="t">引用文献 →</div>
@@ -194,7 +187,7 @@
     </li>
   </ul>
   <div class="note">
-    <!-- 連絡先は公開可能なものに差し替えてください -->
+    
     お問い合わせ：<a href="mailto:tomoyatajika@gmail.com">tomoyatajika@gmail.com</a>
   </div>
 
@@ -209,6 +202,7 @@
     <li><strong>アニメーション（MP4）</strong>：<a href="anime_gallery.html">アニメーション一覧</a>の各図から MP4 版もダウンロードできます．PowerPoint 等のスライドに貼り付けてそのまま再生できます（SVG アニメはスライド上では動きません）．</li>
     <li><strong>Beamer（LaTeX）用スライド素材</strong>：全アニメのコマ送り画像（PDF）と雛型・専用マクロの一式．<a href="beamer_kit.zip" download>ZIP をダウンロード</a>するか，<a href="https://ja.overleaf.com/read/rqsjdzhmjwvr#33391e">Overleaf のサンプルプロジェクト</a>を開いて Copy Project で複製してください．図は <code>\bookanime{図のid}</code> の1行で貼れて，投影ではコマ送り，配布資料（handout）では4コマまとめ図に自動で切り替わります．</li>
     <li><strong>Typst（Touying）用スライド素材</strong>：同じ仕組みの Typst 版（雛型＋定義ファイル）．<a href="touying_kit.zip" download>ZIP をダウンロード</a>し，コマ画像は上の Beamer 素材を展開した <code>frames/</code> を流用してください．</li>
+    <li><strong>PDF内でアニメを自動再生する素材（Acrobat 限定・上級者向け）</strong>：LaTeX の <code>animate</code> パッケージ用の PNG 連番素材．<a href="animate_kit.zip" download>雛型＋サンプル1図（ZIP）をダウンロード</a>．再生できるのは Adobe Acrobat だけなので，通常は上記 Beamer 素材のコマ送りをおすすめします．他の図の連番（1図あたり数MB〜数十MB）が必要な方は個別にご連絡ください．</li>
     <li><strong>ゲームの木の作図ツール（Typst）</strong>：展開形ゲームの木を記述する Typst パッケージ．
       <a href="https://github.com/Ttajika/Typst/tree/main/game-tree">GitHub で見る</a> ／
       <a href="https://github.com/Ttajika/Typst/archive/refs/heads/main.zip" download>ZIP でダウンロード</a></li>
@@ -231,8 +225,7 @@
     <li><strong>講義での利用</strong>：採用教員は，授業内のスライド・配布資料に利用できる．
     <li><strong>改変・再配布・商用利用</strong>：要相談</li>
   </ul>
-  <!-- <p style="color:var(--sub); font-size:.92rem;">
-    ※ ライセンス形態（例：CC BY-NC など）を採用する場合はここに明記し，リポジトリに LICENSE ファイルを置く． -->
+  
   </p>
 
   <h2>出典表記の例</h2>
@@ -243,7 +236,7 @@
 
   <footer>
     最終更新：<span data-build-date>2026-07-18</span><br>
-    © <span data-book-tpl="{authors}">多鹿 智哉・栗田 健一</span>. 図版・本文の著作権は著者および出版社に帰属します．<!-- 帰属先は契約に合わせて -->
+    © <span data-book-tpl="{authors}">多鹿 智哉・栗田 健一</span>. 図版・本文の著作権は著者および出版社に帰属します．
   </footer>
 
 </div>
