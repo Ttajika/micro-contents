@@ -36,7 +36,8 @@ window.MathJax = {
   },
 };
 </script>
-
+<!-- MathJax はローカル同梱（vendor/mathjax）．本文 micro-notes.html と同じく
+     オフライン・印刷でも確実にレンダリングするため CDN ではなく相対パスで読み込む． -->
 <script src="vendor/mathjax/tex-chtml.js" async></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Noto+Serif:wght@400;700&family=JetBrains+Mono:wght@400&display=swap');
@@ -395,6 +396,7 @@ h3 {
 <p>等式（$=$ で結ばれた式）に対してできる操作は次の3つに集約される．第一に，両辺に同じ数を足しても等式は成立したままである．たとえば $x = a$ ならば $x + b = a + b$ である．第二に，両辺に同じ数をかけても等式はそのままで，$x = a$ ならば $b x = b a$ となる．第三に，割る数が $0$ でなければ両辺を同じ数で割ってもよい．つまり $a x = a b$ かつ $a \neq 0$ ならば $x = b$ である．</p>
 </section>
 
+
 <section class="ap-section" id="ap-math-solve">
 <h2>等式を解く</h2>
 
@@ -413,6 +415,7 @@ h3 {
 
 <p>このように両辺に同じ操作を繰り返して，$x$ を片側に「孤立」させるのが等式を解くという作業である．</p>
 </section>
+
 
 <section class="ap-section" id="ap-math-rearrange">
 <h2>式変形の道具</h2>
@@ -434,11 +437,13 @@ h3 {
 \]
 </section>
 
+
 <section class="ap-section" id="ap-math-function">
 <h2>関数</h2>
 
 <p>入力を出力に割り当てる仕組みを <strong>関数</strong> と呼び，関数には名前（多くは $f$ や $g$）をつける．たとえば $f(x) = 2 x + 1$ という関数では，名前は $f$，入力は $x$，出力は $f(x)$（<strong>関数の値</strong>とも呼ぶ）である．数学的な式に限らず，現実のものを関数とみなすこともできる．たとえば自動<ruby>販売<rp>（</rp><rt>はんばい</rt><rp>）</rp></ruby>機は，押したボタンを入力，出てくる飲み物を出力とする関数である．また入力する変数が複数あっても考え方は同じで，たとえば $u(x, y) = x \cdot y$ は $x$ と $y$ という二つの入力に $x \cdot y$ という出力を割り当てる関数である．</p>
 </section>
+
 
 <section class="ap-section" id="ap-math-derivative">
 <h2>微分</h2>
@@ -508,6 +513,7 @@ h3 {
 </div>
 </section>
 
+
 <section class="ap-section" id="ap-math-maximization">
 <h2>最大化問題</h2>
 
@@ -555,6 +561,7 @@ h3 {
 </div>
 </section>
 
+
 <section class="ap-section" id="ap-math-partial">
 <h2>偏微分</h2>
 
@@ -574,8 +581,9 @@ h3 {
 
 </article>
 
-</div>
+</div><!-- /#content -->
 
+<!-- Footnote popup -->
 <div id="fn-popup">
   <button class="popup-close" id="fnPopupClose">✕</button>
   <div class="popup-num" id="fnNum"></div>

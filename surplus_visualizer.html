@@ -308,6 +308,7 @@ input#s-t { accent-color: #C69CC5; }
 
 <div class="app">
 
+  <!-- ── Usage guide (collapsible) ── -->
   <details class="howto">
     <summary>使い方</summary>
     <div class="howto-body">
@@ -346,6 +347,7 @@ input#s-t { accent-color: #C69CC5; }
     </div>
   </details>
 
+  <!-- ── Chart ── -->
   <div class="chart-wrap">
     <canvas id="chart"></canvas>
     <div class="legend">
@@ -356,8 +358,10 @@ input#s-t { accent-color: #C69CC5; }
     </div>
   </div>
 
+  <!-- ── Panel ── -->
   <div class="panel">
 
+    <!-- Controls -->
     <div class="card">
       <div class="card-title">パラメータ</div>
 
@@ -408,6 +412,7 @@ input#s-t { accent-color: #C69CC5; }
       </div>
     </div>
 
+    <!-- Stats -->
     <div class="card">
       <div class="card-title">余剰の内訳</div>
 
@@ -461,8 +466,8 @@ input#s-t { accent-color: #C69CC5; }
       </div>
     </div>
 
-  </div>
-</div>
+  </div><!-- /panel -->
+</div><!-- /app -->
 
 <script>
 // ── Canvas setup (HiDPI) ──────────────────────────────────────────

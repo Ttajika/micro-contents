@@ -8,66 +8,164 @@
   </marker>
 </defs>
 
-<!-- ===== 静的：ノード（名前のみ） ===== -->
-<circle cx="90" cy="90" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
-<text x="90" y="95" text-anchor="middle" fill="#222" font-size="14">アダム</text>
-<circle cx="250" cy="90" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
-<text x="250" y="95" text-anchor="middle" fill="#222" font-size="14">イヴ</text>
-<circle cx="410" cy="90" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
-<text x="410" y="95" text-anchor="middle" fill="#222" font-size="14">ヤコブ</text>
-<circle cx="250" cy="230" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
-<text x="250" y="235" text-anchor="middle" fill="#222" font-size="14">ルツ</text>
-<circle cx="410" cy="230" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
-<text x="410" y="235" text-anchor="middle" fill="#222" font-size="14">ヨセフ</text>
+<!-- ===== 静的：ノード（名前のみ）。確定して退場した人は以後の巡で薄くする ===== -->
+<g>
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.4332;0.4333;1" values="1;1;0.3;0.3"/>
+  <circle cx="90" cy="90" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="90" y="95" text-anchor="middle" fill="#222" font-size="14">アダム</text>
+</g>
+<g>
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.4332;0.4333;1" values="1;1;0.3;0.3"/>
+  <circle cx="250" cy="90" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="250" y="95" text-anchor="middle" fill="#222" font-size="14">イヴ</text>
+</g>
+<g>
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.4332;0.4333;1" values="1;1;0.3;0.3"/>
+  <circle cx="410" cy="90" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="410" y="95" text-anchor="middle" fill="#222" font-size="14">ヤコブ</text>
+</g>
+<g>
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6999;0.7;1" values="1;1;0.3;0.3"/>
+  <circle cx="250" cy="230" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="250" y="235" text-anchor="middle" fill="#222" font-size="14">ルツ</text>
+</g>
+<g>
+  <circle cx="410" cy="230" r="34" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="410" y="235" text-anchor="middle" fill="#222" font-size="14">ヨセフ</text>
+</g>
 
-<!-- ===== 段階1の矢印（誰を指すか） ===== -->
+<!-- ===== シーン1：初期設定 [0s, 3s) ===== -->
 <g opacity="0">
-  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;1;1;1;1;0;0;0;0"/>
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.0999;0.1;1" values="1;1;0;0"/>
+  <rect x="12" y="12" width="76" height="24" rx="12" fill="#eef2f7" stroke="#aab5c3"/>
+  <text x="50" y="29" text-anchor="middle" fill="#334" font-size="13" font-weight="700">初期設定</text>
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">各自の持ち物は下の札．交換すれば皆が得をできるか？</text>
+</g>
+
+<!-- ===== シーン2：1巡目・各自が一番欲しい財の持ち主を指す [3s, 6s) ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.0999;0.1;0.1999;0.2;1" values="0;0;1;1;0;0"/>
+  <rect x="12" y="12" width="76" height="24" rx="12" fill="#eaf5ec" stroke="#2a8a3e"/>
+  <text x="50" y="29" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">1巡目</text>
   <line x1="124" y1="84" x2="214" y2="84" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
   <line x1="284" y1="84" x2="374" y2="84" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
   <path d="M386,64 Q250,16 114,64" fill="none" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
   <line x1="250" y1="196" x2="250" y2="126" stroke="#777" stroke-width="1.6" marker-end="url(#arrowBlk)"/>
   <line x1="376" y1="230" x2="286" y2="230" stroke="#777" stroke-width="1.6" marker-end="url(#arrowBlk)"/>
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">各自が一番欲しい財の持ち主を指す（自分でも可）</text>
 </g>
 
-<!-- ===== 確定したサイクル（ア・イ・ヤ）の緑リング ===== -->
+<!-- ===== シーン3：1巡目・サイクル成立→交換して退場 [6s, 13s)（なぞり後にポーズ） ===== -->
 <g opacity="0">
-  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;1;1;1;1;1;1"/>
-  <circle cx="90" cy="90" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
-  <circle cx="250" cy="90" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
-  <circle cx="410" cy="90" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1999;0.2;0.4332;0.4333;1" values="0;0;1;1;0;0"/>
+  <rect x="12" y="12" width="76" height="24" rx="12" fill="#eaf5ec" stroke="#2a8a3e"/>
+  <text x="50" y="29" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">1巡目</text>
+  <line x1="124" y1="84" x2="214" y2="84" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="284" y1="84" x2="374" y2="84" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <path d="M386,64 Q250,16 114,64" fill="none" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="250" y1="196" x2="250" y2="126" stroke="#777" stroke-width="1.6" marker-end="url(#arrowBlk)"/>
+  <line x1="376" y1="230" x2="286" y2="230" stroke="#777" stroke-width="1.6" marker-end="url(#arrowBlk)"/>
+
+  <!-- 輪のなぞり：アダム→イヴ→ヤコブ→アダム の順に緑の線が走る -->
+  <path d="M124,84 L214,84" fill="none" stroke="#2a8a3e" stroke-width="6" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+    <animate attributeName="stroke-dashoffset" dur="30s" repeatCount="indefinite" keyTimes="0;0.21;0.23;1" values="100;100;0;0"/>
+  </path>
+  <path d="M284,84 L374,84" fill="none" stroke="#2a8a3e" stroke-width="6" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+    <animate attributeName="stroke-dashoffset" dur="30s" repeatCount="indefinite" keyTimes="0;0.23;0.25;1" values="100;100;0;0"/>
+  </path>
+  <path d="M386,64 Q250,16 114,64" fill="none" stroke="#2a8a3e" stroke-width="6" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+    <animate attributeName="stroke-dashoffset" dur="30s" repeatCount="indefinite" keyTimes="0;0.25;0.27;1" values="100;100;0;0"/>
+  </path>
+
+  <!-- 確定したサイクル（ア・イ・ヤ）の緑リング（なぞり終わってから） -->
+  <g opacity="0">
+    <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2699;0.27;1" values="0;0;1;1"/>
+    <circle cx="90" cy="90" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+    <circle cx="250" cy="90" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+    <circle cx="410" cy="90" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  </g>
+
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">サイクル成立！指された人が札を渡す → 交換して退場</text>
 </g>
 
-<!-- ===== 段階2の矢印（ルツの自己ループ・ヨセフ→ルツ） ===== -->
+<!-- ===== シーン4：2巡目・ルツは自分自身を指す [13s, 16s) ===== -->
 <g opacity="0">
-  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;1;1;1;1"/>
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.4332;0.4333;0.5332;0.5333;1" values="0;0;1;1;0;0"/>
+  <rect x="12" y="12" width="76" height="24" rx="12" fill="#eaf5ec" stroke="#2a8a3e"/>
+  <text x="50" y="29" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">2巡目</text>
   <path d="M232,200 C 216,148 284,148 268,200" fill="none" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
   <line x1="376" y1="230" x2="286" y2="230" stroke="#777" stroke-width="1.6" marker-end="url(#arrowBlk)"/>
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">残った2人で繰り返す：ルツは自分自身を指す</text>
 </g>
 
-<!-- ===== ルツ・ヨセフ確定の緑リング ===== -->
+<!-- ===== シーン5：2巡目・ルツだけの輪→チョコを自分に配分 [16s, 21s)（なぞり後にポーズ） ===== -->
 <g opacity="0">
-  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;0;0;1;1"/>
-  <circle cx="250" cy="230" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
-  <circle cx="410" cy="230" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.5332;0.5333;0.6999;0.7;1" values="0;0;1;1;0;0"/>
+  <rect x="12" y="12" width="76" height="24" rx="12" fill="#eaf5ec" stroke="#2a8a3e"/>
+  <text x="50" y="29" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">2巡目</text>
+  <path d="M232,200 C 216,148 284,148 268,200" fill="none" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="376" y1="230" x2="286" y2="230" stroke="#777" stroke-width="1.6" marker-end="url(#arrowBlk)"/>
+
+  <!-- 輪のなぞり：ルツひとりの輪 -->
+  <path d="M232,200 C 216,148 284,148 268,200" fill="none" stroke="#2a8a3e" stroke-width="6" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+    <animate attributeName="stroke-dashoffset" dur="30s" repeatCount="indefinite" keyTimes="0;0.5433;0.5767;1" values="100;100;0;0"/>
+  </path>
+
+  <!-- ルツ確定の緑リング（なぞり終わってから） -->
+  <g opacity="0">
+    <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.5766;0.5767;1" values="0;0;1;1"/>
+    <circle cx="250" cy="230" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  </g>
+
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">ルツひとりの輪が成立．自分のチョコをそのまま受け取って退場</text>
 </g>
 
-<!-- ===== 持ち物の札（段階1のサイクルで移動する） ===== -->
+<!-- ===== シーン6：3巡目・残ったヨセフも自分自身を指す [21s, 24s) ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6999;0.7;0.7999;0.8;1" values="0;0;1;1;0;0"/>
+  <rect x="12" y="12" width="76" height="24" rx="12" fill="#eaf5ec" stroke="#2a8a3e"/>
+  <text x="50" y="29" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">3巡目</text>
+  <path d="M392,200 C 376,148 444,148 428,200" fill="none" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">最後に残ったヨセフも自分自身を指す</text>
+</g>
+
+<!-- ===== シーン7：3巡目・ヨセフ確定→全員の配分が決定 [24s, 30s)（ポーズ） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.7999;0.8;1" values="0;0;1;1"/>
+  <rect x="12" y="12" width="76" height="24" rx="12" fill="#eaf5ec" stroke="#2a8a3e"/>
+  <text x="50" y="29" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">3巡目</text>
+  <path d="M392,200 C 376,148 444,148 428,200" fill="none" stroke="#1a3c6e" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- 輪のなぞり：ヨセフひとりの輪 -->
+  <path d="M392,200 C 376,148 444,148 428,200" fill="none" stroke="#2a8a3e" stroke-width="6" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+    <animate attributeName="stroke-dashoffset" dur="30s" repeatCount="indefinite" keyTimes="0;0.81;0.8433;1" values="100;100;0;0"/>
+  </path>
+
+  <!-- ヨセフ確定の緑リング（なぞり終わってから） -->
+  <g opacity="0">
+    <animate attributeName="opacity" dur="30s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.8432;0.8433;1" values="0;0;1;1"/>
+    <circle cx="410" cy="230" r="40" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  </g>
+
+  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">ヨセフも自分のジャムを受け取って確定 → 全員の配分が決定</text>
+</g>
+
+<!-- ===== 持ち物の札（1巡目のサイクルで移動する） ===== -->
 <!-- 飴：アダム→ヤコブ（ヤコブ→アダムの矢印に沿って上を弧で移動） -->
 <g>
-  <animateTransform attributeName="transform" type="translate" dur="15s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.4;0.4175;0.435;0.4525;0.47;1" values="0,0;0,0;80,-82.5;160,-110;240,-82.5;320,0;320,0"/>
+  <animateTransform attributeName="transform" type="translate" dur="30s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.28;0.29;0.3;0.31;0.32;1" values="0,0;0,0;80,-82.5;160,-110;240,-82.5;320,0;320,0"/>
   <rect x="62" y="143" width="56" height="24" rx="12" fill="#fff4e6" stroke="#e0a96d"/>
   <text x="90" y="160" text-anchor="middle" fill="#8a5a2b" font-size="12">飴</text>
 </g>
 <!-- ガム：イヴ→アダム -->
 <g>
-  <animateTransform attributeName="transform" type="translate" dur="15s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.4;0.47;1" values="0,0;0,0;-160,0;-160,0"/>
+  <animateTransform attributeName="transform" type="translate" dur="30s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.28;0.32;1" values="0,0;0,0;-160,0;-160,0"/>
   <rect x="222" y="143" width="56" height="24" rx="12" fill="#fff4e6" stroke="#e0a96d"/>
   <text x="250" y="160" text-anchor="middle" fill="#8a5a2b" font-size="12">ガム</text>
 </g>
 <!-- クッキー：ヤコブ→イヴ -->
 <g>
-  <animateTransform attributeName="transform" type="translate" dur="15s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.4;0.47;1" values="0,0;0,0;-160,0;-160,0"/>
+  <animateTransform attributeName="transform" type="translate" dur="30s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.28;0.32;1" values="0,0;0,0;-160,0;-160,0"/>
   <rect x="382" y="143" width="56" height="24" rx="12" fill="#fff4e6" stroke="#e0a96d"/>
   <text x="410" y="160" text-anchor="middle" fill="#8a5a2b" font-size="12">クッキー</text>
 </g>
@@ -80,27 +178,5 @@
 <g>
   <rect x="382" y="267" width="56" height="24" rx="12" fill="#fff4e6" stroke="#e0a96d"/>
   <text x="410" y="284" text-anchor="middle" fill="#8a5a2b" font-size="12">ジャム</text>
-</g>
-
-<!-- ===== 手順キャプション（各段階のみ表示） ===== -->
-<g opacity="0">
-  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="1;1;0;0;0;0;0;0;0;0"/>
-  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">各自の持ち物は下の札．交換すれば皆が得をできるか？</text>
-</g>
-<g opacity="0">
-  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;1;1;0;0;0;0;0;0"/>
-  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">各自が一番欲しい財の持ち主を指す（自分でも可）</text>
-</g>
-<g opacity="0">
-  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;1;1;0;0;0;0"/>
-  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">サイクル成立！指された人が札を渡す → 交換して退場</text>
-</g>
-<g opacity="0">
-  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;1;1;0;0"/>
-  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">残った2人で繰り返す：ルツは自分自身を指す</text>
-</g>
-<g opacity="0">
-  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;0;0;1;1"/>
-  <text x="260" y="332" text-anchor="middle" fill="#555" font-size="13">ルツ・ヨセフも自分を指して確定 → 全員の配分が決定</text>
 </g>
 </svg>
