@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 450" style="font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif">
+<!-- ===== 静的レイアウト ===== -->
+<!-- 仕切り線 -->
+<line x1="275" y1="78" x2="275" y2="410" stroke="rgba(0,0,0,0.12)" stroke-width="1"/>
+
+<!-- 左：就活生 -->
+<text x="34" y="50" fill="#333" font-size="16" font-weight="700">就活生</text>
+<text x="34" y="68" fill="#888" font-size="11">（名前：希望順）</text>
+<text x="34" y="116" fill="#333" font-size="15">アダム：<tspan x="112" text-anchor="middle">A</tspan><tspan x="134" text-anchor="middle">B</tspan><tspan x="156" text-anchor="middle">C</tspan></text>
+<text x="34" y="159" fill="#333" font-size="15">イヴ：<tspan x="112" text-anchor="middle">B</tspan><tspan x="134" text-anchor="middle">A</tspan><tspan x="156" text-anchor="middle">C</tspan></text>
+<text x="34" y="202" fill="#333" font-size="15">ノア：<tspan x="112" text-anchor="middle">A</tspan><tspan x="134" text-anchor="middle">B</tspan><tspan x="156" text-anchor="middle">C</tspan></text>
+
+<!-- 右：企業（名前と好み） -->
+<text x="300" y="50" fill="#333" font-size="16" font-weight="700">企業（名前：好み）</text>
+<rect x="345" y="70" width="70" height="46" rx="8" fill="#f5f1ec" stroke="#ddd" stroke-width="1"/>
+<text x="380" y="93" text-anchor="middle" fill="#333" font-size="18" font-weight="700">A</text>
+<text x="380" y="110" text-anchor="middle" fill="#666" font-size="12">アイノ</text>
+<rect x="475" y="70" width="70" height="46" rx="8" fill="#f5f1ec" stroke="#ddd" stroke-width="1"/>
+<text x="510" y="93" text-anchor="middle" fill="#333" font-size="18" font-weight="700">B</text>
+<text x="510" y="110" text-anchor="middle" fill="#666" font-size="12">ノイア</text>
+<rect x="605" y="70" width="70" height="46" rx="8" fill="#f5f1ec" stroke="#ddd" stroke-width="1"/>
+<text x="640" y="93" text-anchor="middle" fill="#333" font-size="18" font-weight="700">C</text>
+<text x="640" y="110" text-anchor="middle" fill="#666" font-size="12">イノア</text>
+
+<!-- 巡目ラベル（縦書き）と帯の区切り -->
+<line x1="300" y1="240" x2="700" y2="240" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+<line x1="300" y1="345" x2="700" y2="345" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+<text x="292" y="185" text-anchor="middle" fill="#aaa" font-size="12" transform="rotate(-90,292,185)">1巡目</text>
+<text x="292" y="290" text-anchor="middle" fill="#aaa" font-size="12" transform="rotate(-90,292,290)">2巡目</text>
+
+<!-- ===== 動的：好み欄の下線（応募中の希望順を示す） ===== -->
+<!-- アダム：A（第1希望）に応募 -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;1;1;1;1;1;1;1;1"/>
+  <line x1="103" y1="120" x2="121" y2="120" stroke="#1a3c6e" stroke-width="2.5"/>
+</g>
+<!-- イヴ：B（第1希望）に応募 -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;1;1;1;1;1;1;1;1"/>
+  <line x1="103" y1="163" x2="121" y2="163" stroke="#1a3c6e" stroke-width="2.5"/>
+</g>
+<!-- ノア：A（第1希望）に応募 → 断られたら消える -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;1;1;1;1;0;0;0;0"/>
+  <line x1="103" y1="206" x2="121" y2="206" stroke="#1a3c6e" stroke-width="2.5"/>
+</g>
+<!-- ノア：C（第3希望）に応募（2巡目） -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;1;1;1;1"/>
+  <line x1="147" y1="206" x2="165" y2="206" stroke="#1a3c6e" stroke-width="2.5"/>
+</g>
+<!-- ノア：A（断られた）・B（満員）はもう行けない＝赤線（2巡目以降） -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;1;1;1;1"/>
+  <line x1="103" y1="197" x2="121" y2="197" stroke="#c0392b" stroke-width="2.5"/>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;1;1;1;1"/>
+  <line x1="125" y1="197" x2="143" y2="197" stroke="#c0392b" stroke-width="2.5"/>
+</g>
+
+<!-- ===== 動的：1巡目の応募（②） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;1;1;1;1;1;1;1;1"/>
+  <rect x="363" y="150" width="34" height="30" rx="6" fill="#eef2f7" stroke="#aab" stroke-width="1"/>
+  <text x="380" y="171" text-anchor="middle" fill="#333" font-size="15">ア</text>
+  <rect x="363" y="188" width="34" height="30" rx="6" fill="#eef2f7" stroke="#aab" stroke-width="1"/>
+  <text x="380" y="209" text-anchor="middle" fill="#333" font-size="15">ノ</text>
+  <rect x="493" y="150" width="34" height="30" rx="6" fill="#eef2f7" stroke="#aab" stroke-width="1"/>
+  <text x="510" y="171" text-anchor="middle" fill="#333" font-size="15">イ</text>
+</g>
+
+<!-- ===== 動的：1巡目の採否（③）採用○・不採用／ ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;1;1;1;1;1;1"/>
+  <circle cx="380" cy="165" r="21" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  <circle cx="510" cy="165" r="21" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  <line x1="366" y1="217" x2="394" y2="189" stroke="#c0392b" stroke-width="3"/>
+</g>
+
+<!-- ===== 動的：2巡目の応募（④）ノア→C ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;1;1;1;1"/>
+  <rect x="623" y="265" width="34" height="30" rx="6" fill="#eef2f7" stroke="#aab" stroke-width="1"/>
+  <text x="640" y="286" text-anchor="middle" fill="#333" font-size="15">ノ</text>
+</g>
+
+<!-- ===== 動的：2巡目の採否＋確定（⑤） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;0;0;1;1"/>
+  <circle cx="640" cy="280" r="21" fill="none" stroke="#2a8a3e" stroke-width="2.5"/>
+  <rect x="300" y="358" width="400" height="34" rx="8" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.2"/>
+  <text x="500" y="380" text-anchor="middle" fill="#2a8a3e" font-size="14" font-weight="700">確定：A–アダム ／ B–イヴ ／ C–ノア</text>
+</g>
+
+<!-- ===== 動的：手順キャプション（下段・各段階のみ表示） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="1;1;0;0;0;0;0;0;0;0"/>
+  <text x="34" y="434" fill="#555" font-size="13">各就活生の希望順と，各企業の好み（希望順）</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;1;1;0;0;0;0;0;0"/>
+  <text x="34" y="434" fill="#555" font-size="13">1巡目：全員が第1志望に応募する</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;1;1;0;0;0;0"/>
+  <text x="34" y="434" fill="#555" font-size="13">各企業が採用を決定（採用＝○，不採用＝赤い／）</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;1;1;0;0"/>
+  <text x="34" y="434" fill="#555" font-size="13">2巡目：断られたノアが空いているCに応募</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="15s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1995;0.2;0.3995;0.4;0.5995;0.6;0.7995;0.8;0.9995" values="0;0;0;0;0;0;0;0;1;1"/>
+  <text x="34" y="434" fill="#555" font-size="13">Cがノアを採用 → 全員のマッチングが確定</text>
+</g>
+</svg>

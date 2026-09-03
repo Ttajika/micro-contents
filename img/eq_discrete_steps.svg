@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 446" style="font-family:-apple-system,BlinkMacSystemFont,sans-serif">
+<defs><marker id="ax" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#333"/></marker><marker id="pt" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d9822b"/></marker></defs>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.0500;0.0550;0.2500;0.2550;1" values="0;0;1;1;0;0"/><text x="330" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#333">① まず需要曲線を描く</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.2500;0.2550;0.4500;0.4550;1" values="0;0;1;1;0;0"/><text x="330" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#333">② 同じ図に供給曲線を描く</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.4500;0.4550;0.6200;0.6250;1" values="0;0;1;1;0;0"/><text x="330" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#333">③ 2本が重なっているところを探す</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.6200;0.6250;0.8200;0.8250;1" values="0;0;1;1;0;0"/><text x="330" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#333">④ 重なる領域が均衡価格の領域 1800〜2000</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.8200;0.8250;1" values="0;0;1;1"/><text x="330" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#333">⑤ そのときの数量が均衡取引量 3</text></g>
+<g stroke="rgba(0,0,0,0.07)" stroke-width="0.6">
+<line x1="96" y1="332.0" x2="560.4" y2="332.0"/>
+<line x1="96" y1="268.0" x2="560.4" y2="268.0"/>
+<line x1="96" y1="204.0" x2="560.4" y2="204.0"/>
+<line x1="96" y1="140.0" x2="560.4" y2="140.0"/>
+<line x1="96" y1="76.0" x2="560.4" y2="76.0"/>
+<line x1="182.0" y1="50.4" x2="182.0" y2="396"/>
+<line x1="268.0" y1="50.4" x2="268.0" y2="396"/>
+<line x1="354.0" y1="50.4" x2="354.0" y2="396"/>
+<line x1="440.0" y1="50.4" x2="440.0" y2="396"/>
+<line x1="526.0" y1="50.4" x2="526.0" y2="396"/>
+</g>
+<line x1="96" y1="396" x2="96" y2="44.0" stroke="#333" stroke-width="1.5" marker-end="url(#ax)"/>
+<line x1="96" y1="396" x2="577.6" y2="396" stroke="#333" stroke-width="1.5" marker-end="url(#ax)"/>
+<text x="585.6" y="400" font-size="13" fill="#444">数量</text>
+<text x="34" y="223" text-anchor="middle" font-size="12" fill="#444" transform="rotate(-90,34,223)">支払意思額／費用</text>
+<text x="88" y="336.0" text-anchor="end" font-size="12" fill="#444">1000</text>
+<text x="88" y="208.0" text-anchor="end" font-size="12" fill="#444">3000</text>
+<text x="88" y="144.0" text-anchor="end" font-size="12" fill="#444">4000</text>
+<text x="88" y="80.0" text-anchor="end" font-size="12" fill="#444">5000</text>
+<text x="88" y="265.0" text-anchor="end" font-size="11" fill="#444">2000<animate attributeName="fill" dur="20s" repeatCount="indefinite" keyTimes="0;0.6200;0.6250;1" values="#444;#444;#d9822b;#d9822b"/></text>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.7000;0.7050;1" values="0;0;1;1"/><text x="88" y="290.8" text-anchor="end" font-size="11" fill="#d9822b">1800</text></g>
+<text x="182.0" y="414" text-anchor="middle" font-size="12" fill="#444">1</text>
+<text x="268.0" y="414" text-anchor="middle" font-size="12" fill="#444">2</text>
+<text x="354.0" y="414" text-anchor="middle" font-size="12" fill="#444" font-weight="600">3<animate attributeName="fill" dur="20s" repeatCount="indefinite" keyTimes="0;0.8800;0.8850;1" values="#444;#444;#d9822b;#d9822b"/></text>
+<text x="440.0" y="414" text-anchor="middle" font-size="12" fill="#444">4</text>
+<text x="526.0" y="414" text-anchor="middle" font-size="12" fill="#444">5</text>
+<polyline points="96.0,76.0 182.0,76.0 182.0,172.0 268.0,172.0 268.0,268.0 354.0,268.0 354.0,332.0 440.0,332.0 440.0,344.8 526.0,344.8" fill="none" stroke="#610b0b" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="699" stroke-dashoffset="699"><animate attributeName="stroke-dashoffset" dur="20s" repeatCount="indefinite" keyTimes="0;0.0500;0.2100;1" values="699;699;0;0"/></polyline>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.2100;0.2150;1" values="0;0;1;1"/><text x="534.0" y="349.8" font-size="13" font-weight="700" fill="#610b0b">需要曲線</text></g>
+<polyline points="96.0,341.6 182.0,341.6 182.0,335.2 268.0,335.2 268.0,280.8 354.0,280.8 354.0,191.2 440.0,191.2 440.0,108.0 526.0,108.0" fill="none" stroke="#2e67b5" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="664" stroke-dashoffset="664"><animate attributeName="stroke-dashoffset" dur="20s" repeatCount="indefinite" keyTimes="0;0.2500;0.4100;1" values="664;664;0;0"/></polyline>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.4100;0.4150;1" values="0;0;1;1"/><text x="534.0" y="113.0" font-size="13" font-weight="700" fill="#2e67b5">供給曲線</text></g>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.4500;0.4550;1" values="0;0;1;1"/><line x1="354.0" y1="268.0" x2="354.0" y2="280.8" stroke="#d9822b" stroke-width="11" stroke-linecap="round" opacity="0.45"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.4500;0.4550;0.6200;0.6250;1" values="0;0;1;1;0;0"/><circle cx="354.0" cy="274.4" r="17" fill="none" stroke="#d9822b" stroke-width="2"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.4500;0.4550;0.6200;0.6250;1" values="0;0;1;1;0;0"/><text x="380.0" y="244.0" font-size="13" font-weight="700" fill="#d9822b">2本が重なる</text><line x1="378.0" y1="248.0" x2="364.0" y2="271.2" stroke="#d9822b" stroke-width="1.4" marker-end="url(#pt)"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.6200;0.6250;1" values="0;0;1;1"/>
+<rect x="96" y="268.0" width="258.0" height="12.8" fill="#d9822b" opacity="0.20"/>
+</g>
+<line x1="96" y1="268.0" x2="96" y2="268.0" stroke="#d9822b" stroke-width="1.4" stroke-dasharray="5 3"><animate attributeName="x2" dur="20s" repeatCount="indefinite" keyTimes="0;0.6200;0.7000;1" values="96;96;354.0;354.0"/></line>
+<line x1="96" y1="280.8" x2="96" y2="280.8" stroke="#d9822b" stroke-width="1.4" stroke-dasharray="5 3"><animate attributeName="x2" dur="20s" repeatCount="indefinite" keyTimes="0;0.6200;0.7000;1" values="96;96;354.0;354.0"/></line>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.7000;0.7050;1" values="0;0;1;1"/>
+<line x1="96" y1="268.0" x2="96" y2="280.8" stroke="#d9822b" stroke-width="5" stroke-linecap="butt"/>
+<text x="147.6" y="232.8" text-anchor="middle" font-size="13" font-weight="700" fill="#d9822b">均衡価格</text>
+<line x1="143.3" y1="239.2" x2="101" y2="271.2" stroke="#d9822b" stroke-width="1.4" marker-end="url(#pt)"/>
+<text x="366.0" y="279.4" font-size="14" font-weight="700" fill="#d9822b">1800 〜 2000</text>
+</g>
+<line x1="354.0" y1="280.8" x2="354.0" y2="280.8" stroke="#d9822b" stroke-width="1.4" stroke-dasharray="5 3"><animate attributeName="y2" dur="20s" repeatCount="indefinite" keyTimes="0;0.8200;0.8800;1" values="280.8;280.8;396;396"/></line>
+<g opacity="0"><animate attributeName="opacity" dur="20s" repeatCount="indefinite" keyTimes="0;0.8800;0.8850;1" values="0;0;1;1"/><circle cx="354.0" cy="396" r="4" fill="#d9822b"/><text x="354.0" y="434" text-anchor="middle" font-size="13" font-weight="700" fill="#d9822b">均衡取引量</text></g>
+</svg>

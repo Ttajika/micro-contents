@@ -1,0 +1,368 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" style="font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif">
+  <title>学校選択版TTCの3巡</title>
+  <desc>A校とB校に2席ずつあり、4人の希望と学校の優先順位から、最良交換サイクルで席を決める手順。各巡は「優先権を渡す」「希望を指す」「輪の成立」の3段階で見せ、決まった生徒は薄く表示する</desc>
+  <defs>
+    <marker id="arrow-blue-school-choice-ttc" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3.5 L0,7 Z" fill="#1a3c6e"/>
+    </marker>
+    <marker id="arrow-orange-school-choice-ttc" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3.5 L0,7 Z" fill="#c86b22"/>
+    </marker>
+  </defs>
+
+  <text x="400" y="29" text-anchor="middle" fill="#222" font-size="20" font-weight="700">学校選択版TTC：学校の席と優先順位を使う</text>
+
+  <!-- 凡例：色だけでなく、線種と文章でも意味を示す -->
+  <line x1="25" y1="57" x2="67" y2="57" stroke="#1a3c6e" stroke-width="3" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+  <text x="78" y="62" fill="#444" font-size="13">希望：児童・生徒 → 行きたい学校</text>
+  <line x1="385" y1="57" x2="427" y2="57" stroke="#c86b22" stroke-width="3" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+  <text x="438" y="62" fill="#444" font-size="13">優先：学校 → 現在の権利を持つ人</text>
+  <rect x="25" y="73" width="42" height="18" rx="8" fill="none" stroke="#2a8a3e" stroke-width="3"/>
+  <text x="78" y="87" fill="#444" font-size="13">緑の囲み：この巡でできた輪（サイクル）</text>
+  <text x="438" y="87" fill="#666" font-size="12">席は最初から児童・生徒の持ち物ではない</text>
+
+  <line x1="18" y1="105" x2="782" y2="105" stroke="#ddd" stroke-width="1"/>
+
+  <!-- 児童・生徒：円の中に名前と希望順。決まった人は以後の巡で薄くする -->
+  <g>
+    <animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6999;0.7;1" values="1;1;0.3;0.3"/>
+    <circle cx="105" cy="170" r="36" fill="#fff" stroke="#555" stroke-width="1.5"/>
+    <text x="105" y="166" text-anchor="middle" fill="#222" font-size="14" font-weight="700">アダム</text>
+    <text x="105" y="185" text-anchor="middle" fill="#555" font-size="11">A校 ＞ B校</text>
+  </g>
+
+  <g>
+    <animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6999;0.7;1" values="1;1;0.3;0.3"/>
+    <circle cx="105" cy="270" r="36" fill="#fff" stroke="#555" stroke-width="1.5"/>
+    <text x="105" y="266" text-anchor="middle" fill="#222" font-size="14" font-weight="700">イヴ</text>
+    <text x="105" y="285" text-anchor="middle" fill="#555" font-size="11">B校 ＞ A校</text>
+  </g>
+
+  <g>
+    <animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.3749;0.375;1" values="1;1;0.3;0.3"/>
+    <circle cx="105" cy="370" r="36" fill="#fff" stroke="#555" stroke-width="1.5"/>
+    <text x="105" y="366" text-anchor="middle" fill="#222" font-size="14" font-weight="700">ノア</text>
+    <text x="105" y="385" text-anchor="middle" fill="#555" font-size="11">A校 ＞ B校</text>
+  </g>
+
+  <g>
+    <circle cx="105" cy="470" r="36" fill="#fff" stroke="#555" stroke-width="1.5"/>
+    <text x="105" y="466" text-anchor="middle" fill="#222" font-size="14" font-weight="700">ルツ</text>
+    <text x="105" y="485" text-anchor="middle" fill="#555" font-size="11">B校 ＞ A校</text>
+  </g>
+
+  <!-- 学校：角丸四角の中に席と優先順位 -->
+  <rect x="595" y="135" width="180" height="155" rx="14" fill="#f8f6f2" stroke="#777" stroke-width="1.5"/>
+  <text x="685" y="162" text-anchor="middle" fill="#222" font-size="18" font-weight="700">A校</text>
+  <text x="615" y="193" fill="#555" font-size="12">席</text>
+  <circle cx="655" cy="189" r="16" fill="#fff" stroke="#aaa" stroke-width="1.5"/>
+  <circle cx="697" cy="189" r="16" fill="#fff" stroke="#aaa" stroke-width="1.5"/>
+  <text x="615" y="226" fill="#555" font-size="12">優先順位</text>
+  <text x="685" y="248" text-anchor="middle" fill="#333" font-size="12">ノア ＞ イヴ ＞</text>
+  <text x="685" y="268" text-anchor="middle" fill="#333" font-size="12">アダム ＞ ルツ</text>
+
+  <rect x="595" y="335" width="180" height="155" rx="14" fill="#f8f6f2" stroke="#777" stroke-width="1.5"/>
+  <text x="685" y="362" text-anchor="middle" fill="#222" font-size="18" font-weight="700">B校</text>
+  <text x="615" y="393" fill="#555" font-size="12">席</text>
+  <circle cx="655" cy="389" r="16" fill="#fff" stroke="#aaa" stroke-width="1.5"/>
+  <circle cx="697" cy="389" r="16" fill="#fff" stroke="#aaa" stroke-width="1.5"/>
+  <text x="615" y="426" fill="#555" font-size="12">優先順位</text>
+  <text x="685" y="448" text-anchor="middle" fill="#333" font-size="12">アダム ＞ ルツ ＞</text>
+  <text x="685" y="468" text-anchor="middle" fill="#333" font-size="12">イヴ ＞ ノア</text>
+
+  <!-- シーン1：初期設定 [0s, 3s) -->
+  <g id="school-choice-ttc-initial" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.0749;0.075;1" values="1;1;0;0"/>
+    <rect x="22" y="113" width="92" height="27" rx="13" fill="#eef2f7" stroke="#aab5c3"/>
+    <text x="68" y="132" text-anchor="middle" fill="#334" font-size="13" font-weight="700">初期設定</text>
+    <text x="756" y="157" text-anchor="end" fill="#555" font-size="12">残り2席</text>
+    <text x="756" y="357" text-anchor="end" fill="#555" font-size="12">残り2席</text>
+    <rect x="18" y="516" width="764" height="66" rx="12" fill="#f6f7f9" stroke="#d5d8dd"/>
+    <text x="400" y="543" text-anchor="middle" fill="#333" font-size="14" font-weight="700">A校とB校に2席ずつある．4人の割当はまだ決まっていない</text>
+    <text x="400" y="566" text-anchor="middle" fill="#555" font-size="13">希望順と学校ごとの優先順位を使って，1席ずつ輪を探す</text>
+  </g>
+
+  <!-- シーン2：1巡目・各校が優先権を渡す [3s, 6s) -->
+  <g id="school-choice-ttc-round-1-priority" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.0749;0.075;0.1499;0.15;1" values="0;0;1;1;0;0"/>
+
+    <rect x="22" y="113" width="92" height="27" rx="13" fill="#eaf5ec" stroke="#2a8a3e"/>
+    <text x="68" y="132" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">1巡目</text>
+
+    <!-- 学校の優先順位が定める現在の権利 -->
+    <path d="M595,258 C445,285 330,345 141,370" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+    <path d="M595,465 C425,552 225,545 113,206" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+
+    <text x="756" y="157" text-anchor="end" fill="#555" font-size="12">残り2席</text>
+    <text x="756" y="357" text-anchor="end" fill="#555" font-size="12">残り2席</text>
+
+    <rect x="18" y="516" width="764" height="66" rx="12" fill="#f6f7f9" stroke="#d5d8dd"/>
+    <text x="400" y="543" text-anchor="middle" fill="#333" font-size="14" font-weight="700">まず各校が，優先順位の一番高い人に席の優先権を与える</text>
+    <text x="400" y="566" text-anchor="middle" fill="#555" font-size="13">A校はノアを，B校はアダムを指す</text>
+  </g>
+
+  <!-- シーン3：1巡目・各自が行きたい学校を指す [6s, 9s) -->
+  <g id="school-choice-ttc-round-1-wish" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.1499;0.15;0.2249;0.225;1" values="0;0;1;1;0;0"/>
+
+    <rect x="22" y="113" width="92" height="27" rx="13" fill="#eaf5ec" stroke="#2a8a3e"/>
+    <text x="68" y="132" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">1巡目</text>
+
+    <!-- 希望の矢印 -->
+    <path d="M141,170 C300,145 450,145 595,168" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M141,270 C340,270 465,325 595,360" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M141,370 C330,370 430,238 595,210" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M141,470 C330,470 455,430 595,410" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+
+    <!-- 優先権（前シーンから引き続き表示） -->
+    <path d="M595,258 C445,285 330,345 141,370" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+    <path d="M595,465 C425,552 225,545 113,206" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+
+    <text x="756" y="157" text-anchor="end" fill="#555" font-size="12">残り2席</text>
+    <text x="756" y="357" text-anchor="end" fill="#555" font-size="12">残り2席</text>
+
+    <rect x="18" y="516" width="764" height="66" rx="12" fill="#f6f7f9" stroke="#d5d8dd"/>
+    <text x="400" y="543" text-anchor="middle" fill="#333" font-size="14" font-weight="700">次に各自が，いちばん行きたい学校を指す</text>
+    <text x="400" y="566" text-anchor="middle" fill="#555" font-size="13">アダムとノアはA校を，イヴとルツはB校を指す</text>
+  </g>
+
+  <!-- シーン4：1巡目・輪① A校→ノア→A校 [9s, 15s)（なぞり後にポーズ） -->
+  <g id="school-choice-ttc-round-1" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2249;0.225;0.3749;0.375;1" values="0;0;1;1;0;0"/>
+
+    <rect x="22" y="113" width="92" height="27" rx="13" fill="#eaf5ec" stroke="#2a8a3e"/>
+    <text x="68" y="132" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">1巡目</text>
+
+    <!-- 希望の矢印 -->
+    <path d="M141,170 C300,145 450,145 595,168" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M141,270 C340,270 465,325 595,360" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M141,370 C330,370 430,238 595,210" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M141,470 C330,470 455,430 595,410" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+
+    <!-- 学校の優先順位が定める現在の権利 -->
+    <path d="M595,258 C445,285 330,345 141,370" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+    <path d="M595,465 C425,552 225,545 113,206" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+
+    <!-- 輪のなぞり：A校→ノア→A校 の順に緑の線が走る -->
+    <path d="M595,258 C445,285 330,345 141,370" fill="none" stroke="#2a8a3e" stroke-width="6.5" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+      <animate attributeName="stroke-dashoffset" dur="40s" repeatCount="indefinite" keyTimes="0;0.2325;0.2575;1" values="100;100;0;0"/>
+    </path>
+    <path d="M141,370 C330,370 430,238 595,210" fill="none" stroke="#2a8a3e" stroke-width="6.5" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+      <animate attributeName="stroke-dashoffset" dur="40s" repeatCount="indefinite" keyTimes="0;0.2575;0.2825;1" values="100;100;0;0"/>
+    </path>
+
+    <!-- 成立した輪（なぞり終わってから囲み，配分を確定してポーズ） -->
+    <g opacity="0">
+      <animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2824;0.2825;1" values="0;0;1;1"/>
+      <circle cx="105" cy="370" r="43" fill="none" stroke="#2a8a3e" stroke-width="3.5"/>
+      <rect x="589" y="129" width="192" height="167" rx="18" fill="none" stroke="#2a8a3e" stroke-width="3.5"/>
+      <text x="494" y="315" text-anchor="middle" fill="#2a8a3e" font-size="13" font-weight="700">輪①</text>
+      <circle cx="655" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+      <text x="655" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ノ</text>
+    </g>
+
+    <!-- 席の状況：確定表示はなぞり後に切り替え -->
+    <text x="756" y="157" text-anchor="end" fill="#226b32" font-size="12" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2824;0.2825;1" values="0;0;1;1"/>残り1席</text>
+    <text x="756" y="157" text-anchor="end" fill="#555" font-size="12"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2824;0.2825;1" values="1;1;0;0"/>残り2席</text>
+    <text x="756" y="357" text-anchor="end" fill="#555" font-size="12">残り2席</text>
+
+    <rect x="18" y="516" width="764" height="66" rx="12" fill="#f2f8f3" stroke="#b7d8bd"/>
+    <text x="400" y="543" text-anchor="middle" fill="#226b32" font-size="14" font-weight="700">輪：A校 → ノア → A校．ノアがA校の席を受け取る</text>
+    <text x="400" y="566" text-anchor="middle" fill="#555" font-size="13">B校 → アダムはこの巡の輪に入らないので，B校の席はまだ減らない</text>
+  </g>
+
+  <!-- シーン5：2巡目・優先権の付け直し（A校の残り1席→イヴ） [15s, 18s) -->
+  <g id="school-choice-ttc-round-2-priority" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.3749;0.375;0.4499;0.45;1" values="0;0;1;1;0;0"/>
+
+    <rect x="22" y="113" width="92" height="27" rx="13" fill="#eaf5ec" stroke="#2a8a3e"/>
+    <text x="68" y="132" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">2巡目</text>
+
+    <!-- A校はノアを除いた優先順位で指し直す（新しい優先権はイヴへ） -->
+    <path d="M595,258 C430,250 305,250 141,270" fill="none" stroke="#c86b22" stroke-width="3.2" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+    <text x="365" y="242" text-anchor="middle" fill="#c86b22" font-size="12" font-weight="700">A校の優先権はイヴへ移る</text>
+    <path d="M595,465 C425,552 225,545 113,206" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+
+    <!-- この巡までに決まった席 -->
+    <circle cx="655" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="655" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ノ</text>
+    <text x="756" y="157" text-anchor="end" fill="#226b32" font-size="12">残り1席</text>
+    <text x="756" y="357" text-anchor="end" fill="#555" font-size="12">残り2席</text>
+
+    <rect x="18" y="516" width="764" height="66" rx="12" fill="#f6f7f9" stroke="#d5d8dd"/>
+    <text x="400" y="543" text-anchor="middle" fill="#333" font-size="14" font-weight="700">ノアは決定済み．A校は残り1席の優先権を，次の順位のイヴに与える</text>
+    <text x="400" y="566" text-anchor="middle" fill="#555" font-size="13">B校の優先権はアダムのまま．決まった人を除いて，各校が指し直す</text>
+  </g>
+
+  <!-- シーン6：2巡目・残った3人が行きたい学校を指す [18s, 21s) -->
+  <g id="school-choice-ttc-round-2-wish" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.4499;0.45;0.5249;0.525;1" values="0;0;1;1;0;0"/>
+
+    <rect x="22" y="113" width="92" height="27" rx="13" fill="#eaf5ec" stroke="#2a8a3e"/>
+    <text x="68" y="132" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">2巡目</text>
+
+    <!-- 残っている3人の希望 -->
+    <path d="M141,170 C300,145 450,145 595,168" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M141,270 C340,270 465,325 595,360" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M141,470 C330,470 455,430 595,410" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+
+    <!-- 優先権（前シーンから引き続き表示） -->
+    <path d="M595,258 C430,250 305,250 141,270" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+    <path d="M595,465 C425,552 225,545 113,206" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+
+    <!-- この巡までに決まった席 -->
+    <circle cx="655" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="655" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ノ</text>
+    <text x="756" y="157" text-anchor="end" fill="#226b32" font-size="12">残り1席</text>
+    <text x="756" y="357" text-anchor="end" fill="#555" font-size="12">残り2席</text>
+
+    <rect x="18" y="516" width="764" height="66" rx="12" fill="#f6f7f9" stroke="#d5d8dd"/>
+    <text x="400" y="543" text-anchor="middle" fill="#333" font-size="14" font-weight="700">残った3人が，いちばん行きたい学校を指す</text>
+    <text x="400" y="566" text-anchor="middle" fill="#555" font-size="13">アダムはA校を，イヴとルツはB校を指す（希望は変わらない）</text>
+  </g>
+
+  <!-- シーン7：2巡目・輪② A校→イヴ→B校→アダム→A校 [21s, 28s)（なぞり後にポーズ） -->
+  <g id="school-choice-ttc-round-2" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.5249;0.525;0.6999;0.7;1" values="0;0;1;1;0;0"/>
+
+    <rect x="22" y="113" width="92" height="27" rx="13" fill="#eaf5ec" stroke="#2a8a3e"/>
+    <text x="68" y="132" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">2巡目</text>
+
+    <!-- 残っている3人の希望 -->
+    <path d="M141,170 C300,145 450,145 595,168" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M141,270 C340,270 465,325 595,360" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M141,470 C330,470 455,430 595,410" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+
+    <!-- ノアを除いて見直した優先権 -->
+    <path d="M595,258 C430,250 305,250 141,270" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+    <path d="M595,465 C425,552 225,545 113,206" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+
+    <!-- 輪のなぞり：A校→イヴ→B校→アダム→A校 の順に緑の線が走る -->
+    <path d="M595,258 C430,250 305,250 141,270" fill="none" stroke="#2a8a3e" stroke-width="6.5" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+      <animate attributeName="stroke-dashoffset" dur="40s" repeatCount="indefinite" keyTimes="0;0.5325;0.5525;1" values="100;100;0;0"/>
+    </path>
+    <path d="M141,270 C340,270 465,325 595,360" fill="none" stroke="#2a8a3e" stroke-width="6.5" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+      <animate attributeName="stroke-dashoffset" dur="40s" repeatCount="indefinite" keyTimes="0;0.5525;0.5725;1" values="100;100;0;0"/>
+    </path>
+    <path d="M595,465 C425,552 225,545 113,206" fill="none" stroke="#2a8a3e" stroke-width="6.5" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+      <animate attributeName="stroke-dashoffset" dur="40s" repeatCount="indefinite" keyTimes="0;0.5725;0.5925;1" values="100;100;0;0"/>
+    </path>
+    <path d="M141,170 C300,145 450,145 595,168" fill="none" stroke="#2a8a3e" stroke-width="6.5" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+      <animate attributeName="stroke-dashoffset" dur="40s" repeatCount="indefinite" keyTimes="0;0.5925;0.6125;1" values="100;100;0;0"/>
+    </path>
+
+    <!-- 成立した4者の輪（なぞり終わってから囲み，配分を確定してポーズ） -->
+    <g opacity="0">
+      <animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6124;0.6125;1" values="0;0;1;1"/>
+      <circle cx="105" cy="170" r="43" fill="none" stroke="#2a8a3e" stroke-width="3.5"/>
+      <circle cx="105" cy="270" r="43" fill="none" stroke="#2a8a3e" stroke-width="3.5"/>
+      <rect x="589" y="129" width="192" height="167" rx="18" fill="none" stroke="#2a8a3e" stroke-width="3.5"/>
+      <rect x="589" y="329" width="192" height="167" rx="18" fill="none" stroke="#2a8a3e" stroke-width="3.5"/>
+      <text x="494" y="315" text-anchor="middle" fill="#2a8a3e" font-size="13" font-weight="700">輪②</text>
+      <circle cx="697" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+      <text x="697" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ア</text>
+      <circle cx="655" cy="389" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+      <text x="655" y="394" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">イ</text>
+    </g>
+
+    <!-- この巡までに決まった席（前巡分）と席の状況 -->
+    <circle cx="655" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="655" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ノ</text>
+    <text x="756" y="157" text-anchor="end" fill="#226b32" font-size="12" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6124;0.6125;1" values="0;0;1;1"/>満席</text>
+    <text x="756" y="157" text-anchor="end" fill="#226b32" font-size="12"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6124;0.6125;1" values="1;1;0;0"/>残り1席</text>
+    <text x="756" y="357" text-anchor="end" fill="#226b32" font-size="12" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6124;0.6125;1" values="0;0;1;1"/>残り1席</text>
+    <text x="756" y="357" text-anchor="end" fill="#555" font-size="12"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6124;0.6125;1" values="1;1;0;0"/>残り2席</text>
+
+    <rect x="18" y="516" width="764" height="66" rx="12" fill="#f2f8f3" stroke="#b7d8bd"/>
+    <text x="400" y="543" text-anchor="middle" fill="#226b32" font-size="14" font-weight="700">輪：A校 → イヴ → B校 → アダム → A校</text>
+    <text x="400" y="566" text-anchor="middle" fill="#555" font-size="13">イヴはB校，アダムはA校の席を受け取る（A校は満席）</text>
+  </g>
+
+  <!-- シーン8：3巡目・優先権の付け直し（B校の残り1席→ルツ） [28s, 31s) -->
+  <g id="school-choice-ttc-round-3-priority" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.6999;0.7;0.7749;0.775;1" values="0;0;1;1;0;0"/>
+
+    <rect x="22" y="113" width="92" height="27" rx="13" fill="#eaf5ec" stroke="#2a8a3e"/>
+    <text x="68" y="132" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">3巡目</text>
+
+    <!-- B校はアダム・イヴを除いた優先順位で指し直す（新しい優先権はルツへ） -->
+    <path d="M595,455 C440,485 300,510 141,478" fill="none" stroke="#c86b22" stroke-width="3.2" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+    <text x="300" y="487" text-anchor="middle" fill="#c86b22" font-size="12" font-weight="700">B校の優先権はルツへ移る</text>
+
+    <!-- この巡までに決まった席 -->
+    <circle cx="655" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="655" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ノ</text>
+    <circle cx="697" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="697" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ア</text>
+    <circle cx="655" cy="389" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="655" y="394" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">イ</text>
+    <text x="756" y="157" text-anchor="end" fill="#226b32" font-size="12">満席</text>
+    <text x="756" y="357" text-anchor="end" fill="#226b32" font-size="12">残り1席</text>
+
+    <rect x="18" y="516" width="764" height="66" rx="12" fill="#f6f7f9" stroke="#d5d8dd"/>
+    <text x="400" y="543" text-anchor="middle" fill="#333" font-size="14" font-weight="700">アダムとイヴも決定済み．B校は残り1席の優先権をルツに与える</text>
+    <text x="400" y="566" text-anchor="middle" fill="#555" font-size="13">A校は満席なので，もう誰も指さない</text>
+  </g>
+
+  <!-- シーン9：3巡目・ルツが行きたい学校を指す [31s, 34s) -->
+  <g id="school-choice-ttc-round-3-wish" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.7749;0.775;0.8499;0.85;1" values="0;0;1;1;0;0"/>
+
+    <rect x="22" y="113" width="92" height="27" rx="13" fill="#eaf5ec" stroke="#2a8a3e"/>
+    <text x="68" y="132" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">3巡目</text>
+
+    <!-- ルツの希望 -->
+    <path d="M141,458 C330,415 455,390 595,382" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+
+    <!-- 優先権（前シーンから引き続き表示） -->
+    <path d="M595,455 C440,485 300,510 141,478" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+
+    <!-- この巡までに決まった席 -->
+    <circle cx="655" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="655" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ノ</text>
+    <circle cx="697" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="697" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ア</text>
+    <circle cx="655" cy="389" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="655" y="394" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">イ</text>
+    <text x="756" y="157" text-anchor="end" fill="#226b32" font-size="12">満席</text>
+    <text x="756" y="357" text-anchor="end" fill="#226b32" font-size="12">残り1席</text>
+
+    <rect x="18" y="516" width="764" height="66" rx="12" fill="#f6f7f9" stroke="#d5d8dd"/>
+    <text x="400" y="543" text-anchor="middle" fill="#333" font-size="14" font-weight="700">残っているルツが，席の残っているB校を指す</text>
+    <text x="400" y="566" text-anchor="middle" fill="#555" font-size="13">ルツの希望はもともと B校 ＞ A校</text>
+  </g>
+
+  <!-- シーン10：3巡目・輪③ B校→ルツ→B校 [34s, 40s)（なぞり後にポーズ） -->
+  <g id="school-choice-ttc-round-3" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.8499;0.85;1" values="0;0;1;1"/>
+
+    <rect x="22" y="113" width="92" height="27" rx="13" fill="#eaf5ec" stroke="#2a8a3e"/>
+    <text x="68" y="132" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">3巡目</text>
+
+    <path d="M141,458 C330,415 455,390 595,382" fill="none" stroke="#1a3c6e" stroke-width="2.7" marker-end="url(#arrow-blue-school-choice-ttc)"/>
+    <path d="M595,455 C440,485 300,510 141,478" fill="none" stroke="#c86b22" stroke-width="2.7" stroke-dasharray="7,5" marker-end="url(#arrow-orange-school-choice-ttc)"/>
+
+    <!-- 輪のなぞり：B校→ルツ→B校 の順に緑の線が走る -->
+    <path d="M595,455 C440,485 300,510 141,478" fill="none" stroke="#2a8a3e" stroke-width="6.5" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+      <animate attributeName="stroke-dashoffset" dur="40s" repeatCount="indefinite" keyTimes="0;0.8575;0.8825;1" values="100;100;0;0"/>
+    </path>
+    <path d="M141,458 C330,415 455,390 595,382" fill="none" stroke="#2a8a3e" stroke-width="6.5" opacity="0.4" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+      <animate attributeName="stroke-dashoffset" dur="40s" repeatCount="indefinite" keyTimes="0;0.8825;0.9075;1" values="100;100;0;0"/>
+    </path>
+
+    <!-- 成立した輪（なぞり終わってから囲み，最終結果を確定してポーズ） -->
+    <g opacity="0">
+      <animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.9074;0.9075;1" values="0;0;1;1"/>
+      <circle cx="105" cy="470" r="43" fill="none" stroke="#2a8a3e" stroke-width="3.5"/>
+      <rect x="589" y="329" width="192" height="167" rx="18" fill="none" stroke="#2a8a3e" stroke-width="3.5"/>
+      <text x="494" y="455" text-anchor="middle" fill="#2a8a3e" font-size="13" font-weight="700">輪③</text>
+      <circle cx="697" cy="389" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+      <text x="697" y="394" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ル</text>
+    </g>
+
+    <!-- ここまでに決まった席と席の状況 -->
+    <circle cx="655" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="655" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ノ</text>
+    <circle cx="697" cy="189" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="697" y="194" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">ア</text>
+    <circle cx="655" cy="389" r="15" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.8"/>
+    <text x="655" y="394" text-anchor="middle" fill="#226b32" font-size="13" font-weight="700">イ</text>
+    <text x="756" y="157" text-anchor="end" fill="#226b32" font-size="12">満席</text>
+    <text x="756" y="357" text-anchor="end" fill="#226b32" font-size="12" opacity="0"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.9074;0.9075;1" values="0;0;1;1"/>満席</text>
+    <text x="756" y="357" text-anchor="end" fill="#226b32" font-size="12"><animate attributeName="opacity" dur="40s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.9074;0.9075;1" values="1;1;0;0"/>残り1席</text>
+
+    <rect x="18" y="516" width="764" height="66" rx="12" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.5"/>
+    <text x="400" y="543" text-anchor="middle" fill="#226b32" font-size="14" font-weight="700">輪：B校 → ルツ → B校．ルツがB校の最後の席を受け取る</text>
+    <text x="400" y="566" text-anchor="middle" fill="#333" font-size="13">最終結果：A校＝ノア・アダム ／ B校＝イヴ・ルツ</text>
+  </g>
+</svg>

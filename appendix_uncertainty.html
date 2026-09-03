@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-book-tpl="Web補助資料 E：不確実性下の意思決定 — {book}">Web補助資料 E：不確実性下の意思決定 — 動くミクロ経済学（仮題）</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']],
+    macros: {
+      R: '\\mathbb{R}', P: '\\mathsf{Pr}',
+      condi: '\\mathrel{|}',
+      pd: ['\\frac{\\partial #1}{\\partial #2}', 2],
+      dd: ['\\frac{d #1}{d #2}', 2],
+      eqdef: '\\mathrel{:=}',
+      uu: '\\underline{u}', ou: '\\overline{u}',
+      d: '\\ d',
+      // 費用記号（多文字イタリック）：MathJax は文字間が空きすぎるので負のカーニングで詰める
+      MC:  '\\mathit{M\\mkern-2muC}',
+      AC:  '\\mathit{A\\mkern-3muC}',
+      AVC: '\\mathit{A\\mkern-3muV\\mkern-2muC}',
+      FC:  '\\mathit{F\\mkern-2muC}',
+      VC:  '\\mathit{V\\mkern-2muC}',
+      MP:  '\\mathit{M\\mkern-2muP}',
+      MU:  '\\mathit{M\\mkern-2muU}',
+      MRS: '\\mathit{M\\mkern-2muR\\mkern-2muS}',
+    },
+    tags: 'ams',
+  },
+  chtml: {
+    // 既定（matchFontHeight:true）だと MathJax が本文フォントの ex 高さに合わせて
+    // 数式を 121.6% に拡大し，和文に対して数字・英字が大きく見えてしまう。
+    // 追従をやめて倍率を明示し，地の文の欧文（@font-face 'MJXText' の size-adjust）と
+    // 同じ値にそろえる。★ここを変えたら size-adjust も同じ値に変えること★
+    // ★本文 micro-notes.html と同じ値。片方だけ変えないこと★
+    matchFontHeight: false,
+    scale: 1.06,
+  },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+    // <span class="fn">（脚注本体）は無視し，ポップアップ表示時に個別 typeset する。
+    ignoreHtmlClass: '(^|\\s)fn(\\s|$)',
+  },
+};
+</script>
+<!-- MathJax はローカル同梱（vendor/mathjax）．本文 micro-notes.html と同じく
+     オフライン・印刷でも確実にレンダリングするため CDN ではなく相対パスで読み込む． -->
+<script src="vendor/mathjax/tex-chtml.js" async></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Noto+Serif:wght@400;700&family=JetBrains+Mono:wght@400&display=swap');
+
+/* 地の文の英数字を，数式（MathJax）の字形・大きさにそろえる。★本文 micro-notes.html と同じ設定★
+   MathJax 同梱の MathJax_Main を，欧文の範囲（U+0021-007E, U+00C0-00FF, U+0100-017F）にだけ当てる。
+   和文・和文約物は unicode-range の外なので Noto Serif JP のまま。
+   ★フォントの実体は vendor/mathjax/prose-fonts/ に置いたコピーを読むこと★
+   MathJax 本体と同じ URL（output/chtml/fonts/woff-v2/）を参照すると，Chrome の
+   PDF 書き出しでそのファイルが1つしか埋め込まれず，MathJax 側が Times にフォールバックする。
+   size-adjust の 106% は MathJax 設定の chtml.scale と同じ値。★片方だけ変えないこと★ */
+@font-face {
+  font-family: 'MJXText';
+  src: url('vendor/mathjax/prose-fonts/MathJax_Main-Regular.woff') format('woff');
+  unicode-range: U+0021-007E, U+00C0-00FF, U+0100-017F;
+  size-adjust: 106%;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MJXText';
+  font-weight: 700;
+  src: url('vendor/mathjax/prose-fonts/MathJax_Main-Bold.woff') format('woff');
+  unicode-range: U+0021-007E, U+00C0-00FF, U+0100-017F;
+  size-adjust: 106%;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MJXText';
+  font-style: italic;
+  src: url('vendor/mathjax/prose-fonts/MathJax_Main-Italic.woff') format('woff');
+  unicode-range: U+0021-007E, U+00C0-00FF, U+0100-017F;
+  size-adjust: 106%;
+  font-display: swap;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --border: #e2e2e0;
+  --text: #1a1a1a;
+  --text-dim: #6b7280;
+  --accent: #1d4ed8;
+  --accent-light: #eff6ff;
+  --accent-mid: #bfdbfe;
+  --header-bg: #1e293b;
+
+  /* box colors（本文 micro-notes.html と共通） */
+  --def-bg: #eff6ff;  --def-border: #3b82f6;
+  --thm-bg: #eef2ff;  --thm-border: #6366f1;
+  --prop-bg: #f5f3ff; --prop-border: #8b5cf6;
+  --lem-bg: #faf5ff;  --lem-border: #a78bfa;
+  --cor-bg: #fdf4ff;  --cor-border: #c084fc;
+  --rmk-bg: #f8fafc;  --rmk-border: #94a3b8;
+  --ex-bg: #f0fdf4;   --ex-border: #22c55e;
+  --exercise-bg: #fff7ed; --exercise-border: #f97316;
+
+  --warn-bg: #fff7ed;
+  --warn-border: #f97316;
+  --stub-bg: #fefce8;
+  --stub-border: #ca8a04;
+}
+
+body {
+  font-family: 'MJXText', 'Noto Serif JP', serif; --ja-font: 'Noto Serif JP', serif;
+  /* 和文と欧文（英数字）の間に自動でアキを入れる。CSS Text 4 の標準機能で，
+     JIS の和欧間アキ（四分アキ相当＝1/8em）が入る。本文にスペースを打ち込む方式と違い，
+     コピーしたテキストに余分な空白が混ざらず，行末では自動で詰まる。
+     Chrome/Edge のみ対応（Safari・Firefox は未対応で，単にアキが入らないだけ）。
+     ★本文 micro-notes.html と同じ設定。片方だけ変えないこと★ */
+  text-autospace: normal;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+
+/* ルビは和文フォントのメトリクスで組む。欧文フォント（MJXText＝MathJax_Main）が
+   font-family の先頭にあると，ルビの振り位置が下がって親文字に食い込む。
+   継承する変数 --ja-font を見て，その場の和文フォントに合わせる。★本文と同じ★ */
+ruby { font-family: var(--ja-font); }
+
+/* 等幅で見せる箇所は和欧間アキを入れない（桁が揃わなくなるため） */
+code, pre, kbd, samp { text-autospace: no-autospace; }
+
+/* インライン数式の左右のアキ。text-autospace は MathJax が組んだ数式には効かない
+   （mjx-container の中身が inline-block になり，文字の並びが切れるため）ので，
+   数式の箱そのものに margin を持たせる。★本文 micro-notes.html と同じ 0.15em★ */
+mjx-container[jax="CHTML"]:not([display="true"]) { margin: 0 0.15em; }
+
+:lang(el) {
+  font-family: 'MJXText', 'Noto Serif', 'Noto Serif JP', serif; --ja-font: 'Noto Serif', 'Noto Serif JP', serif;
+  font-feature-settings: "palt";
+}
+
+header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+}
+header h1 {
+  font-size: 15px;
+  font-weight: 700;
+}
+header .tag {
+  font-size: 11px;
+  font-weight: 400;
+  padding: 2px 8px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 3px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.5px;
+}
+header .nav {
+  margin-left: auto;
+  display: flex;
+  gap: 16px;
+}
+header .nav a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 13px;
+}
+header .nav a:hover { color: rgba(255,255,255,0.9); }
+
+#content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 6rem;
+}
+
+.doc-title {
+  text-align: center;
+  padding: 0 0 2rem;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.doc-title h1 {
+  font-family: 'MJXText', 'Noto Serif JP', serif; --ja-font: 'Noto Serif JP', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.doc-title .doc-meta {
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+h2 {
+  font-family: 'MJXText', 'Noto Serif JP', serif; --ja-font: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 2.4rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1.5px solid var(--border);
+}
+h2 .num {
+  display: inline-block;
+  margin-right: 0.5em;
+  color: var(--accent);
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+h3 {
+  font-family: 'MJXText', 'Noto Serif JP', serif; --ja-font: 'Noto Serif JP', serif;
+  font-size: 15.5px;
+  font-weight: 700;
+  margin: 1.6rem 0 0.6rem;
+  padding-left: 0.6rem;
+  border-left: 3px solid var(--accent);
+}
+
+p { margin: 0.8em 0; }
+
+/* ━━━ 段落の字下げ（1字下げ）━━━ 本文 micro-notes.html と同じ規則。
+   和文の作法どおり見出し直後の段落も下げる。紙では段落間のアキを 0 にして
+   字下げだけで段落を示し（@media print），画面ではアキを残す。
+   ・地の文は必ず <p> で囲むこと（囲み忘れると匿名ブロックになり字下げが効かない）
+   ・ディスプレイ数式のあとで <p> を開き直すとき，前の文の続きなら class="cont"
+   ・字下げしない段落を増やしたら @media print の並びにも足すこと */
+#content p { text-indent: 1em; }
+
+/* text-indent は継承するので，段落の中の inline-block（脚注番号 .fn-ref など）にも
+   1字ぶんの字下げが伝わり，中身がその分だけ右にずれる＝番号の手前が空いて見える。
+   字下げは段落そのものにだけ効かせたいので，子孫では 0 に戻す。 */
+#content p * { text-indent: 0; }
+#content p.cont { text-indent: 0; }       /* 直前のディスプレイ数式から続く文 */
+#content p.noindent,                      /* 太字だけの小見出しなど */
+#content .note,                           /* 冒頭の囲みリード文 */
+#content p[style*="text-align"],
+#content p:has(> a.qr-link),
+#content figcaption p,
+#fn-popup p {
+  text-indent: 0;
+}
+
+@media print {
+  /* 紙では字下げだけで段落を示し，段落間のアキは取らない（和文書籍の作法） */
+  #content p { margin: 0; }
+  #content p.noindent,
+  #content .note,
+  #content p[style*="text-align"],
+  #content p:has(> a.qr-link) { margin: 0.8em 0; }
+}
+
+ul, ol { margin: 0.6em 0 0.8em 1.6em; }
+li { margin-bottom: 0.3em; }
+
+.def, .rmk, .warn, .stub {
+  background: var(--def-bg);
+  border-left: 4px solid var(--def-border);
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin: 1.2em 0;
+}
+.rmk { background: var(--rmk-bg); border-left-color: var(--rmk-border); }
+.warn { background: var(--warn-bg); border-left-color: var(--warn-border); }
+.stub {
+  background: var(--stub-bg);
+  border-left-color: var(--stub-border);
+  border-style: dashed;
+  border-width: 0 0 0 4px;
+}
+.box-label {
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.4px;
+}
+.def .box-label { color: var(--def-border); }
+.rmk .box-label { color: var(--rmk-border); }
+.warn .box-label { color: var(--warn-border); }
+.stub .box-label { color: var(--stub-border); }
+
+figure { margin: 1.5em 0; text-align: center; }
+figure svg { max-width: 100%; height: auto; }
+figcaption {
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  margin-top: 0.5em;
+}
+
+.note {
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+  background: var(--accent-light);
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 1.2em 0;
+}
+
+.toc-mini {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 14px 18px;
+  margin: 1.5em 0 2em;
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+  font-size: 13.5px;
+}
+.toc-mini .toc-title {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.toc-mini ul { margin: 0; padding-left: 1.4em; }
+.toc-mini ul ul { padding-left: 1.2em; margin-top: 4px; }
+.toc-mini li { margin-bottom: 4px; }
+.toc-mini a { color: var(--accent); text-decoration: none; }
+.toc-mini a:hover { text-decoration: underline; }
+
+/* ━━━ FOOTNOTE ━━━ 本文 micro-notes.html・appendix_math.html と同じ実装。
+   画面では番号 [n] をクリックするとポップアップ、紙では本文中にインライン展開する。 */
+.fn-ref {
+  display: inline-block;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 0;
+  margin: 0 1px;
+  user-select: none;
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+}
+.fn-ref::before { content: '['; }
+.fn-ref::after  { content: ']'; }
+.fn-ref:hover   { color: #1e3a8a; text-decoration: underline; }
+.fn-ref.active  { color: #1e3a8a; text-decoration: underline; }
+.fn-content     { display: none; }
+
+#fn-popup {
+  position: fixed;
+  z-index: 500;
+  background: var(--header-bg);
+  color: #f1f5f9;
+  padding: 12px 15px 12px 16px;
+  border-radius: 8px;
+  font-family: 'MJXText', 'Noto Serif JP', serif; --ja-font: 'Noto Serif JP', serif;
+  font-size: 13px;
+  line-height: 1.75;
+  max-width: 360px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.15s, transform 0.15s;
+}
+#fn-popup.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#fn-popup .popup-num {
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #fbbf24;
+  margin-bottom: 6px;
+  padding-right: 20px;
+  letter-spacing: 0.5px;
+}
+#fn-popup .popup-close {
+  position: absolute;
+  top: 8px; right: 10px;
+  background: none; border: none;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  font-size: 13px;
+}
+#fn-popup .popup-close:hover { color: rgba(255,255,255,0.8); }
+#fn-popup #fnBody p { margin: 0.4em 0; }
+#fn-popup #fnBody p:first-child { margin-top: 0; }
+#fn-popup #fnBody p:last-child  { margin-bottom: 0; }
+
+@media print {
+  /* 紙ではポップアップが機能しないので、脚注は本文中にインライン展開する（本文と同じ扱い） */
+  .fn-content {
+    display: inline !important;
+    font-size: 0.85em;
+    color: #444;
+    font-family: 'MJXText', 'Noto Serif JP', serif; --ja-font: 'Noto Serif JP', serif;
+  }
+  .fn-content::before { content: '（[注] '; }
+  .fn-content::after  { content: '）'; }
+  #fn-popup { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>不確実性下の意思決定</h1>
+  <span class="tag">Web補助資料 E</span>
+  <div class="nav">
+    <a href="online_appendix.html">Web補助資料 一覧</a>
+  </div>
+</header>
+
+<div id="content">
+
+<div class="doc-title">
+  <h1>不確実性下の意思決定</h1>
+  <div class="doc-meta">Web補助資料 E ／ 多鹿 智哉</div>
+</div>
+
+<p class="note">
+本付録は本文第2章（意思決定）の延長で，<strong>結果が確率的にしか決まらない状況での意思決定</strong>を扱う．期待効用とその代表的性質である独立性を紹介し，独立性が破れる例（アレのパラドックス・エルスバーグのパラドックス），リスク回避と保険の仕組み，そしてリスクとは区別される「ナイト流の不確実性」までを概観する．
+</p>
+
+<div class="toc-mini">
+  <div class="toc-title">この補論の構成</div>
+  <ul>
+    <li><a href="#sec-eu">E.1 期待効用</a>
+      <ul>
+        <li><a href="#sub-allais">E.1.1 アレのパラドックス</a></li>
+        <li><a href="#sub-ellsberg">E.1.2 エルスバーグのパラドックス</a></li>
+      </ul>
+    </li>
+    <li><a href="#sec-risk">E.2 リスク回避</a></li>
+    <li><a href="#sec-knight">E.3 リスクと（ナイト流の）不確実性</a></li>
+    <li><a href="#sec-books">参考書</a></li>
+  </ul>
+</div>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<h2 id="sec-eu"><span class="num">E.1</span>期待効用</h2>
+
+<p>本文第2章では選好というもので，人々の好みが表現されることを学んだ．しかし，そこには結果がランダムなものについては言及がなかった．じつは結果がランダムなものも選好の対象として実際には含まれているのであるが，ランダムさを測る確率の役割が明らかではない．そこで，結果がランダムなものへの好みはそのランダムさを表現する「確率」を使って，より詳細に好みを表現する方法を見てみよう．その一つが期待効用仮説と呼ばれるものである．それを以下で紹介していこう．</p>
+  
+<p>まず，定義として，結果がランダムなものは経済学（その中の意思決定理論）では「くじ（lottery）」あるいは「ギャンブル（gamble）」と呼ばれる．つまり，結果のうちどれが起きるかは確率的に決まるものである．「宝くじを引く」とか「ある企業の株に投資したときに出る1ヶ月後の含み益」みたいなものがこの場合の「くじ」である．</p>
+
+<p>結果に番号をつけて$\{x_1,\dots,x_n\}$と称してみよう．このとき，$x_i$が起きる確率を$p_i$と書く．色んな確率が考えられるが，その確率ごとに違う「くじ」になる．以下ではくじ$p$と書けば，各結果$i$がおきる確率が$p_i$のくじだとしよう．例えば$(p_1,p_2,p_3)=(1/2,1/3,1/6)$であれば結果1が出る確率が$1/2$，2が出る確率が$1/3$，3が出る確率が$1/6$というくじである．また，$(p_1,p_2,p_3)=(1,0,0)$というくじも考えることができる．これは結果1が確実に出るくじである．このように確実にある結果が出るものもくじとして表現することができる．この付録ではおもに「どのくじがいいか？」といった好みを考えることにする．これを「くじに対する選好」という．以降，この付録において選好とはくじに対する選好を指すものとする．
+</p>
+
+<p>ある選好が<strong>期待効用表現可能</strong>であるとは，<strong>vNM効用関数</strong>と呼ばれる関数$u$が存在して，</p>
+\[
+\text{くじ }p\text{ のほうがくじ }q\text{ よりよい} \iff \sum p_i u(x_i) \gt \sum q_i u(x_i)
+\]
+<p class="cont">となることである<span class="fn">$\sum$を難しく捉えてしまう人は多いが，ここでは単純に足し算$\sum_{i=1}^n p_i u(x_i)=p_1 u(x_1)+p_2 u(x_2)+\dots+p_n u(x_n)$のことである．毎回こう書くとスペースを取るのでその省略として使っているのである．なお，誤解が生じえないときには${}_{i=1}^n$は省略することがよくある．</span>．</p>
+
+<p>要するに，まず結果を効用（のようなもの）で書き表し，その期待値をもってくじを評価するというようなことである<span class="fn">vNM効用を「効用のようなもの」と書いたが，実際，本文第2章で見た効用とvNM効用は実は異なるものである．詳細は意思決定論の教科書を参照してほしい．</span>．</p>
+
+<p>期待効用表現可能な選好の代表的性質として，<strong>独立性</strong>がある．これを紹介しよう．確率$\alpha$でくじ$p$を引き，$1-\alpha$でくじ$q$を引くとき，これを$p$と$q$の<strong>混合くじ（compound lottery）</strong>と呼び，そのくじを$\alpha p\oplus(1-\alpha)q$と書く<span class="fn">くじ同士を混ぜることを$\oplus$で表現している．くじ同士の足し算なので普通の実数の足し算ではないのだが，足し算のような性質を持つので足し算$+$に似た別の記号$\oplus$を使って書いているのである．丸で囲んでいること自体にはそんなに意味はない．</span>．例えば，この混合くじにおいて結果$i$が選ばれる確率は$\alpha p_i+(1-\alpha)q_i$である．</p>
+
+<p>くじ上の選好$\succsim$が<strong>独立性（independence）</strong>を満たすとは，任意のくじ$p,q,r$と実数$\alpha\in[0,1]$について次の性質が成り立つことを言う．</p>
+\[
+p \succ q \Rightarrow \alpha p \oplus (1-\alpha)r \succ \alpha q \oplus (1-\alpha)r
+\]
+<p class="cont">つまり，独立性とは「くじに別の無関係なくじを混ぜても好みは変わらない」と言うものである．</p>
+
+<p>期待効用で表現される選好は必ず独立性を満たしていなければいけない．</p>
+<!-- 独立性の証明（必要になったらコメントを外す）
+<p class="cont">実際，$p\succ q$ならば</p>
+\[
+\sum p_i u(x_i) \gt \sum q_i u(x_i)
+\]
+<p class="cont">である．ここで，無関係なくじ$r$を混ぜるときの期待効用は</p>
+\[
+\sum(\alpha p_i+(1-\alpha)r_i)u(x_i)=\alpha\sum p_i u(x_i)+(1-\alpha)\sum r_i u(x_i)
+\]
+<p class="cont">であるので，</p>
+\[
+\begin{aligned}
+&\sum p_i u(x_i) \gt \sum q_i u(x_i)\\
+\iff{}&\alpha\sum p_i u(x_i)+(1-\alpha)\sum r_i u(x_i) \gt \alpha\sum q_i u(x_i)+(1-\alpha)\sum r_i u(x_i)\\
+\iff{}&\sum(\alpha p_i+(1-\alpha)r_i)u(x_i) \gt \sum(\alpha q_i+(1-\alpha)r_i)u(x_i)
+\end{aligned}
+\]
+<p class="cont">となり，$\alpha p\oplus(1-\alpha)r\succ\alpha q\oplus(1-\alpha)r$が満たされる．</p>
+-->
+
+<h3 id="sub-allais">E.1.1 アレのパラドックス</h3>
+
+<p>独立性が担保されない例として，アレのパラドックス（Allais paradox）を紹介する．</p>
+
+<p>次のくじのうち，どちらが良いだろうか？</p>
+<ul>
+  <li><strong>くじA</strong>：確実に2,000円もらえる．</li>
+  <li><strong>くじB</strong>：確率0.1で10,000円，0.89で2,000円，0.01で0円もらえる．</li>
+</ul>
+
+<p>この上で次のくじを考える．</p>
+<ul>
+  <li><strong>くじC</strong>：確率0.11で2,000円，0.89で0円もらえる．</li>
+  <li><strong>くじD</strong>：確率0.1で10,000円，0.90で0円もらえる．</li>
+</ul>
+
+<p>これらのくじで，AかBかを聞かれるとAを選ぶのにもかかわらず，CかDかを聞かれるとくじDを選んでいる人は期待効用仮説に反している．実際に確かめるため，$X$円を貰えるときの期待効用を$u(X)$とおき，各くじの期待効用を計算してみよう．</p>
+\[\begin{align*}
+\text{くじAの期待効用:} && &u(2,000)\\
+\text{くじBの期待効用:} && &0.1 u(10,000)+0.89u(2,000)+0.01u(0)
+\end{align*}
+\]
+<p class="cont">したがってくじAを選ぶなら，</p>
+\[\begin{align*}
+u(2,000)&\gt 0.1 u(10,000)+0.89u(2,000)+0.01u(0)\\
+\Leftrightarrow 0.11u(2,000)&\gt 0.1 u(10,000)+0.01u(0)
+\end{align*}
+\]
+<p class="cont">という式が成立しているはずである．一方で</p>
+\[\begin{align*}
+\text{くじCの期待効用:} && &0.11u(2,000)+0.89u(0)\\
+\text{くじDの期待効用:} && &0.1 u(10,000)+0.90u(0)
+\end{align*}
+\]
+<p class="cont">であるので，Dのほうが良いなら</p>
+\[\begin{align*}
+0.1 u(10,000)+0.90u(0)&\gt 0.11 u(2,000)+0.89u(0)\\
+\Leftrightarrow 0.1 u(10,000)+0.01u(0)&\gt 0.11u(2,000)
+\end{align*}
+\]
+<p class="cont">となり，先程の不等式と矛盾するのである．</p>
+
+<p>
+実際にアンケートを取ってみると，AかBかの選択ではAを選び，CかDかの選択ではDを選ぶ人が多かったため，現実の人々のくじへの好みと期待効用仮説が矛盾しており，それゆえにパラドックスと呼ばれるのである<span class="fn">なお，筆者が授業中にアンケートを取ったところではそのような傾向はあまり見られなかった．もちろん出題の仕方か，あまりにも有名すぎる結果なのかで色々意図が読まれている可能性はあり，そこがアンケートを取ることの難しさでもある．</span>．
+</p>
+
+<div class="rmk">
+  <div class="box-label">調べてみよう</div>
+  <p>アレのパラドックスを回避する方法として有名なものの一つが，Kahneman and Tversky（1979）による<strong>プロスペクト理論</strong>である．これがどのようにアレのパラドックスを回避しているのか調べてみましょう．</p>
+</div>
+
+<h3 id="sub-ellsberg">E.1.2 エルスバーグのパラドックス</h3>
+
+<p>期待効用が満たされない例としてはエルスバーグのパラドックスもよく知られている．これは以下のような例である．</p>
+
+<p>青い球と赤い球が合わせて100個入った壺が二つある．</p>
+<ul>
+  <li>壺Aには青い球が$X$個，赤い球が$100-X$個入っている．</li>
+  <li>壺Bには何個ずつ入っているか不明．</li>
+</ul>
+<ul>
+  <li><strong>Q1</strong>：壺からひとつだけ球を取り出して，それが青であるなら賞金がもらえるとき，$X$がいくら以上なら壺Aを選ぶか？</li>
+  <li><strong>Q2</strong>：壺からひとつだけ球を取り出して，それが赤であるなら賞金がもらえるとき，$X$がいくら以下なら壺Aを選ぶか？</li>
+</ul>
+
+<p>壺Bに入っている青い球の予想個数を$Y$として，Q1，Q2を考えてみましょう．</p>
+
+<div class="rmk">
+  <div class="box-label">考えてみよう</div>
+  <p>Q1とQ2の答えによっては，人々が信じている確率というものが通常の確率の定義を満たさなくなる．それはなぜだろうか？</p>
+</div>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<h2 id="sec-risk"><span class="num">E.2</span>リスク回避</h2>
+
+<p>再び期待効用で表現可能な選好の話をしよう．くじ$p$の結果が実数であるとする．その平均値を$E_p[X]=\sum p_i x_i$と書くとしよう．このとき，$u(E_p[X])\gt\sum_i p_i u(x_i)$であるとき，この効用関数は<strong>リスク回避型効用関数</strong>であるという．逆に，$u(E_p[X])\lt\sum_i p_i u(x_i)$であるとき，<strong>リスク愛好型効用関数</strong>であるという．そして$u(E_p[X])=\sum_i p_i u(x_i)$であるときには<strong>リスク中立型効用関数</strong>という．</p>
+
+<p>よりおおざっぱにいえば，「くじを引くのと，くじの期待値をもらうことのどちらが好きか？」と聞かれているのである．宝くじの期待値が150円であれば，宝くじを1回引くのと150円もらうのとどっちがいいか？と聞かれているのである．くじを引くほうが好きであればリスク愛好型，期待値をもらうほうが好きであればリスク回避型と呼ぶのである．</p>
+
+<p>リスク中立的な人がいるとリスク回避型の人の効用を増加させることができる．例えば，リスク回避的な人が，$X=0$か$X=100$がそれぞれ$\frac{1}{2}$の確率で出るくじに直面したとしよう．このとき，$E_p[X]=50$である．リスク回避なこの人のvNM効用を$u_a$で書いてみる．そうするとき，$V_{\text{no risk}}=u_a(50)\gt\frac{1}{2}u_a(0)+\frac{1}{2}u_a(100)=V_{\text{risk}}$とすれば$V_{\text{risk}}$がリスク回避的な人がくじに対して持っている効用である．</p>
+
+<p>一方でリスク中立的な人がこのくじを引き受ける効用を計算する．この人のvNM効用を$u_n$とするとき，利得は$\frac{1}{2}u_n(0)+\frac{1}{2}u_n(100)=u_n(50)$である．ここで，このリスク中立的な人がこのくじを引き受ける代わりに$X=50$にできたとする．例えば，$X=0$のとき，中立的な人が50を払い，$X=100$のとき，50を受け取るというものである．そうすると，リスク回避的な人は確実に$X=50$を受け取れ，効用は$V_{\text{no risk}}$に上がる．これは実は保険の仕組みである．このとき，リスクを中立的な人に負担してもらうことで$V_{\text{no risk}}-V_{\text{risk}}$だけの価値が生まれるのである．</p>
+
+<div class="rmk">
+  <div class="box-label">考えてみよう</div>
+  <p>保険に入ることはリスク回避型の行動として説明できる．では宝くじを買う人はリスク愛好型なのか，それとも別の説明があるか考えてみましょう．</p>
+</div>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<h2 id="sec-knight"><span class="num">E.3</span>リスクと（ナイト流の）不確実性</h2>
+
+<p>くじとは確率分布そのものである．したがって，くじを選ぶというのはどの結果がどの確率で起きるかがわかっている世界で何を選ぶかという選択の話である．</p>
+
+<p>一方でどの確率でどの結果が起きるのかそのもの自体がわからない，ということもよくある．確率分布自体の不確実性のことを<strong>ナイト流の不確実性</strong>と呼びリスクとは区別される．エルスバーグの壺が良い例である．</p>
+
+<p>これを定式化するために，<strong>状態</strong>というものを導入する．そして，人々が選ぶのはくじではなく<strong>アクト</strong>と呼ばれる．このアクトは状態によって，どの確率でどの結果をもたらすのかが異なる．例えば状態が「景気が良くなる」「景気が悪くなる」の二択であったとする．アクトの例として株式投資をするというのを考えてみよう．この例では以下を仮定する：景気が良くなるという状態では株式投資が0.9の確率で成功し，0.1の確率で失敗する．悪くなるという状態ではその逆で，0.9の確率で失敗し，0.1の確率で成功する．</p>
+
+<p>こういったアクトはどのように評価されるだろうか？いろいろな評価の仕方がありうるが，一つは最悪のケースを考えるというものである．状態を$\omega$という記号で表すことにして，$(p_i(\omega))$を状態に依存する確率分布としてみよう．つまり，$p_i(\omega)$は状態が$\omega$のときに結果$i$が起きる確率である．そうすると，最悪のケースの効用は以下のように書くことができる<span class="fn">$\min_{\omega}\sum_i p_i u(x_i,\omega)$と効用の方を状態依存にするパターンもある．</span>．</p>
+\[
+\min_{\omega}\sum_i p_i(\omega)u(x_i)
+\]
+
+<p>さっきの例で考えてみよう．成功することのvNM効用を$100$，失敗することを$-100$，なにもしないときのvNM効用を$0$としてみる．このとき，株式投資をするときの期待効用は，状態が良いときには$0.9\times 100+0.1\times(-100)=80$であり，悪いときには$0.1\times 100+0.9\times(-100)=-80$である．したがって，最悪のケースである景気が悪いときの効用$-80$を株式投資の効用として考える．これと何もしないときの効用$0$を比較し，何もしないという行動を取るということになる．</p>
+
+
+<p>こういった効用関数を持つ人は<strong>マキシミン期待効用</strong>を持つと言われる<span class="fn">マキシミン期待効用とは別の効用のあり方として$\omega$自体の実現確率を考えて，混合くじの要領で考えてしまうこともあり得る．つまり，$\omega$が起きる確率を$q(\omega)$とすれば$\sum_{\omega}q(\omega)\sum_i p_i(\omega)u(x_i)$を効用として考えるということもできる．</span>．この効用関数によってエルスバーグのパラドックスは回避できる．</p>
+
+<p>実際，壺Aは$X$がいくらかわかりきっている場合を考えるのでナイト流不確実性がない．一方で，壺Bでは赤玉が入っている割合がわからないので，その確率として（考えうる）最悪のケースを想定する．赤で賞金でも青で賞金でもどちらでも最悪のケースを考えるので壺Bを選びづらいのである．</p>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<h2 id="sec-books">参考書</h2>
+
+<p>本付録で触れた話題をより本格的に学びたい読者には，次の2冊を薦める．</p>
+<ul>
+  <li>イツァーク・ギルボア『意思決定理論入門』NTT出版，2012年（川越敏司・佐々木俊一郎 訳）</li>
+  <li>イツァーク・ギルボア『不確実性下の意思決定理論』勁草書房，2014年（川越敏司 訳）</li>
+</ul>
+
+</div><!-- /#content -->
+
+<!-- Footnote popup -->
+<div id="fn-popup">
+  <button class="popup-close" id="fnPopupClose">✕</button>
+  <div class="popup-num" id="fnNum"></div>
+  <div id="fnBody"></div>
+</div>
+
+<script>
+// ━━━ FOOTNOTE ━━━ 本文 micro-notes.html・appendix_math.html と同じ実装
+function place(popup, el) {
+  const r = el.getBoundingClientRect(), W = 320, m = 12;
+  let left = r.left, top = r.bottom + 8;
+  if (left + W > window.innerWidth - m) left = window.innerWidth - W - m;
+  if (left < m) left = m;
+  if (top + 160 > window.innerHeight) top = r.top - 8 - 160;
+  popup.style.cssText = `left:${left}px; top:${top}px;`;
+}
+
+function initFootnotes() {
+  const popup = document.getElementById('fn-popup');
+  const pNum  = document.getElementById('fnNum');
+  const pBody = document.getElementById('fnBody');
+  let active = null;
+  let globalCount = 0;
+
+  document.querySelectorAll('.fn').forEach(el => {
+    const num = ++globalCount;
+    el._fnRaw = el.innerHTML;
+    el.classList.add('fn-content');
+
+    const ref = document.createElement('sup');
+    ref.className = 'fn-ref';
+    ref.textContent = num;
+    el.parentNode.insertBefore(ref, el);
+
+    ref.addEventListener('click', e => {
+      e.stopPropagation();
+      if (active === ref && popup.classList.contains('show')) {
+        popup.classList.remove('show');
+        ref.classList.remove('active');
+        active = null;
+        return;
+      }
+      if (active) active.classList.remove('active');
+      active = ref;
+      ref.classList.add('active');
+      pNum.textContent = `注 ${num}`;
+      pBody.innerHTML = el._fnRaw;
+      place(popup, ref);
+      popup.classList.add('show');
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise([pBody]).then(() => place(popup, ref)).catch(() => {});
+      }
+    });
+  });
+
+  document.getElementById('fnPopupClose').addEventListener('click', () => {
+    popup.classList.remove('show');
+    if (active) active.classList.remove('active');
+    active = null;
+  });
+  document.addEventListener('click', e => {
+    if (!popup.contains(e.target) && !e.target.classList.contains('fn-ref')) {
+      popup.classList.remove('show');
+      if (active) active.classList.remove('active');
+      active = null;
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      popup.classList.remove('show');
+      if (active) active.classList.remove('active');
+      active = null;
+    }
+  });
+}
+
+// 脚注インライン表示（印刷用）。MathJax は .fn を ignoreHtmlClass で無視するので、
+// 紙に出すときは一度だけ fn クラスを外して組版し直す（本文 micro-notes.html と同じ）。
+function typesetInlineFootnotes() {
+  if (!(window.MathJax && MathJax.typesetPromise)) return Promise.resolve();
+  const els = [];
+  document.querySelectorAll('.fn-content').forEach(el => {
+    if (el.dataset.fnTypeset) return;
+    el.dataset.fnTypeset = '1';
+    el.classList.remove('fn');
+    els.push(el);
+  });
+  if (!els.length) return Promise.resolve();
+  return MathJax.typesetPromise(els).catch(() => {});
+}
+window.addEventListener('beforeprint', typesetInlineFootnotes);
+
+initFootnotes();
+</script>
+
+</body>
+</html>

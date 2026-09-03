@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" style="font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif">
+<!-- 外部性の内部化（ピグー税）のアニメ：4.2節の家の市場の数値例に対応
+     買い手WTP: 5000,3500,2000,1000,800 ／ 売り手費用: 850,950,1800,3200,4500 ／ 騒音被害500/軒
+     y(v) = 380 - 0.064 v，x(q) = 80 + 100 q
+     5段階 × 4s = 20s，keyTimes: 0;0.2;0.4;0.6;0.8;1
+     段階: ①市場均衡3軒 ②騒音被害+500 ③供給曲線が上にシフト ④新しい交点は2軒 ⑤まとめ -->
+
+<!-- ===== 軸・目盛 ===== -->
+<g stroke="rgba(0,0,0,0.07)" stroke-width="0.6">
+  <line x1="180" y1="40" x2="180" y2="380"/><line x1="280" y1="40" x2="280" y2="380"/>
+  <line x1="380" y1="40" x2="380" y2="380"/><line x1="480" y1="40" x2="480" y2="380"/><line x1="580" y1="40" x2="580" y2="380"/>
+  <line x1="80" y1="316" x2="580" y2="316"/><line x1="80" y1="252" x2="580" y2="252"/>
+  <line x1="80" y1="188" x2="580" y2="188"/><line x1="80" y1="124" x2="580" y2="124"/><line x1="80" y1="60" x2="580" y2="60"/>
+</g>
+<line x1="80" y1="40" x2="80" y2="380" stroke="#333" stroke-width="1.5"/>
+<line x1="80" y1="380" x2="592" y2="380" stroke="#333" stroke-width="1.5"/>
+<polygon points="598,380 588,375 588,385" fill="#333"/>
+<text x="608" y="385" fill="#444" font-size="13">数量</text>
+<text x="30" y="210" text-anchor="middle" fill="#444" font-size="12" transform="rotate(-90,30,210)">支払意思額／費用（万円）</text>
+<g fill="#444" font-size="12" text-anchor="middle">
+  <text x="80" y="398">0</text><text x="180" y="398">1</text><text x="280" y="398">2</text>
+  <text x="380" y="398">3</text><text x="480" y="398">4</text><text x="580" y="398">5</text>
+</g>
+<g fill="#444" font-size="11" text-anchor="end">
+  <text x="74" y="320">1000</text><text x="74" y="256">2000</text><text x="74" y="192">3000</text>
+  <text x="74" y="128">4000</text><text x="74" y="64">5000</text>
+</g>
+
+<!-- ===== 需要曲線（常時） ===== -->
+<path d="M80,60 H180 V156 H280 V252 H380 V316 H480 V328.8 H580" fill="none" stroke="#5c1a1a" stroke-width="2.5"/>
+<text x="588" y="333" fill="#5c1a1a" font-size="12" font-weight="600">需要曲線</text>
+
+<!-- ===== 供給曲線：①②でははっきり，③以降は淡く ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="1;1;0;0;0;0"/>
+  <path d="M80,325.6 H180 V319.2 H280 V264.8 H380 V175.2 H480 V92 H580" fill="none" stroke="#4a90d9" stroke-width="2.5"/>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;1;1;1;1"/>
+  <path d="M80,325.6 H180 V319.2 H280 V264.8 H380 V175.2 H480 V92 H580" fill="none" stroke="#b8cfe8" stroke-width="2.2"/>
+</g>
+<text x="588" y="96" fill="#4a90d9" font-size="12" font-weight="600">供給曲線</text>
+
+<!-- ===== 市場均衡マーカー（q=3）：常時 ===== -->
+<line x1="380" y1="380" x2="380" y2="252" stroke="#888" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="386" y="278" fill="#666" font-size="12" font-weight="600">市場均衡：3軒</text>
+
+<!-- ===== 段階②：騒音被害ブロック（+500） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;1;0;0;0;0"/>
+  <g fill="rgba(231,76,60,0.28)">
+    <rect x="80" y="293.6" width="100" height="32"/>
+    <rect x="180" y="287.2" width="100" height="32"/>
+    <rect x="280" y="232.8" width="100" height="32"/>
+    <rect x="380" y="143.2" width="100" height="32"/>
+    <rect x="480" y="60" width="100" height="32"/>
+  </g>
+  <text x="130" y="288" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">+500</text>
+  <text x="330" y="227" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">+500</text>
+  <text x="530" y="54" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">+500</text>
+  <text x="360" y="80" fill="#c0392b" font-size="13" font-weight="700">♪ 家1軒につき騒音被害500万円（ヴォルフ）</text>
+</g>
+
+<!-- ===== 段階③以降：内部化後の供給曲線（+500シフト） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;1;1;1;1"/>
+  <path d="M80,293.6 H180 V287.2 H280 V232.8 H380 V143.2 H480 V60 H580" fill="none" stroke="#e74c3c" stroke-width="2.5"/>
+  <text x="588" y="64" fill="#e74c3c" font-size="12" font-weight="600">供給曲線＋騒音被害</text>
+</g>
+<!-- シフトの上向き矢印（③のみ） -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;1;0;0;0"/>
+  <g stroke="#c0392b" stroke-width="2">
+    <line x1="130" y1="323.6" x2="130" y2="297.6"/><line x1="230" y1="317.2" x2="230" y2="291.2"/>
+    <line x1="330" y1="262.8" x2="330" y2="236.8"/><line x1="430" y1="173.2" x2="430" y2="147.2"/>
+    <line x1="530" y1="90" x2="530" y2="64"/>
+  </g>
+  <g fill="#c0392b">
+    <polygon points="130,293.6 125,301.6 135,301.6"/><polygon points="230,287.2 225,295.2 235,295.2"/>
+    <polygon points="330,232.8 325,240.8 335,240.8"/><polygon points="430,143.2 425,151.2 435,151.2"/>
+    <polygon points="530,60 525,68 535,68"/>
+  </g>
+  <text x="360" y="80" fill="#c0392b" font-size="13" font-weight="700">費用に被害500を足す → 500だけ上にシフト</text>
+</g>
+
+<!-- ===== 段階④以降：新しい均衡（q=2） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;0;1;1;1"/>
+  <line x1="280" y1="380" x2="280" y2="232.8" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="4,3"/>
+  <circle cx="280" cy="252" r="5" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="180" y="222" fill="#c0392b" font-size="12" font-weight="700">内部化後：2軒</text>
+</g>
+<!-- 3軒目が取引されない理由（④のみ） -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;0;1;0;0"/>
+  <text x="360" y="80" fill="#c0392b" font-size="13" font-weight="700">3軒目：支払意思額2000 ＜ 費用2300 → 建たない</text>
+</g>
+
+<!-- ===== 段階⑤：まとめ帯 ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;0;0;1;1"/>
+  <rect x="100" y="46" width="480" height="34" rx="8" fill="#eaf5ec" stroke="#2a8a3e" stroke-width="1.2"/>
+  <text x="340" y="68" text-anchor="middle" fill="#2a8a3e" font-size="14" font-weight="700">取引量は3軒→2軒に減り，社会的総余剰は 5400 → 5700万円に</text>
+</g>
+
+<!-- ===== 手順キャプション（下段） ===== -->
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="1;0;0;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">家の市場：需要曲線と供給曲線の交点で，市場均衡では3軒の家が建つ</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;1;0;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">家が1軒建つたびに音楽家ヴォルフに500万円の騒音被害．これは市場取引には現れない</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;1;0;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">内部化：被害500万円を売り手の費用に足す → 供給曲線が500だけ上にシフト</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;0;1;0;0"/>
+  <text x="34" y="458" fill="#555" font-size="13">新・供給曲線と需要曲線の交点では2軒：3軒目は支払意思額2000＜費用2300で取引されない</text>
+</g>
+<g opacity="0">
+  <animate attributeName="opacity" dur="20s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.2;0.4;0.6;0.8;1" values="0;0;0;0;1;1"/>
+  <text x="34" y="458" fill="#555" font-size="13">3軒目の取引は余剰200＜被害500で社会的には損だった．内部化がそれを止めてくれる</text>
+</g>
+</svg>

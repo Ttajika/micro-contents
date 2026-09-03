@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 540" style="font-family:-apple-system,BlinkMacSystemFont,sans-serif">
+
+<rect x="0" y="0" width="600" height="540" fill="#fafbfc"/>
+
+<rect x="40" y="18" width="520" height="46" rx="8" fill="#eef3f9" stroke="#dde3eb" stroke-width="1"/>
+<text x="300" y="47" text-anchor="middle" font-size="14" fill="#333" opacity="0">予算線：三角形の内側が「買える範囲」<animate attributeName="opacity" dur="32s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.222;1" values="1;0;0"/></text>
+<text x="300" y="47" text-anchor="middle" font-size="14" fill="#c0392b" opacity="0">価格 <tspan font-style="italic">p</tspan><tspan font-style="italic" baseline-shift="sub" font-size="0.72em">x</tspan> が上昇 → 三角形が縮む（買える量が減る）<animate attributeName="opacity" dur="32s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.222;0.361;1" values="0;1;0;0"/></text>
+<text x="300" y="47" text-anchor="middle" font-size="14" fill="#2e7d32" opacity="0">価格 <tspan font-style="italic">p</tspan><tspan font-style="italic" baseline-shift="sub" font-size="0.72em">x</tspan> が下落 → 三角形が広がる（買える量が増える）<animate attributeName="opacity" dur="32s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.361;0.472;1" values="0;1;0;0"/></text>
+<text x="300" y="47" text-anchor="middle" font-size="14" fill="#c0392b" opacity="0">価格 <tspan font-style="italic">p</tspan><tspan font-style="italic" baseline-shift="sub" font-size="0.72em">y</tspan> が上昇 → 三角形が縮む（買える量が減る）<animate attributeName="opacity" dur="32s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.472;0.611;1" values="0;1;0;0"/></text>
+<text x="300" y="47" text-anchor="middle" font-size="14" fill="#2e7d32" opacity="0">価格 <tspan font-style="italic">p</tspan><tspan font-style="italic" baseline-shift="sub" font-size="0.72em">y</tspan> が下落 → 三角形が広がる（買える量が増える）<animate attributeName="opacity" dur="32s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.611;0.722;1" values="0;1;0;0"/></text>
+<text x="300" y="47" text-anchor="middle" font-size="14" fill="#2e7d32" opacity="0">所得 <tspan font-style="italic">m</tspan> が増加 → 予算線が平行に外へ（範囲が拡大）<animate attributeName="opacity" dur="32s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.722;0.861;1" values="0;1;0;0"/></text>
+<text x="300" y="47" text-anchor="middle" font-size="14" fill="#c0392b" opacity="0">所得 <tspan font-style="italic">m</tspan> が減少 → 予算線が平行に内へ（範囲が縮小）<animate attributeName="opacity" dur="32s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.861;0.972;1" values="0;1;0;0"/></text>
+
+<g stroke="rgba(0,0,0,0.05)" stroke-width="0.5">
+  <line x1="180" y1="90" x2="180" y2="470"/>
+  <line x1="270" y1="90" x2="270" y2="470"/>
+  <line x1="360" y1="90" x2="360" y2="470"/>
+  <line x1="450" y1="90" x2="450" y2="470"/>
+  <line x1="90" y1="380" x2="540" y2="380"/>
+  <line x1="90" y1="290" x2="540" y2="290"/>
+  <line x1="90" y1="200" x2="540" y2="200"/>
+  <line x1="90" y1="110" x2="540" y2="110"/>
+</g>
+
+<line x1="90" y1="90" x2="90" y2="470" stroke="#333" stroke-width="1.5"/>
+<line x1="90" y1="470" x2="540" y2="470" stroke="#333" stroke-width="1.5"/>
+<text x="546" y="475" font-size="14" fill="#333"><tspan font-style="italic">q</tspan><tspan font-style="italic" baseline-shift="sub" font-size="0.72em">x</tspan></text>
+<text x="90" y="80" text-anchor="middle" font-size="14" fill="#333"><tspan font-style="italic">q</tspan><tspan font-style="italic" baseline-shift="sub" font-size="0.72em">y</tspan></text>
+<text x="82" y="486" text-anchor="end" font-size="11" fill="#666">O</text>
+
+<polygon points="90,470 370,470 90,210" fill="#2c5fa6" stroke="none" fill-opacity="0">
+  <animate attributeName="points" dur="32s" repeatCount="indefinite" calcMode="linear" keyTimes="0.000;0.222;0.278;0.361;0.417;0.472;0.528;0.611;0.667;0.722;0.778;0.861;0.917;0.972;1.000" values="90,470 370,470 90,210;90,470 370,470 90,210;90,470 230,470 90,210;90,470 230,470 90,210;90,470 370,470 90,210;90,470 370,470 90,210;90,470 370,470 90,330;90,470 370,470 90,330;90,470 370,470 90,210;90,470 370,470 90,210;90,470 468,470 90,119;90,470 468,470 90,119;90,470 258,470 90,314;90,470 258,470 90,314;90,470 370,470 90,210"/>
+  <animate attributeName="fill-opacity" dur="32s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;0.078;0.094;0.109;0.125;0.141;0.156;0.172;1" values="0;0;0.30;0;0.30;0;0.30;0.18;0.18"/>
+</polygon>
+
+<text x="190" y="392" text-anchor="middle" font-size="13" font-weight="600" fill="#2c5fa6" opacity="0">買える範囲<animate attributeName="opacity" dur="32s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.08;0.10;0.20;0.222;1" values="0;0;1;1;0;0"/></text>
+
+<line x1="370" y1="470" x2="90" y2="210" stroke="#2c5fa6" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="700" stroke-dashoffset="700">
+  <animate attributeName="stroke-dashoffset" dur="32s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.0625;1" values="700;0;0"/>
+  <animate attributeName="x1" dur="32s" repeatCount="indefinite" calcMode="linear" keyTimes="0.000;0.222;0.278;0.361;0.417;0.472;0.528;0.611;0.667;0.722;0.778;0.861;0.917;0.972;1.000" values="370;370;230;230;370;370;370;370;370;370;468;468;258;258;370"/>
+  <animate attributeName="y2" dur="32s" repeatCount="indefinite" calcMode="linear" keyTimes="0.000;0.222;0.278;0.361;0.417;0.472;0.528;0.611;0.667;0.722;0.778;0.861;0.917;0.972;1.000" values="210;210;210;210;210;210;330;330;210;210;119;119;314;314;210"/>
+</line>
+
+<circle cx="370" cy="470" r="4" fill="#2c5fa6"><animate attributeName="cx" dur="32s" repeatCount="indefinite" calcMode="linear" keyTimes="0.000;0.222;0.278;0.361;0.417;0.472;0.528;0.611;0.667;0.722;0.778;0.861;0.917;0.972;1.000" values="370;370;230;230;370;370;370;370;370;370;468;468;258;258;370"/></circle>
+<circle cx="90" cy="210" r="4" fill="#2c5fa6"><animate attributeName="cy" dur="32s" repeatCount="indefinite" calcMode="linear" keyTimes="0.000;0.222;0.278;0.361;0.417;0.472;0.528;0.611;0.667;0.722;0.778;0.861;0.917;0.972;1.000" values="210;210;210;210;210;210;330;330;210;210;119;119;314;314;210"/></circle>
+
+<text x="370" y="490" text-anchor="middle" font-size="12.5" fill="#2c5fa6"><tspan font-style="italic">m</tspan>/<tspan font-style="italic">p</tspan><tspan font-style="italic" baseline-shift="sub" font-size="0.72em">x</tspan><animate attributeName="x" dur="32s" repeatCount="indefinite" calcMode="linear" keyTimes="0.000;0.222;0.278;0.361;0.417;0.472;0.528;0.611;0.667;0.722;0.778;0.861;0.917;0.972;1.000" values="370;370;230;230;370;370;370;370;370;370;468;468;258;258;370"/></text>
+<text x="80" y="214" text-anchor="end" font-size="12.5" fill="#2c5fa6"><tspan font-style="italic">m</tspan>/<tspan font-style="italic">p</tspan><tspan font-style="italic" baseline-shift="sub" font-size="0.72em">y</tspan><animate attributeName="y" dur="32s" repeatCount="indefinite" calcMode="linear" keyTimes="0.000;0.222;0.278;0.361;0.417;0.472;0.528;0.611;0.667;0.722;0.778;0.861;0.917;0.972;1.000" values="214;214;214;214;214;214;334;334;214;214;123;123;318;318;214"/></text>
+
+</svg>

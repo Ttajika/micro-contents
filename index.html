@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-book-tpl="{book}Web教材 — {authors}">動くミクロ経済学（仮題）Web教材 — 多鹿 智哉・栗田 健一</title>
+
+<!-- ── SNS共有・検索向けメタ（公開前に内容確定）────────────── -->
+<meta name="description" data-book-tpl="学部向けミクロ経済学の教科書『{book}』（{authorsCompact}）のWeb教材．アニメーション・図版・演習問題を収録．" content="学部向けミクロ経済学の教科書『動くミクロ経済学（仮題）』（多鹿智哉・栗田健一）のWeb教材．アニメーション・図版・演習問題を収録．">
+<meta property="og:title" data-book-tpl="{book}Web教材" content="動くミクロ経済学（仮題）Web教材">
+<meta property="og:description" content="本文中の図をQRコードからアニメ・拡大図で確認できるWeb教材．">
+<meta property="og:type" content="website">
+<!-- <meta property="og:image" content="img/cover.png"> 書影が用意できたら設定 -->
+<!-- <link rel="icon" href="favicon.ico"> favicon を用意したら設定 -->
+<!-- 紙の本の発売前は検索インデックスを避けたい場合，次行を有効化する
+<meta name="robots" content="noindex, nofollow"> -->
+
+<style>
+  :root { --ink:#1f2937; --sub:#6b7280; --line:#e5e7eb; --accent:#2563eb; --bg:#f9fafb; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.8; }
+  .wrap { max-width:820px; margin:0 auto; padding:48px 20px 80px; }
+  header { border-bottom:2px solid var(--line); padding-bottom:6px; margin-bottom:32px;
+    display:flex; align-items:center; justify-content:space-between; gap:20px; }
+  h1 { font-size:1.7rem; margin:0 0 6px; }
+  /* ── フェナキスティスコープ（ヘッダ右の回転円盤）──
+     カバー案4の習作を流用．需要曲線の8コマを放射配置した円盤が SMIL の離散回転で回り，
+     均衡点が供給曲線の上を行き来する（シフト幅は正弦波＝回すとループ）．
+     クリックで停止／再開．OS の「視差効果を減らす」設定では最初から止めておく． */
+  .phenak-wrap { flex:0 0 auto; width:280px; margin:-26px 0 -2px; text-align:center; cursor:pointer; user-select:none; }
+  .phenak-wrap svg { display:block; width:280px; height:280px; }
+  .phenak-wrap .slot { fill:var(--bg); }
+  @media (max-width:560px){ header{flex-direction:column; align-items:flex-start} .phenak-wrap{align-self:center; margin:8px 0 0} }
+  .byline { color:var(--sub); margin:0; }
+  .lead { font-size:1.02rem; }
+  h2 { font-size:1.2rem; margin:40px 0 14px; padding-bottom:6px; border-bottom:1px solid var(--line); }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin:24px 0; }
+  .card { display:block; background:#fff; border:1px solid var(--line); border-radius:12px;
+    padding:20px; text-decoration:none; color:inherit; transition:box-shadow .15s, transform .15s; }
+  .card:hover { box-shadow:0 6px 20px rgba(0,0,0,.07); transform:translateY(-2px); }
+  .card .t { font-weight:700; font-size:1.05rem; margin-bottom:4px; color:var(--accent); }
+  .card .d { color:var(--sub); font-size:.92rem; }
+  .note { background:#fff; border:1px solid var(--line); border-left:4px solid var(--accent);
+    border-radius:8px; padding:14px 18px; margin:16px 0; }
+  .todo { background:#fff7ed; border-left-color:#f59e0b; }
+  .biblio { display:grid; grid-template-columns:max-content 1fr; gap:6px 18px;
+    background:#fff; border:1px solid var(--line); border-radius:8px; padding:16px 20px; margin:16px 0; }
+  .biblio dt { color:var(--sub); font-weight:600; }
+  .biblio dd { margin:0; }
+  .ph { color:#b45309; background:#fffbeb; padding:0 4px; border-radius:3px; font-size:.92em; }
+  .diff { list-style:none; padding:0; margin:16px 0; display:grid; gap:14px; }
+  .diff > li { background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 18px; }
+  .diff .h { font-weight:700; margin-bottom:6px; }
+  .diff .why { color:var(--sub); font-size:.94rem; margin:0; }
+  .diff .why::before { content:"なぜ　"; color:var(--accent); font-weight:600; }
+  .toc-book { columns:2; column-gap:32px; }
+  .toc-part { break-inside:avoid; margin:0 0 14px; }
+  .toc-part h3 { margin:0 0 4px; font-size:.98rem; color:var(--accent); }
+  .toc-part ol { margin:0; padding-left:2.2em; }
+  .toc-part ol li { margin:2px 0; }
+  .toc-book .toc-front { list-style:none; padding-left:0; margin:0 0 10px; color:var(--sub); }
+  /* 教員向けの2節は <details> で畳む（既定は閉じる）。summary の中の h2 が見出しを兼ねる */
+  details.teacher { margin:40px 0 0; }
+  details.teacher > summary { list-style:none; cursor:pointer; }
+  details.teacher > summary::-webkit-details-marker { display:none; }
+  details.teacher > summary h2 { margin:0; display:flex; align-items:baseline; gap:.5em; flex-wrap:wrap; }
+  details.teacher > summary h2::before { content:"▸"; color:var(--accent); font-size:.9em; flex:none; }
+  details.teacher[open] > summary h2::before { content:"▾"; }
+  details.teacher > summary .lead { color:var(--sub); font-size:.88rem; font-weight:400; }
+  details.teacher > summary .lead .hint::before { content:"（クリックで開く）"; }
+  details.teacher[open] > summary .lead .hint::before { content:"（クリックで閉じる）"; }
+  details.teacher > summary:hover h2 { color:var(--accent); }
+  details.teacher > .body { margin-top:14px; }
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--line);
+    color:var(--sub); font-size:.9rem; }
+  a { color:var(--accent); }
+  @media (max-width:560px){ ul.toc-book{columns:1} .biblio{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1 data-book-tpl="{book}— Web教材">動くミクロ経済学（仮題）— Web教材</h1>
+      <p class="byline" data-book-tpl="{authors}">多鹿 智哉・栗田 健一</p>
+    </div>
+    <div class="phenak-wrap" id="phenak-wrap" title="クリックで停止／再開">
+      <svg id="phenak" xmlns="http://www.w3.org/2000/svg" viewBox="46 46 508 508" font-family="Baskerville,Georgia,serif" role="img" aria-label="フェナキスティスコープ：需要曲線が左右に動き，均衡点が供給曲線の上を滑る8コマの円盤">
+      <title>フェナキスティスコープ</title>
+      <g><animateTransform attributeName="transform" type="rotate" calcMode="discrete" values="0 300 300;45 300 300;90 300 300;135 300 300;180 300 300;225 300 300;270 300 300;315 300 300" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;0.875" dur="1.6s" repeatCount="indefinite"/>
+      <circle cx="300" cy="300" r="250" fill="none" stroke="#211910" stroke-width="2"/>
+      <circle cx="300" cy="300" r="232" fill="none" stroke="#211910" stroke-width="20"/>
+      <g transform="rotate(22.5 300 300)">
+      <rect class="slot" x="296" y="52" width="8" height="34"/>
+      <line x1="300" y1="196" x2="300" y2="82" stroke="#211910" stroke-width="1.2" opacity="0.4"/>
+      </g>
+      <g transform="rotate(67.5 300 300)">
+      <rect class="slot" x="296" y="52" width="8" height="34"/>
+      <line x1="300" y1="196" x2="300" y2="82" stroke="#211910" stroke-width="1.2" opacity="0.4"/>
+      </g>
+      <g transform="rotate(112.5 300 300)">
+      <rect class="slot" x="296" y="52" width="8" height="34"/>
+      <line x1="300" y1="196" x2="300" y2="82" stroke="#211910" stroke-width="1.2" opacity="0.4"/>
+      </g>
+      <g transform="rotate(157.5 300 300)">
+      <rect class="slot" x="296" y="52" width="8" height="34"/>
+      <line x1="300" y1="196" x2="300" y2="82" stroke="#211910" stroke-width="1.2" opacity="0.4"/>
+      </g>
+      <g transform="rotate(202.5 300 300)">
+      <rect class="slot" x="296" y="52" width="8" height="34"/>
+      <line x1="300" y1="196" x2="300" y2="82" stroke="#211910" stroke-width="1.2" opacity="0.4"/>
+      </g>
+      <g transform="rotate(247.5 300 300)">
+      <rect class="slot" x="296" y="52" width="8" height="34"/>
+      <line x1="300" y1="196" x2="300" y2="82" stroke="#211910" stroke-width="1.2" opacity="0.4"/>
+      </g>
+      <g transform="rotate(292.5 300 300)">
+      <rect class="slot" x="296" y="52" width="8" height="34"/>
+      <line x1="300" y1="196" x2="300" y2="82" stroke="#211910" stroke-width="1.2" opacity="0.4"/>
+      </g>
+      <g transform="rotate(337.5 300 300)">
+      <rect class="slot" x="296" y="52" width="8" height="34"/>
+      <line x1="300" y1="196" x2="300" y2="82" stroke="#211910" stroke-width="1.2" opacity="0.4"/>
+      </g>
+      <circle cx="300" cy="300" r="97" fill="none" stroke="#211910" stroke-width="1.5" opacity="0.7"/>
+      <circle cx="300" cy="300" r="90" fill="none" stroke="#C7391F" stroke-width="3" opacity="0.85"/>
+      <g transform="rotate(0 300 300) translate(250 101)">
+      <path d="M8,4 L8,76 L96,76" fill="none" stroke="#211910" stroke-width="2"/>
+      <path d="M16,74 C42,64 64,40 90,15" fill="none" stroke="#1F4C86" stroke-width="3"/>
+      <path d="M12,20 C36,40 60,52 92,68" fill="none" stroke="#C7391F" stroke-width="3" transform="translate(0.00 0)"/>
+      <circle cx="54.6" cy="48.7" r="4" fill="#C7391F"/>
+      <text x="100" y="12" font-size="12" fill="#211910" text-anchor="end" opacity="0.55">1</text>
+      </g>
+      <g transform="rotate(-45 300 300) translate(250 101)">
+      <path d="M8,4 L8,76 L96,76" fill="none" stroke="#211910" stroke-width="2"/>
+      <path d="M16,74 C42,64 64,40 90,15" fill="none" stroke="#1F4C86" stroke-width="3"/>
+      <path d="M12,20 C36,40 60,52 92,68" fill="none" stroke="#C7391F" stroke-width="3" transform="translate(10.61 0)"/>
+      <circle cx="58.8" cy="45.1" r="4" fill="#C7391F"/>
+      <text x="100" y="12" font-size="12" fill="#211910" text-anchor="end" opacity="0.55">2</text>
+      </g>
+      <g transform="rotate(-90 300 300) translate(250 101)">
+      <path d="M8,4 L8,76 L96,76" fill="none" stroke="#211910" stroke-width="2"/>
+      <path d="M16,74 C42,64 64,40 90,15" fill="none" stroke="#1F4C86" stroke-width="3"/>
+      <path d="M12,20 C36,40 60,52 92,68" fill="none" stroke="#C7391F" stroke-width="3" transform="translate(15.00 0)"/>
+      <circle cx="60.4" cy="43.4" r="4" fill="#C7391F"/>
+      <text x="100" y="12" font-size="12" fill="#211910" text-anchor="end" opacity="0.55">3</text>
+      </g>
+      <g transform="rotate(-135 300 300) translate(250 101)">
+      <path d="M8,4 L8,76 L96,76" fill="none" stroke="#211910" stroke-width="2"/>
+      <path d="M16,74 C42,64 64,40 90,15" fill="none" stroke="#1F4C86" stroke-width="3"/>
+      <path d="M12,20 C36,40 60,52 92,68" fill="none" stroke="#C7391F" stroke-width="3" transform="translate(10.61 0)"/>
+      <circle cx="58.8" cy="45.1" r="4" fill="#C7391F"/>
+      <text x="100" y="12" font-size="12" fill="#211910" text-anchor="end" opacity="0.55">4</text>
+      </g>
+      <g transform="rotate(-180 300 300) translate(250 101)">
+      <path d="M8,4 L8,76 L96,76" fill="none" stroke="#211910" stroke-width="2"/>
+      <path d="M16,74 C42,64 64,40 90,15" fill="none" stroke="#1F4C86" stroke-width="3"/>
+      <path d="M12,20 C36,40 60,52 92,68" fill="none" stroke="#C7391F" stroke-width="3" transform="translate(0.00 0)"/>
+      <circle cx="54.6" cy="48.7" r="4" fill="#C7391F"/>
+      <text x="100" y="12" font-size="12" fill="#211910" text-anchor="end" opacity="0.55">5</text>
+      </g>
+      <g transform="rotate(-225 300 300) translate(250 101)">
+      <path d="M8,4 L8,76 L96,76" fill="none" stroke="#211910" stroke-width="2"/>
+      <path d="M16,74 C42,64 64,40 90,15" fill="none" stroke="#1F4C86" stroke-width="3"/>
+      <path d="M12,20 C36,40 60,52 92,68" fill="none" stroke="#C7391F" stroke-width="3" transform="translate(-10.61 0)"/>
+      <circle cx="50.6" cy="52.3" r="4" fill="#C7391F"/>
+      <text x="100" y="12" font-size="12" fill="#211910" text-anchor="end" opacity="0.55">6</text>
+      </g>
+      <g transform="rotate(-270 300 300) translate(250 101)">
+      <path d="M8,4 L8,76 L96,76" fill="none" stroke="#211910" stroke-width="2"/>
+      <path d="M16,74 C42,64 64,40 90,15" fill="none" stroke="#1F4C86" stroke-width="3"/>
+      <path d="M12,20 C36,40 60,52 92,68" fill="none" stroke="#C7391F" stroke-width="3" transform="translate(-15.00 0)"/>
+      <circle cx="48.8" cy="53.7" r="4" fill="#C7391F"/>
+      <text x="100" y="12" font-size="12" fill="#211910" text-anchor="end" opacity="0.55">7</text>
+      </g>
+      <g transform="rotate(-315 300 300) translate(250 101)">
+      <path d="M8,4 L8,76 L96,76" fill="none" stroke="#211910" stroke-width="2"/>
+      <path d="M16,74 C42,64 64,40 90,15" fill="none" stroke="#1F4C86" stroke-width="3"/>
+      <path d="M12,20 C36,40 60,52 92,68" fill="none" stroke="#C7391F" stroke-width="3" transform="translate(-10.61 0)"/>
+      <circle cx="50.6" cy="52.3" r="4" fill="#C7391F"/>
+      <text x="100" y="12" font-size="12" fill="#211910" text-anchor="end" opacity="0.55">8</text>
+      </g>
+      </g>
+      <circle class="slot" cx="300" cy="300" r="10" stroke="#211910" stroke-width="3"/>
+      <circle cx="300" cy="300" r="3" fill="#211910"/>
+      </svg>
+    </div>
+  </header>
+
+
+  <p class="lead">
+    学部向けミクロ経済学の教科書『<span data-book-tpl="{book}">動くミクロ経済学（仮題）</span>』の Web 教材ページです．
+    本文中の図はQRコードからこのサイトの該当ページへ飛び，アニメーションや拡大図で確認できます．
+  </p>
+
+  <!-- ── 書誌情報（確定したら ［…］ を置き換える）──────────── -->
+  <h2>書誌情報</h2>
+  <dl class="biblio">
+    <dt>書名</dt><dd data-book-tpl="{book}">動くミクロ経済学（仮題）</dd>
+    <dt>著者</dt><dd data-book-tpl="{authors}">多鹿 智哉・栗田 健一</dd>
+    <dt>出版社</dt><dd>新世社</dd>
+    <dt>刊行</dt><dd><span class="ph">［20XX年X月］</span></dd>
+    <dt>判型・頁</dt><dd><span class="ph">［A5判・XXX頁］</span></dd>
+    <dt>ISBN</dt><dd><span class="ph">［978-X-XXXX-XXXX-X］</span></dd>
+    <dt>定価</dt><dd><span class="ph">［X,XXX円＋税］</span></dd>
+  </dl>
+  <!-- 書影が用意できたら：<img src="img/cover.png" alt="書影" style="max-width:200px"> -->
+
+  <h2>本書の特徴・対象読者</h2>
+  <ul>
+    <li><strong>対象</strong>：学部1〜2年生／経済学部以外でも可</li>
+    <li><strong>前提知識</strong>：用いる数学のレベルは四則演算と数字の比較がメイン，詳細な数学は本文・Web補助資料で補う．経済学の前提知識は不要．</li>
+    <li><strong>特徴</strong>：数学を抑えつつ論理は飛ばさず，図とアニメーションで直観を補う．</li>
+  </ul>
+
+  <h2>コンテンツ</h2>
+  <div class="cards">
+    <a class="card" href="anime_gallery.html">
+      <div class="t">アニメーション一覧 →</div>
+      <div class="d">本文中のアニメ図版を，再生・シーク・速度変更つきで閲覧．</div>
+    </a>
+    <a class="card" href="micro_exercise.html">
+      <div class="t">演習問題 →</div>
+      <div class="d">章ごとの練習問題と解答例．<!-- 公開範囲は要調整 --></div>
+    </a>
+    <a class="card" href="references.html">
+      <div class="t">引用文献 →</div>
+      <div class="d">本書の本文で言及・参照した学術論文・書籍の一覧（DOIリンクつき）．</div>
+    </a>
+    <a class="card" href="visualizers.html">
+      <div class="t">インタラクティブ教材 →</div>
+      <div class="d">値を動かして確かめるビジュアライザー集（余剰・課税／価格弾力性／3財のスルツキー分解）．</div>
+    </a>
+    <a class="card" href="online_appendix.html">
+      <div class="t">Web補助資料 →</div>
+      <div class="d">本文で扱いきれない発展的内容の補論集（数学の準備／表の読み方／市場均衡の調整過程／独占と寡占の理論）．</div>
+    </a>
+  </div>
+
+  <h2>目次・章構成</h2>
+  <div class="toc-book">
+    <ul class="toc-front"><li>はじめに</li></ul>
+    <div class="toc-part">
+      <h3>第 I 部　考え方の基礎</h3>
+      <ol>
+        <li>ミクロ経済学の方法</li>
+        <li>意思決定</li>
+      </ol>
+    </div>
+    <div class="toc-part">
+      <h3>第 II 部　市場の理論</h3>
+      <ol start="3">
+        <li>需要と供給</li>
+        <li>市場の失敗</li>
+        <li>企業の行動</li>
+        <li>消費者の行動</li>
+        <li>複数財市場の均衡</li>
+      </ol>
+    </div>
+    <div class="toc-part">
+      <h3>第 III 部　戦略とルール</h3>
+      <ol start="8">
+        <li>ゲーム理論</li>
+        <li>ルールづくりのゲーム理論</li>
+      </ol>
+    </div>
+    <div class="toc-part">
+      <h3>第 IV 部　ミクロ経済学の広がり</h3>
+      <ol start="10">
+        <li>ミクロ経済学をデータで確かめる</li>
+        <li>ミクロ理論で制度を設計する</li>
+      </ol>
+    </div>
+    <ul class="toc-front"><li>参考文献</li></ul>
+  </div>
+
+  <details class="teacher" id="for-teachers">
+  <summary><h2>採用をご検討の先生方へ <span class="lead">— 標準的な教科書との違いと，その理由<span class="hint"></span></span></h2></summary>
+  <div class="body">
+  <p>
+    本書は学部1〜2年生でも読み進められるよう，数学を抑えつつ論理を飛ばさずに書いた入門書です．
+    講義での図版利用やQRコードを介したアニメ参照を前提に作っています．
+    講義の教科書としても，標準的な教科書の脇に置いて「なぜそうなるのか」を掴ませる
+    副読本としても使え，学生が独習で読み通せることも意識して設計しています．
+  </p>
+
+  <h3>標準的な教科書との違いと，その理由</h3>
+  <p>
+    多くの入門書の書き方を，本書はいくつかの点で意図的に外しています．
+    どれも「学部の初学者が最初のつまずきで脱落しないこと」を優先した結果です．
+  </p>
+  <ul class="diff">
+    <li>
+      <div class="h">日本語をやさしくして，難しいのは概念だけにする</div>
+      <p>本書は本文をおおむね平易に保ち，避けきれない語は脚注で短く補います．定義・定理の本文だけは厳密さを優先して言い換えません．</p>
+      <p class="why">概念そのものが難しいのに，日本語の難語で二重に躓かせない．用語の壁と論理の壁を分けて越えさせるためです．</p>
+    </li>
+    <li>
+      <div class="h">章の順番：</div>
+      <p>標準的な教科書は，消費者の理論（無差別曲線・効用最大化）と企業の理論（費用曲線）を積み上げてから
+        市場均衡に到達し，市場の失敗はさらにその後に置かれます．本書は逆です．第2章で意思決定の考え方（費用便益・機会費用）だけを整えたら，第3章ですぐ需要と供給・市場均衡・余剰へ進み，
+        第4章で市場の失敗まで先に見せ，部分均衡だけで市場の理論を一通り見せます．企業の行動・消費者の行動の本格的な理論は第5〜6章で，そのあとに複数市場の均衡を学ぶ構成にすることで，消費者理論とエッジワースボックスの接続を図っています．</p>
+      <p class="why">支払意思額と費用の比較だけで，市場均衡・余剰・市場の失敗という「面白い結論」までは行けます．
+        無差別曲線の長い準備が終わるまで市場に触れられない構成では，初学者は道具が何のためにあるか分からないまま
+        脱落しがちです．先に市場の姿を最小限の道具で体験させ，目的意識ができたところで理論の裏付けに戻ります．
+        また，先頭に置いた意思決定の章は市場分析だけでなく，後半のゲーム理論にもそのまま繋がる土台になります．</p>
+    </li>
+    <li>
+      <div class="h">静止図だけでなく「動く図」でも直観を補う</div>
+      <p>比較静学や無差別曲線のシフトなど，本来は動きで理解する事柄を，再生・シーク・速度変更のできるアニメーションで見せます．
+        紙面では各アニメを4コマの静止画に落とし，QRコードから同じ動画へ飛べるようにしています．
+        全アニメはスライド貼り付け用の MP4 としてもダウンロードでき，講義でそのままお使いいただけます．</p>
+      <p class="why">「価格が動くと最適点がどう動くか」は，矢印つきの静止図を眺めるより，実際に動かして見るほうが速く腑に落ちます．</p>
+    </li>
+  </ul>
+  <div class="note">
+    <!-- 連絡先は公開可能なものに差し替えてください -->
+    お問い合わせ：<a href="mailto:tomoyatajika@gmail.com">tomoyatajika@gmail.com</a>
+  </div>
+  </div>
+  </details>
+
+  <div class="note">
+    <!-- 学生向けサイトには実体を置かず、出版社経由で受け取れる旨の案内だけを出す。
+         実体（図版・表・スライド素材・問題ジェネレータ）は Basic 認証つきの教員向けサイトにある。 -->
+    <strong>教員の方へ：</strong>本書の図版・表，スライド素材（Beamer／Typst），
+    小テスト・試験問題ジェネレータは，ご採用いただいた先生方に別サイトでご提供しています．
+    ご利用をご希望の場合は出版社（新世社）までメールでご連絡ください．
+    折り返し，配布サイトのアドレスとパスワードをお知らせします．
+    <br><span class="ph">［連絡先・申込ページのURL］</span>
+  </div>
+
+
+  <h2>正誤表</h2>
+  <p>
+    本文・図版の誤りが見つかった場合はここに掲載します．お気づきの点は
+    <a href="mailto:tomoyatajika@gmail.com">tomoyatajika@gmail.com</a> までご連絡ください．
+  </p>
+  <div class="note">
+    <span class="ph">［現時点で報告されている誤りはありません／最終更新：20XX-XX-XX］</span>
+  </div>
+
+  <h2>二次利用ポリシー</h2>
+  <ul>
+    <li><strong>講義での利用</strong>：採用教員は，授業内のスライド・配布資料に利用できる．
+    <li><strong>改変・再配布・商用利用</strong>：要相談</li>
+  </ul>
+  <!-- <p style="color:var(--sub); font-size:.92rem;">
+    ※ ライセンス形態（例：CC BY-NC など）を採用する場合はここに明記し，リポジトリに LICENSE ファイルを置く． -->
+  </p>
+
+  <h2>出典表記の例</h2>
+  <p>本サイトの図版を引用・利用する際は，次のように出典を明記してください．</p>
+  <div class="note">
+    <span data-book-tpl="{authorsCompact}">多鹿智哉・栗田健一</span>『<span data-book-tpl="{book}">動くミクロ経済学（仮題）</span>』<span class="ph">［出版社・刊行年］</span>，図X.Y.Z（Web教材 https://ttajika.github.io/micro-contents/ より）
+  </div>
+
+  <footer>
+    最終更新：<span data-build-date>2026-09-03</span><br>
+    © <span data-book-tpl="{authors}">多鹿 智哉・栗田 健一</span>. 図版・本文の著作権は著者および出版社に帰属します．<!-- 帰属先は契約に合わせて -->
+  </footer>
+
+</div>
+<script>
+(function(){
+  var svg=document.getElementById('phenak'), wrap=document.getElementById('phenak-wrap');
+  if(!svg||!svg.pauseAnimations) return;
+  var paused=false;
+  function set(p){ paused=p; if(p) svg.pauseAnimations(); else svg.unpauseAnimations(); }
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) set(true);
+  wrap.addEventListener('click',function(){ set(!paused); });
+})();
+</script>
+</body>
+</html>
