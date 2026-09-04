@@ -593,11 +593,13 @@ f(x + h) \approx f(x) + f'(x) \times h
   
 <li>逆に$\textcolor{blue}{x}$だけを変数とみなせば，傾きは$\textcolor{red}{x}$で，$\textcolor{blue}{x}$が$h$増えれば$f$は$\textcolor{red}{x} \times h$増える．</li>
   
-<li>実際には$x$が$h$増えると$\textcolor{red}{x}$も$\textcolor{blue}{x}$も同時に$h$増えるので，$f$は合計で$\textcolor{blue}{x} \times h + \textcolor{red}{x} \times h = 2 x \times h$だけ増える．</li>
+<li>実際には$x$が$h$増えると$\textcolor{red}{x}$も$\textcolor{blue}{x}$も同時に$h$増えるので，$f$は合計で$\textcolor{blue}{x} \times h + \textcolor{red}{x} \times h = 2 x \times h$だけ増える<span class="fn">正確にはこれに「両方が同時に動いたぶん」である$h \times h$が加わる．ただし$h$が小さいときこの部分は無視できる．$x = 3$，$h = 0.1$なら，$2 x \times h = 0.6$に対して$h \times h = 0.01$である．</span>．</li>
   
 <li>これは「$x$が$h$増えると$f$は$2x$倍だけ増える」ことを意味し，微分は$2x$（$= 2 x^{2-1}$）となる．</li>
 </ol>
 </p>
+
+<p>同じ話が$x^3$でも$x^a$でもできる．$x^3 = x \times x \times x$なら3つに分けて1つずつ動かすことになる．動かす場所は3通りあり，どれを動かしても増える分は「止めてある残り2つの<ruby>積<rp>（</rp><rt>せき</rt><rp>）</rp></ruby>」である$x^2$に$h$を掛けたものなので，合計で$3 x^2 \times h$だけ増える．一般に$x^a$なら$a$個に分けることになり，動かす場所は$a$通り，どれを動かしても増える分は残り$a-1$個の積$x^{a-1}$に$h$を掛けたものだから，合計は$a x^{a-1} \times h$である．公式の$a$は分けた個数，$a-1$は止めてある残りの個数だと読める<span class="fn">この数え方ができるのは$a$が正の整数のときである．$x^{1/2}$や$x^{-3}$のような場合は，公式のほうを認めてもらうことになる．</span>．</p>
 
 <div class="exercise">
   <div class="box-label"><span class="box-title">べき乗の微分</span></div>
