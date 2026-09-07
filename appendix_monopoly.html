@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-book-tpl="Web補助資料 D：独占と寡占の理論 — {book}">Web補助資料 D：独占と寡占の理論 — ミクロ経済学の基本（仮題）</title>
+<title data-book-tpl="Web補助資料 D：独占と寡占の理論 — {book}">Web補助資料 D：独占と寡占の理論 — ミクロ経済学の基本</title>
 <script>
 window.MathJax = {
   tex: {
@@ -346,6 +346,78 @@ table.payoff th, table.payoff td {
 }
 table.payoff th { background: var(--accent-light); font-weight: 500; }
 table.payoff td.blank { border: none; background: none; }
+/* ━━━ FOOTNOTE ━━━ */
+.fn-ref {
+  display: inline-block;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 0;
+  margin: 0 1px;
+  user-select: none;
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+}
+.fn-ref::before { content: '['; }
+.fn-ref::after  { content: ']'; }
+.fn-ref:hover   { color: #1e3a8a; text-decoration: underline; }
+.fn-ref.active  { color: #1e3a8a; text-decoration: underline; }
+.fn-content     { display: none; }
+
+#fn-popup {
+  position: fixed;
+  z-index: 500;
+  background: var(--header-bg);
+  color: #f1f5f9;
+  padding: 12px 15px 12px 16px;
+  border-radius: 8px;
+  font-family: 'MJXText', 'Noto Serif JP', serif; --ja-font: 'Noto Serif JP', serif;
+  font-size: 13px;
+  line-height: 1.75;
+  max-width: 360px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.15s, transform 0.15s;
+}
+#fn-popup.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#fn-popup .popup-num {
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #fbbf24;
+  margin-bottom: 6px;
+  padding-right: 20px;
+  letter-spacing: 0.5px;
+}
+#fn-popup .popup-close {
+  position: absolute;
+  top: 8px; right: 10px;
+  background: none; border: none;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  font-size: 13px;
+}
+#fn-popup .popup-close:hover { color: rgba(255,255,255,0.8); }
+#fn-popup #fnBody p { margin: 0.4em 0; }
+#fn-popup #fnBody p:first-child { margin-top: 0; }
+#fn-popup #fnBody p:last-child  { margin-bottom: 0; }
+
+@media print {
+  /* 紙ではポップアップが機能しないので、脚注は本文中にインライン展開する（本文 micro-notes.html と同じ扱い）。
+     これが無いと脚注の中身が紙面から丸ごと消える。 */
+  .fn-content {
+    display: inline !important;
+    font-size: 0.85em;
+    color: #444;
+    font-family: 'MJXText', 'Noto Serif JP', serif; --ja-font: 'Noto Serif JP', serif;
+  }
+  .fn-content::before { content: '（[注] '; }
+  .fn-content::after  { content: '）'; }
+  #fn-popup { display: none !important; }
+}
 </style>
 </head>
 <body>
@@ -397,14 +469,14 @@ table.payoff td.blank { border: none; background: none; }
 \pi(q)=p\times q - C(q)
 \]
 
-<p>一方で，本来価格というものは需要と供給が一致するように決まるものである．需要量は需要関数$D(p)$によって与えられる．一方で供給量はこの独占企業が決める量$q$である．したがって以下の式が成立する．</p>
+<p>一方で，本来価格というものは需要と供給が一致するように決まるものである．需要量は需要関数$D(p)$によって与えられる．需要関数とは価格が$p$のときの買いたい量の合計である．第3章の設定を思い出せば買いたい人数のことだと思えばいい．一方で供給量はこの独占企業が決める量$q$である．したがって市場では以下の式が成立するように価格が決まる．</p>
 
 \begin{equation}
 \underbrace{D(p)}_{\text{需要量}}=\underbrace{q}_{\text{供給量}}
 \label{eq:mono-clear}
 \end{equation}
 
-<p>価格は式 \eqref{eq:mono-clear} を満たすように決まるはずであり，その値は当然，供給量によって変わる．そこで，市場均衡価格$p$と供給量$q$の関係を関数$P$を使って次のように書き表そう．</p>
+<p>価格は式 \eqref{eq:mono-clear} を満たすように決まるのだが，その値は当然，供給量によって変わる．そこで，市場均衡価格$p$と供給量$q$の関係を関数$P$を使って次のように書き表そう．</p>
 
 \begin{equation}
 p=P(q)
@@ -413,7 +485,7 @@ p=P(q)
 
 <div class="def">
 <div class="box-label">定義：逆需要関数</div>
-<p>式 \eqref{eq:inv-demand} で定義される関数$P$を<strong>逆需要関数</strong>と呼ぶ．通常の需要関数が「与えられた価格でどれだけ買いたい量があるか」を示すのに対して，逆需要関数はその逆の関係，つまり「与えられただけの量をちょうど買いたくなる価格はいくらか」を示す（数学的には$P$は$D$の逆関数である）．</p>
+<p>式 \eqref{eq:inv-demand} で定義される関数$P$を<strong>逆需要関数</strong>と呼ぶ．通常の需要関数が「与えられた価格でどれだけ買いたい量があるか」を示すのに対して，逆需要関数はその逆の関係，つまり「与えられただけの量をちょうど買いたくなる価格はいくらか」を示す<span class="fn">数学に詳しい読者に向けて言えば，$P$は$D$の逆関数である．</span>．</p>
 </div>
 
 <p>独占企業はこの逆需要関数を認識して，自社の生産量を決めるだろう．つまり独占企業は自社の供給量を通して市場価格を（ある程度）コントロールできるのである．これを織り込むと，企業の利潤は次の式で書くことができる．</p>
@@ -423,7 +495,7 @@ p=P(q)
 \label{eq:mono-profit}
 \end{equation}
 
-<p>本文第3章の供給の分析では，$P(q)$が自社の生産量によって動かないものと想定していた．これは<strong>価格受容者の仮定</strong>と呼ばれる．価格をそのまま受け入れて意思決定するからである．すべての主体が価格受容者として振る舞う市場は<strong>完全競争市場</strong>と呼ばれる．しかし独占企業はもはや価格受容者ではなく，<strong>価格設定者</strong>である．</p>
+<p>本文第3章や第5章の供給の分析では，価格$P(q)$が自社の生産量によって動かないものと想定していた．これは<strong>価格受容者の仮定</strong>と呼ばれる．価格をそのまま受け入れて意思決定するからである．しかし独占企業はもはや価格受容者ではなく，価格を動かすことを想定して行動しているので<strong>価格設定者</strong>であると言える．供給量を変えることで間接的に価格を操作しているのである<span class="fn">本書第9章の売り方の設計では価格を直接動かすことを想定している．しかし本書の設定ではこの二つに違いは現れない．</span>．</p>
 
 <h3>独占企業の最大化問題</h3>
 
@@ -477,20 +549,22 @@ P'(q)\times q+P(q)=C'(q)
 \label{eq:mono-foc}
 \end{equation}
 
-<p class="cont">と書くことができる．価格受容者の場合の条件$p=C'(q)$と比べてみると，$p=P(q)$なので$P'(q)\times q$の分だけ余計な項がついていることがわかる．これが独占企業が価格に与える影響力である．通常は価格を上げれば上げるほど買いたい量は減っていくので$P'(q)\lt 0$，すなわち$P'(q)\times q\lt 0$である．したがって$[P(q)\times q]'\lt P(q)$，つまり限界収入曲線は逆需要関数の下側にある．これを図示したものが図D.1である．</p>
+<p class="cont">と書くことができる．価格受容者の場合の条件$p=C'(q)$と比べてみると，$p=P(q)$なので$P'(q)\times q$の分だけ余計な項がついていることがわかる．これが独占企業が価格に与える影響力である．通常は価格を上げれば上げるほど買いたい量は減っていくので$P'(q)\lt 0$，すなわち$P'(q)\times q\lt 0$である．つまり，価格の変化を考えなければ$p=C'(q)$となるように生産量$q$を設定したいのだが，$P'(q)$というマイナスの項の分だけブレーキがかかっているのである．したがって$[P(q)\times q]'\lt P(q)$，つまり限界収入曲線は逆需要関数の下側にある．これを図示したものが図D.1である．</p>
 
 <figure id="fig-mono-eq">
 <img src="img/appendix_monopoly/mono_eq.svg" alt="独占均衡：限界収入と限界費用の交点で独占生産量が決まり，市場均衡より過小になる" loading="lazy">
 <figcaption>図D.1：独占均衡．限界収入曲線は逆需要関数の下側にあり，独占生産量は市場均衡生産量より小さくなる．</figcaption>
 </figure>
 
-<p>図D.1を見ると，市場均衡での生産量と独占における生産量の関係がわかる．基本的なアイデアはこうである．独占企業は生産量を意図的に減らし，価格を吊り上げることによって利潤を増やすことができる．したがって市場均衡のときより生産量は減り（$q^{\text{独}}\lt q^*$），価格は上がる（$p^{\text{独}}\gt p^*$）．そして当然，社会的総余剰は減少する．なぜならば</p>
-
+<p>図D.1を見ると，市場均衡での生産量と独占における生産量の関係がわかる．基本的なアイデアはこうである．独占企業は生産量を意図的に減らし，価格を吊り上げることによって利潤を増やすことができる．したがって市場均衡のときより生産量は減り（$q^{\text{独}}\lt q^*$），価格は上がる（$p^{\text{独}}\gt p^*$）．
+  
+  そして当然，社会的総余剰は減少する．なぜならば</p>
 \[
 P(q^{\text{独}})=p^{\text{独}}\gt \text{限界収入}=C'(q^{\text{独}})
 \]
 
-<p class="cont">となり，社会的総余剰最大化の条件（価格＝限界費用）を満たさなくなるからである．逆需要関数の高さ$P(q)$は「もう1単位買いたい人の支払意思額」，つまり生産をあと1単位増やしたときの消費者の便益の増分を表す．上の不等式のもとでは，生産量を少し増やすと便益の増分のほうが費用の増分より大きい．つまり社会的にはもっと生産すべきなのに生産されない，<strong>過小生産</strong>の状態にある．この失われた余剰が本文第4章でみた死荷重損失である．</p>
+<p class="cont">となる．  
+逆需要関数の高さ$P(q)$は「もう1単位買いたい人の支払意思額」，つまり生産をあと1単位増やしたときの消費者の便益の増分を表す．上の不等式のもとでは，生産量を少し増やすと便益の増分のほうが費用の増分より大きい．つまり社会的にはもっと生産すべきなのに生産されない，<strong>過小生産</strong>の状態にある．この失われた余剰は第3章や4章で見たものと同じように死荷重損失と呼ばれる．</p>
 
 <div class="rmk">
 <div class="box-label">練習問題</div>
@@ -646,6 +720,43 @@ P'(q)\times q_B+P(q)&=C'(q_B)
 <p>この連立方程式を解く$q_A,q_B$がクールノー競争の均衡生産量というわけである．クールノー競争のナッシュ均衡は特別に<strong>クールノー均衡</strong>あるいは<strong>クールノー・ナッシュ均衡</strong>とも呼ばれるが，同じものである．</p>
 
 <p class="note">クールノー競争の語源となった経済学者アントワーヌ・オーギュスタン・クールノーは，ナッシュ均衡が定義される100年以上前にこの寡占市場の分析を行っているため，特別に名前がついている．</p>
+
+
+<div class="rmk">
+<div class="box-label">補足：2本の最適反応曲線の傾き</div>
+
+<p>図D.5をみて，なぜ企業$B$の最適反応曲線のほうが企業$A$の曲線より傾きが急（傾きはマイナスなので企業$A$の傾きのほうが大きい）なのかと思われるかもしれない．これについて簡単に考えてみよう<span class="fn">経済数学をすでに修めて数学に強い読者は，$P'(q)\times q_A+P(q)=C'(q_A)$の両辺を全微分して$\frac{d q_A}{d q_B}$を計算することで，企業$A$の最適反応曲線の傾きを直接求めて比較することができる．</span>．</p>
+
+<p>まず，企業$A$は$q_B$が増えたときにどれだけ$q_A$を減らさないといけないかを考える．もし同じだけ減らしてしまえば合計の生産量は変わらないので，限界収入$-$限界費用を計算すると次のようになる．</p>
+
+\[
+P'(q)\times (q_A-h)+P(q)-C'(q_A-h)
+\]
+
+<p class="cont">なお，$h$は減らした量である．ここで，限界費用が増加的であるとする．$P'(q)\lt 0$であることを用いれば</p>
+
+\[
+P'(q)\times (q_A-h)+P(q)-C'(q_A-h)\gt P'(q)\times q_A+P(q)-C'(q_A)=0
+\]
+
+<p class="cont">という式が成り立つ．ということは，限界収入$-$限界費用が正ということなので減らしすぎということがわかる．つまり，$q_B$が$h$増やされたときに減らすべき$q_A$の量は$h$より小さいということになる．これは最適反応曲線の傾きが$-1$より緩やかということである．</p>
+
+<p>企業$B$の最適反応曲線も同じで，今度は$q_A$を横軸だと思えば，傾きは$-1$より緩やかである．これの横軸と縦軸を取り替えれば傾きは逆数になるので$-1$より急になる．</p>
+
+<p>したがって，企業$A$の最適反応曲線の傾き$\gt -1\gt$企業$B$の最適反応曲線の傾き，という式が言えるのである．</p>
+
+<p>この式からもう一つわかることがある．企業$A$の曲線の高さから企業$B$の曲線の高さを引いた差を考えると，傾きの差がつねに正なので，その差は$q_B$が増えるほどつねに大きくなっていく．したがって差が$0$になる点，つまり2本が交わる点は多くても1つしかない．クールノー均衡がただ1つに決まるのは，この傾きの条件のおかげなのである．</p>
+</div>
+
+<div class="rmk">
+<div class="box-label">補足：この傾きの条件が効いてくる場面</div>
+
+<p>いまの傾きの条件が効いてくるのは，均衡が1つに決まるという場面だけではない．節D.5では，企業$A$の費用が下がったときに均衡がどう動くかを，最適反応曲線をずらして調べる．条件を変える前と変えた後の均衡を見比べるこのやり方<span class="fn">条件を変えたときに均衡がどう動くかを調べることを<strong>比較静学</strong>という．「静学」は，動いている途中を追いかけずに，変える前の均衡と変えた後の均衡だけを見比べる，という意味である．</span>も，やはりこの傾きの条件に支えられている．</p>
+
+<p>費用が下がると企業$A$は生産量を増やす．すると企業$B$が減らす．それを見て企業$A$がさらに増やす．この往復がどこかで止まってくれるかどうかが問題になる．ここで効いてくるのが，さきほど示した「企業$A$の曲線のほうが企業$B$の曲線より緩やか」という関係である．この関係があると，往復のたびに動く量が前より小さくなっていくので，やがて新しい交点に落ち着く．図から読み取った新しい均衡は，こうしてはじめて意味を持つのである．</p>
+
+<p>逆に，傾きの条件を確かめないまま企業$A$の曲線のほうが急になることを許してしまうと，往復のたびに動く量が大きくなって止まらない．図の上では2本の曲線が交わっていても，そこへ近づいていかないのである．図をずらして読み取った答えが信用できるのは，傾きの条件が満たされているからこそだと言える．</p>
+</div>
 
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
@@ -1040,7 +1151,103 @@ b_{\text{店}} + \beta n_{\text{利}} - p_{\text{店}} \ge 0
 <p>要するに，プラットフォーム市場は，外部性，価格づけ，市場支配力を組み合わせた応用理論である．本文第4章で学んだ外部性は，ここでは「相手側が多いほど自分の価値が上がる」という形で現れる．そして本文第9章で学ぶルール設計（メカニズムデザイン）の考え方は，どちら側からお金を取り，どちら側を集めるかという問題にそのままつながる．</p>
 
 
+</div><!-- /#content -->
+
+<!-- Footnote popup -->
+<div id="fn-popup">
+  <button class="popup-close" id="fnPopupClose">✕</button>
+  <div class="popup-num" id="fnNum"></div>
+  <div id="fnBody"></div>
 </div>
+
+<script>
+// ━━━ FOOTNOTE ━━━
+function place(popup, el) {
+  const r = el.getBoundingClientRect(), W = 320, m = 12;
+  let left = r.left, top = r.bottom + 8;
+  if (left + W > window.innerWidth - m) left = window.innerWidth - W - m;
+  if (left < m) left = m;
+  if (top + 160 > window.innerHeight) top = r.top - 8 - 160;
+  popup.style.cssText = `left:${left}px; top:${top}px;`;
+}
+
+function initFootnotes() {
+  const popup = document.getElementById('fn-popup');
+  const pNum  = document.getElementById('fnNum');
+  const pBody = document.getElementById('fnBody');
+  let active = null;
+  let globalCount = 0;
+
+  document.querySelectorAll('.fn').forEach(el => {
+    const num = ++globalCount;
+    el._fnRaw = el.innerHTML;
+    el.classList.add('fn-content');
+
+    const ref = document.createElement('sup');
+    ref.className = 'fn-ref';
+    ref.textContent = num;
+    el.parentNode.insertBefore(ref, el);
+
+    ref.addEventListener('click', e => {
+      e.stopPropagation();
+      if (active === ref && popup.classList.contains('show')) {
+        popup.classList.remove('show');
+        ref.classList.remove('active');
+        active = null;
+        return;
+      }
+      if (active) active.classList.remove('active');
+      active = ref;
+      ref.classList.add('active');
+      pNum.textContent = `注 ${num}`;
+      pBody.innerHTML = el._fnRaw;
+      place(popup, ref);
+      popup.classList.add('show');
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise([pBody]).then(() => place(popup, ref)).catch(() => {});
+      }
+    });
+  });
+
+  document.getElementById('fnPopupClose').addEventListener('click', () => {
+    popup.classList.remove('show');
+    if (active) active.classList.remove('active');
+    active = null;
+  });
+  document.addEventListener('click', e => {
+    if (!popup.contains(e.target) && !e.target.classList.contains('fn-ref')) {
+      popup.classList.remove('show');
+      if (active) active.classList.remove('active');
+      active = null;
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      popup.classList.remove('show');
+      if (active) active.classList.remove('active');
+      active = null;
+    }
+  });
+}
+
+// 脚注インライン表示（印刷用）。MathJax は .fn を ignoreHtmlClass で無視するので、
+// 紙に出すときは一度だけ fn クラスを外して組版し直す（本文 micro-notes.html と同じ）。
+function typesetInlineFootnotes() {
+  if (!(window.MathJax && MathJax.typesetPromise)) return Promise.resolve();
+  const els = [];
+  document.querySelectorAll('.fn-content').forEach(el => {
+    if (el.dataset.fnTypeset) return;
+    el.dataset.fnTypeset = '1';
+    el.classList.remove('fn');
+    els.push(el);
+  });
+  if (!els.length) return Promise.resolve();
+  return MathJax.typesetPromise(els).catch(() => {});
+}
+window.addEventListener('beforeprint', typesetInlineFootnotes);
+
+initFootnotes();
+</script>
 
 </body>
 </html>

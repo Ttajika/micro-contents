@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title data-book-tpl="{book}Web教材 — {authors}">ミクロ経済学の基本（仮題）Web教材 — 多鹿 智哉・栗田 健一</title>
+<title data-book-tpl="{book} Web教材 — {authors}">ミクロ経済学の基本 Web教材 — 多鹿 智哉・栗田 健一</title>
 
 <!-- ── SNS共有・検索向けメタ（公開前に内容確定）────────────── -->
-<meta name="description" data-book-tpl="学部向けミクロ経済学の教科書『{book}』（{authorsCompact}）のWeb教材．アニメーション・図版・演習問題を収録．" content="学部向けミクロ経済学の教科書『ミクロ経済学の基本（仮題）』（多鹿智哉・栗田健一）のWeb教材．アニメーション・図版・演習問題を収録．">
-<meta property="og:title" data-book-tpl="{book}Web教材" content="ミクロ経済学の基本（仮題）Web教材">
+<meta name="description" data-book-tpl="学部向けミクロ経済学の教科書『{book}』（{authorsCompact}）のWeb教材．アニメーション・図版・演習問題を収録．" content="学部向けミクロ経済学の教科書『ミクロ経済学の基本』（多鹿智哉・栗田健一）のWeb教材．アニメーション・図版・演習問題を収録．">
+<meta property="og:title" data-book-tpl="{book} Web教材" content="ミクロ経済学の基本 Web教材">
 <meta property="og:description" content="本文中の図をQRコードからアニメ・拡大図で確認できるWeb教材．">
 <meta property="og:type" content="website">
 <!-- <meta property="og:image" content="img/cover.png"> 書影が用意できたら設定 -->
@@ -55,6 +55,8 @@
   .diff .h { font-weight:700; margin-bottom:6px; }
   .diff .why { color:var(--sub); font-size:.94rem; margin:0; }
   .diff .why::before { content:"なぜ　"; color:var(--accent); font-weight:600; }
+  /* 読み方の案内の小見出し。既定の h3 は h2 とほぼ同じ大きさになるので小ぶりにする。 */
+  h3.rg-sub { font-size:1rem; margin:24px 0 8px; color:var(--accent); }
   .toc-book { columns:2; column-gap:32px; }
   .toc-part { break-inside:avoid; margin:0 0 14px; }
   .toc-part h3 { margin:0 0 4px; font-size:.98rem; color:var(--accent); }
@@ -70,17 +72,17 @@
   .toc-secs { list-style:none; margin:2px 0 6px 0; padding-left:1.1em; color:var(--sub); font-size:.92em; border-left:2px solid var(--line, #ddd); }
   .toc-secs li { margin:1px 0; }
   /* 教員向けの2節は <details> で畳む（既定は閉じる）。summary の中の h2 が見出しを兼ねる */
-  details.teacher { margin:40px 0 0; }
-  details.teacher > summary { list-style:none; cursor:pointer; }
-  details.teacher > summary::-webkit-details-marker { display:none; }
-  details.teacher > summary h2 { margin:0; display:flex; align-items:baseline; gap:.5em; flex-wrap:wrap; }
-  details.teacher > summary h2::before { content:"▸"; color:var(--accent); font-size:.9em; flex:none; }
-  details.teacher[open] > summary h2::before { content:"▾"; }
-  details.teacher > summary .lead { color:var(--sub); font-size:.88rem; font-weight:400; }
-  details.teacher > summary .lead .hint::before { content:"（クリックで開く）"; }
-  details.teacher[open] > summary .lead .hint::before { content:"（クリックで閉じる）"; }
-  details.teacher > summary:hover h2 { color:var(--accent); }
-  details.teacher > .body { margin-top:14px; }
+  details.fold { margin:40px 0 0; }
+  details.fold > summary { list-style:none; cursor:pointer; }
+  details.fold > summary::-webkit-details-marker { display:none; }
+  details.fold > summary h2 { margin:0; display:flex; align-items:baseline; gap:.5em; flex-wrap:wrap; }
+  details.fold > summary h2::before { content:"▸"; color:var(--accent); font-size:.9em; flex:none; }
+  details.fold[open] > summary h2::before { content:"▾"; }
+  details.fold > summary .lead { color:var(--sub); font-size:.88rem; font-weight:400; }
+  details.fold > summary .lead .hint::before { content:"（クリックで開く）"; }
+  details.fold[open] > summary .lead .hint::before { content:"（クリックで閉じる）"; }
+  details.fold > summary:hover h2 { color:var(--accent); }
+  details.fold > .body { margin-top:14px; }
   footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--line);
     color:var(--sub); font-size:.9rem; }
   a { color:var(--accent); }
@@ -92,7 +94,7 @@
 
   <header>
     <div>
-      <h1 data-book-tpl="{book}— Web教材">ミクロ経済学の基本（仮題）— Web教材</h1>
+      <h1 data-book-tpl="{book} — Web教材">ミクロ経済学の基本 — Web教材</h1>
       <p class="byline" data-book-tpl="{authors}">多鹿 智哉・栗田 健一</p>
     </div>
     <div class="phenak-wrap" id="phenak-wrap" title="クリックで停止／再開">
@@ -200,19 +202,19 @@
 
 
   <p class="lead">
-    学部向けミクロ経済学の教科書『<span data-book-tpl="{book}">ミクロ経済学の基本（仮題）</span>』の Web 教材ページです．
+    学部向けミクロ経済学の教科書『<span data-book-tpl="{book}">ミクロ経済学の基本</span>』の Web 教材ページです．
     本文中の図はQRコードからこのサイトの該当ページへ飛び，アニメーションや拡大図で確認できます．
   </p>
 
   <!-- ── 書誌情報（確定したら ［…］ を置き換える）──────────── -->
   <h2>書誌情報</h2>
   <dl class="biblio">
-    <dt>書名</dt><dd data-book-tpl="{book}">ミクロ経済学の基本（仮題）</dd>
+    <dt>書名</dt><dd data-book-tpl="{book}">ミクロ経済学の基本</dd>
     <dt>著者</dt><dd data-book-tpl="{authors}">多鹿 智哉・栗田 健一</dd>
     <dt>出版社</dt><dd>新世社</dd>
     <dt>刊行</dt><dd><span class="ph">［20XX年X月］</span></dd>
     <dt>判型・頁</dt><dd><span class="ph">［A5判・XXX頁］</span></dd>
-    <dt>ISBN</dt><dd><span class="ph">［978-X-XXXX-XXXX-X］</span></dd>
+    <dt>ISBN</dt><dd>978-4-88384-444-9</dd>
     <dt>定価</dt><dd><span class="ph">［X,XXX円＋税］</span></dd>
   </dl>
   <!-- 書影が用意できたら：<img src="img/cover.png" alt="書影" style="max-width:200px"> -->
@@ -380,7 +382,50 @@
     <ul class="toc-front"><li>参考文献</li></ul>
   </div>
 
-  <details class="teacher" id="for-teachers">
+  <details class="fold" id="reading-guide">
+  <summary><h2>読み方の案内 <span class="lead"><span class="hint"></span></span></h2></summary>
+  <div class="body">
+  <p>本書は第1章から順に読めるように書いていますが，目的によっては章を選んで読むこともできます．</p>
+
+  <h3 class="rg-sub">読者の方へ</h3>
+  <ul class="diff">
+    <li>
+      <div class="h">はじめて学ぶ</div>
+      <p>第1章から順に読んでください．数式で詰まったら<a href="appendix_math.html">補論A「本書で使う数学」</a>，表やグラフで詰まったら<a href="appendix_tables.html">補論B「表の読み方」</a>を開けば足ります．本文を読み進めるだけなら，微分を別に勉強する必要はありません．</p>
+    </li>
+    <li>
+      <div class="h">ミクロ経済学の基本を掴みたい</div>
+      <p>第1〜4章と第10章．第4章までで市場の均衡・余剰・市場の失敗まで一通り届き，第10章では，それが現実のデータでどう確かめられているかを見ます．第10章は第1・3・4章しか使わないので，企業と消費者の理論を飛ばしても読めます．第5章（企業）と第6章（消費者）は本書のなかで数式がもっとも多い章なので，そこで手が止まりそうなときにも，この読み方が使えます．なお第10章と第11章には数式がほとんど出てきません．</p>
+    </li>
+    <li>
+      <div class="h">ミクロ経済学を学んだことがある</div>
+      <p>需要と供給・企業・消費者まで学んだ方は，第8章「ゲーム理論」から第9章「ルールづくりのゲーム理論」，第11章「ミクロ理論で制度を設計する」へ進む読み方ができます．第9章では，契約・公共財の負担・オークション・マッチングについて，望ましい結果を引き出すルールをどう作るかを扱います．第11章では，それが電波の免許の配り方，検索広告の枠の売り方，公立学校の割り当て，プラットフォームの価格づけと規制として実際に使われた場面を，理論どおりに進まなかった部分も含めて追います．実証から入りたい方は第10章「ミクロ経済学をデータで確かめる」を先に読んでも構いません．</p>
+    </li>
+  </ul>
+
+  <h3 class="rg-sub">講義で使う場合</h3>
+  <ul class="diff">
+    <li>
+      <div class="h">標準的なシラバスで組む</div>
+      <p>通年，あるいは週2コマの4単位科目を想定した組み方です．第9〜11章を外し，代わりに<a href="appendix_monopoly.html">補論D「独占と寡占の理論」</a>を入れると，標準的な教科書と同じ範囲になります．独占・寡占・繰り返しゲームは本文ではなく補論Dに，MR＝MC・ラーナー指標・クールノー・ベルトラン・ホテリングという通常の形で置いてあります．補論Dが主に参照するのは第4章なので，第9章を飛ばしても読めます．不確実性を扱う場合は<a href="appendix_uncertainty.html">補論E「不確実性下の意思決定」</a>を加えてください．</p>
+    </li>
+    <li>
+      <div class="h">通年で全体を扱う</div>
+      <p>前期に第1〜4章と第10章，後期に第5〜9章と第11章．前期は市場の理論を部分均衡でひととおり見て，それが現実のデータでどう確かめられているかまでを扱います．後期は企業・消費者・複数財市場の理論から，ゲーム理論とルールの設計，そして制度設計の事例へ進みます．どちらの学期も応用の章で終わる形になります．</p>
+    </li>
+    <li>
+      <div class="h">半期の短縮版・他学部向け</div>
+      <p>第1〜4章＋第10章．数学の負担がもっとも軽く，市場の理論から実証までが一続きになります．上の通年案の前期分と同じ構成です．</p>
+    </li>
+    <li>
+      <div class="h">お手持ちの講義の順に合わせる</div>
+      <p>第1〜3章 → 第5章 → 第6章 → 第4章 → 第7章．本書は市場の失敗（第4章）を企業・消費者より前に置いていますが，第5〜7章は第4章をほとんど前提にしていないので，標準的な順に戻して使えます．</p>
+    </li>
+  </ul>
+  </div>
+  </details>
+
+  <details class="fold" id="for-teachers">
   <summary><h2>採用をご検討の先生方へ <span class="lead"><span class="hint"></span></span></h2></summary>
   <div class="body">
   <p>
@@ -471,7 +516,7 @@
   <h2>出典表記の例</h2>
   <p>本サイトの図版を引用する際は，次のように出典を明記してください．</p>
   <div class="note">
-    <span data-book-tpl="{authorsCompact}">多鹿智哉・栗田健一</span>『<span data-book-tpl="{book}">ミクロ経済学の基本（仮題）</span>』<span class="ph">［出版社・刊行年］</span>，図X.Y.Z（Web教材 https://ttajika.github.io/micro-contents/ より）
+    <span data-book-tpl="{authorsCompact}">多鹿智哉・栗田健一</span>『<span data-book-tpl="{book}">ミクロ経済学の基本</span>』<span class="ph">［出版社・刊行年］</span>，図X.Y.Z（Web教材 https://ttajika.github.io/micro-contents/ より）
   </div>
 
   <footer>

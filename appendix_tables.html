@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-book-tpl="Web補助資料 B：表の読み方 — {book}">Web補助資料 B：表の読み方 — ミクロ経済学の基本（仮題）</title>
+<title data-book-tpl="Web補助資料 B：表の読み方 — {book}">Web補助資料 B：表の読み方 — ミクロ経済学の基本</title>
 <script>
 window.MathJax = {
   tex: {
@@ -294,6 +294,78 @@ strong { font-weight: 700; }
 .modern-table tr:last-child th { border-bottom: none; }
 .modern-table tr:hover td { background: var(--accent-light); }
 .modern-table .center { text-align: center; }
+/* ━━━ FOOTNOTE ━━━ */
+.fn-ref {
+  display: inline-block;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 0;
+  margin: 0 1px;
+  user-select: none;
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+}
+.fn-ref::before { content: '['; }
+.fn-ref::after  { content: ']'; }
+.fn-ref:hover   { color: #1e3a8a; text-decoration: underline; }
+.fn-ref.active  { color: #1e3a8a; text-decoration: underline; }
+.fn-content     { display: none; }
+
+#fn-popup {
+  position: fixed;
+  z-index: 500;
+  background: var(--header-bg);
+  color: #f1f5f9;
+  padding: 12px 15px 12px 16px;
+  border-radius: 8px;
+  font-family: 'MJXText', 'Noto Serif JP', serif; --ja-font: 'Noto Serif JP', serif;
+  font-size: 13px;
+  line-height: 1.75;
+  max-width: 360px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.15s, transform 0.15s;
+}
+#fn-popup.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#fn-popup .popup-num {
+  font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #fbbf24;
+  margin-bottom: 6px;
+  padding-right: 20px;
+  letter-spacing: 0.5px;
+}
+#fn-popup .popup-close {
+  position: absolute;
+  top: 8px; right: 10px;
+  background: none; border: none;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  font-size: 13px;
+}
+#fn-popup .popup-close:hover { color: rgba(255,255,255,0.8); }
+#fn-popup #fnBody p { margin: 0.4em 0; }
+#fn-popup #fnBody p:first-child { margin-top: 0; }
+#fn-popup #fnBody p:last-child  { margin-bottom: 0; }
+
+@media print {
+  /* 紙ではポップアップが機能しないので、脚注は本文中にインライン展開する（本文 micro-notes.html と同じ扱い）。
+     これが無いと脚注の中身が紙面から丸ごと消える。 */
+  .fn-content {
+    display: inline !important;
+    font-size: 0.85em;
+    color: #444;
+    font-family: 'MJXText', 'Noto Serif JP', serif; --ja-font: 'Noto Serif JP', serif;
+  }
+  .fn-content::before { content: '（[注] '; }
+  .fn-content::after  { content: '）'; }
+  #fn-popup { display: none !important; }
+}
 </style>
 </head>
 <body>
@@ -355,6 +427,102 @@ strong { font-weight: 700; }
 </article>
 
 </div><!-- /#content -->
+
+<!-- Footnote popup -->
+<div id="fn-popup">
+  <button class="popup-close" id="fnPopupClose">✕</button>
+  <div class="popup-num" id="fnNum"></div>
+  <div id="fnBody"></div>
+</div>
+
+<script>
+// ━━━ FOOTNOTE ━━━
+function place(popup, el) {
+  const r = el.getBoundingClientRect(), W = 320, m = 12;
+  let left = r.left, top = r.bottom + 8;
+  if (left + W > window.innerWidth - m) left = window.innerWidth - W - m;
+  if (left < m) left = m;
+  if (top + 160 > window.innerHeight) top = r.top - 8 - 160;
+  popup.style.cssText = `left:${left}px; top:${top}px;`;
+}
+
+function initFootnotes() {
+  const popup = document.getElementById('fn-popup');
+  const pNum  = document.getElementById('fnNum');
+  const pBody = document.getElementById('fnBody');
+  let active = null;
+  let globalCount = 0;
+
+  document.querySelectorAll('.fn').forEach(el => {
+    const num = ++globalCount;
+    el._fnRaw = el.innerHTML;
+    el.classList.add('fn-content');
+
+    const ref = document.createElement('sup');
+    ref.className = 'fn-ref';
+    ref.textContent = num;
+    el.parentNode.insertBefore(ref, el);
+
+    ref.addEventListener('click', e => {
+      e.stopPropagation();
+      if (active === ref && popup.classList.contains('show')) {
+        popup.classList.remove('show');
+        ref.classList.remove('active');
+        active = null;
+        return;
+      }
+      if (active) active.classList.remove('active');
+      active = ref;
+      ref.classList.add('active');
+      pNum.textContent = `注 ${num}`;
+      pBody.innerHTML = el._fnRaw;
+      place(popup, ref);
+      popup.classList.add('show');
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise([pBody]).then(() => place(popup, ref)).catch(() => {});
+      }
+    });
+  });
+
+  document.getElementById('fnPopupClose').addEventListener('click', () => {
+    popup.classList.remove('show');
+    if (active) active.classList.remove('active');
+    active = null;
+  });
+  document.addEventListener('click', e => {
+    if (!popup.contains(e.target) && !e.target.classList.contains('fn-ref')) {
+      popup.classList.remove('show');
+      if (active) active.classList.remove('active');
+      active = null;
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      popup.classList.remove('show');
+      if (active) active.classList.remove('active');
+      active = null;
+    }
+  });
+}
+
+// 脚注インライン表示（印刷用）。MathJax は .fn を ignoreHtmlClass で無視するので、
+// 紙に出すときは一度だけ fn クラスを外して組版し直す（本文 micro-notes.html と同じ）。
+function typesetInlineFootnotes() {
+  if (!(window.MathJax && MathJax.typesetPromise)) return Promise.resolve();
+  const els = [];
+  document.querySelectorAll('.fn-content').forEach(el => {
+    if (el.dataset.fnTypeset) return;
+    el.dataset.fnTypeset = '1';
+    el.classList.remove('fn');
+    els.push(el);
+  });
+  if (!els.length) return Promise.resolve();
+  return MathJax.typesetPromise(els).catch(() => {});
+}
+window.addEventListener('beforeprint', typesetInlineFootnotes);
+
+initFootnotes();
+</script>
 
 </body>
 </html>
