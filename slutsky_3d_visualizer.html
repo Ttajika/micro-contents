@@ -206,13 +206,62 @@ body {
   color: var(--text-dim);
   border: 1px solid var(--border);
 }
+#ui-panel #panel-toggle { display: none; }
+#hint .hint-touch { display: none; }
+
+/* スマホ：メニューを画面下の折りたたみパネルにし，残りの高さに 3D 表示を収める */
+@media (max-width: 700px) {
+  #container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+  }
+  #canvas-container { flex: 1; min-height: 0; height: auto; position: relative; }
+  #ui-panel {
+    position: static;
+    max-width: none;
+    max-height: 55vh;
+    max-height: 55dvh;
+    border-radius: 12px 12px 0 0;
+    border-bottom: none;
+    padding: 6px 12px calc(10px + env(safe-area-inset-bottom));
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    flex-shrink: 0;
+  }
+  #ui-panel h3 { margin: 0 0 6px; }
+  #ui-panel #panel-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 6px 2px;
+    border: none;
+    background: none;
+    color: var(--accent);
+    font-size: 13.5px;
+    font-weight: 700;
+  }
+  #ui-panel #panel-toggle:hover { background: none; }
+  #panel-toggle .chev { font-size: 11.5px; font-weight: 500; }
+  #panel-title-text { display: none; }
+  .phase-buttons { grid-template-columns: repeat(4, 1fr); margin-bottom: 8px; }
+  .phase-buttons button { font-size: 11px !important; padding: 7px 2px !important; line-height: 1.3; }
+  /* 折りたたみ時はタイトルと段階ボタンだけ残す */
+  #ui-panel.collapsed > :not(h3):not(.phase-buttons) { display: none; }
+  #ui-panel.collapsed .phase-buttons { margin-bottom: 0; }
+  #hint { top: 8px; bottom: auto; left: 8px; font-size: 10.5px; padding: 4px 8px; }
+  #hint .hint-mouse { display: none; }
+  #hint .hint-touch { display: inline; }
+}
 </style>
 </head>
 <body>
 <div id="container">
   <div id="canvas-container"></div>
-  <div id="ui-panel">
-    <h3>スルツキー分解の構成</h3>
+  <div id="ui-panel" class="collapsed">
+    <h3><span id="panel-title-text">スルツキー分解の構成</span><button type="button" id="panel-toggle" aria-expanded="false" aria-controls="ui-panel"><span>スルツキー分解の構成</span><span class="chev">▲ 詳細</span></button></h3>
     <div class="phase-buttons">
       <button type="button" class="phase-btn" data-phase="0">① 選好</button>
       <button type="button" class="phase-btn" data-phase="1">② 予算 → A</button>
@@ -256,7 +305,7 @@ body {
       <div class="coords" id="coords"></div>
     </div>
   </div>
-  <div id="hint">ドラッグで回転 / スクロールでズーム / 右ドラッグで平行移動</div>
+  <div id="hint"><span class="hint-mouse">ドラッグで回転 / スクロールでズーム / 右ドラッグで平行移動</span><span class="hint-touch">1本指で回転 / 2本指でズーム・移動</span></div>
 </div>
 
 <script type="importmap">
@@ -978,7 +1027,8 @@ function fitCameraToOptima() {
   const cx = (state.A.x + state.B.x + state.C.x) / 3;
   const cy = (state.A.y + state.B.y + state.C.y) / 3;
   const cz = (state.A.z + state.B.z + state.C.z) / 3;
-  const d = AXIS_LEN * 1.4;
+  // 縦長の画面では横方向の視野が狭くなるので，そのぶん引いて全体を収める
+  const d = AXIS_LEN * 1.4 * Math.min(2.4, Math.max(1, 1.2 / camera.aspect));
   camera.position.set(cx + d * 0.9, cy + d * 0.55, cz + d * 0.9);
   controls.target.set(cx, cy, cz);
   controls.update();
@@ -1077,11 +1127,27 @@ function animate() {
 }
 animate();
 
-window.addEventListener('resize', () => {
-  camera.aspect = container.clientWidth / container.clientHeight;
+// パネルの開閉でも描画領域の大きさが変わるので，ウィンドウではなく要素の大きさを監視する
+function resizeRenderer() {
+  const w = container.clientWidth, h = container.clientHeight;
+  if (!w || !h) return;
+  camera.aspect = w / h;
   camera.updateProjectionMatrix();
-  renderer.setSize(container.clientWidth, container.clientHeight);
-});
+  renderer.setSize(w, h);
+}
+new ResizeObserver(resizeRenderer).observe(container);
+
+// スマホ：メニューは折りたたんだ状態で始める
+const uiPanel = document.getElementById('ui-panel');
+const panelToggle = document.getElementById('panel-toggle');
+const mobileQuery = window.matchMedia('(max-width: 700px)');
+function setCollapsed(c) {
+  uiPanel.classList.toggle('collapsed', c);
+  panelToggle.setAttribute('aria-expanded', String(!c));
+  panelToggle.querySelector('.chev').textContent = c ? '▲ 詳細' : '▼ 閉じる';
+}
+setCollapsed(mobileQuery.matches);
+panelToggle.addEventListener('click', () => setCollapsed(!uiPanel.classList.contains('collapsed')));
 </script>
 <footer style="max-width:1100px;margin:20px auto;padding:12px 20px;color:#6b7280;font-size:12px;border-top:1px solid #e5e7eb" data-book-tpl="『{book}』（{authors}）Web教材">『ミクロ経済学の基本』（多鹿 智哉・栗田 健一）Web教材</footer>
 </body>
