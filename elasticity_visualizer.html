@@ -318,6 +318,24 @@ input#s-b2 { accent-color: #ea580c; }
 .badge-unit       { background: #fef3c7; color: #92400e; }
 .badge-undef      { background: #f3f4f6; color: #6b7280; }
 
+/* グラフ直下の弾力性の要約（詳しい計算は右のパネル） */
+.eps-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px 10px;
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: #f8fafc;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+.eps-strip .num { color: var(--accent); font-weight: 600; }
+.eps-strip .num2 { color: #ea580c; font-weight: 600; }
+.eps-strip .badge { margin-top: 0; font-family: 'Noto Sans JP', sans-serif; }
+
 .eq-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -434,6 +452,7 @@ input#s-b2 { accent-color: #ea580c; }
   <!-- ── Chart ── -->
   <div class="chart-wrap">
     <canvas id="chart"></canvas>
+    <div class="eps-strip" id="eps-strip" aria-live="polite"></div>
     <div class="legend" id="legend-single">
       <div class="legend-item"><div class="swatch swatch-before"></div>変化前 (P₁, Q₁)</div>
       <div class="legend-item"><div class="swatch swatch-after"></div>変化後 (P₂, Q₂)</div>
@@ -744,6 +763,20 @@ function update() {
     badge.textContent = compare ? '需要1: 単位弾力的' : '単位弾力的 (ε = 1)';
   }
 
+  // グラフ直下の要約
+  const strip = document.getElementById('eps-strip');
+  let stripHtml;
+  if (!isFinite(eps)) {
+    stripHtml = '<span>ε = —</span>';
+  } else if (compare && isFinite(eps2)) {
+    stripHtml = '<span>ε₁ = <span class="num">' + eps.toFixed(3) + '</span></span>' +
+                '<span>ε₂ = <span class="num2">' + eps2.toFixed(3) + '</span></span>';
+  } else {
+    stripHtml = '<span>ε = −(' + fmtSigned(pctQ * 100, 1) + '%) / (' + fmtSigned(pctP * 100, 1) +
+                '%) = <span class="num">' + eps.toFixed(3) + '</span></span>';
+  }
+  strip.innerHTML = stripHtml + '<span class="' + badge.className + '">' + badge.textContent + '</span>';
+
   // Formula display with values
   const formulaEl = document.getElementById('formula');
   if (compare && isFinite(eps) && isFinite(eps2)) {
@@ -842,10 +875,15 @@ function draw(s) {
   ctx.moveTo(cx(0), cy(a));
   ctx.lineTo(cx(qdEnd), cy(Math.max(0, a - b * qdEnd)));
   ctx.stroke();
-  ctx.fillStyle = '#1d4ed8';
-  ctx.font = '12px Noto Sans JP, sans-serif';
-  ctx.textAlign = 'right';
-  ctx.fillText(compare ? '需要1' : '需要', cx(qdEnd * 0.88) - 2, cy(a - b * qdEnd * 0.88) - 6);
+  // 直線のラベルは上の方，直線の右上に置く（下の方は ΔQ の矢印や目盛と重なるため）
+  const labelLine = (text, color, ai, bi) => {
+    const pl = Math.min(ai, Pmax) * 0.9;
+    ctx.fillStyle = color;
+    ctx.font = '12px Noto Sans JP, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(text, cx((ai - pl) / bi) + 7, cy(pl) - 3);
+  };
+  labelLine(compare ? '需要1' : '需要', '#1d4ed8', a, b);
 
   // ── Demand curve 2 ──
   if (compare) {
@@ -856,9 +894,7 @@ function draw(s) {
     ctx.moveTo(cx(0), cy(a2));
     ctx.lineTo(cx(qd2End), cy(Math.max(0, a2 - b2 * qd2End)));
     ctx.stroke();
-    ctx.fillStyle = '#ea580c';
-    ctx.textAlign = 'right';
-    ctx.fillText('需要2', cx(qd2End * 0.88) - 2, cy(a2 - b2 * qd2End * 0.88) - 6);
+    labelLine('需要2', '#ea580c', a2, b2);
   }
 
   // ── Dashed reference lines ──
@@ -936,7 +972,7 @@ function draw(s) {
   ctx.font = '11px JetBrains Mono, monospace';
   if (validQ1) {
     if (inP(p1)) axisLabelY(ctx, ml, cy(p1), 'P₁=' + fmt(p1, 1), '#1e293b');
-    if (inQ(q1)) axisLabelX(ctx, cx(q1), mt + ch, 'Q₁=' + fmt(q1, 1), '#1e293b');
+    if (!compare && inQ(q1)) axisLabelX(ctx, cx(q1), mt + ch, 'Q₁=' + fmt(q1, 1), '#1e293b');
   }
   if (!compare && validQ2) {
     if (inP(p2)) axisLabelY(ctx, ml, cy(p2), 'P₂=' + fmt(p2, 1), '#dc2626');
@@ -944,8 +980,7 @@ function draw(s) {
   }
   if (compare) {
     if (validQ1 && inP(p2)) axisLabelY(ctx, ml, cy(p2), 'P₂=' + fmt(p2, 1), '#374151');
-    if (validQ2 && inQ(q2))  axisLabelX(ctx, cx(q2),  mt + ch, 'Q₂(1)=' + fmt(q2,  1), '#1d4ed8');
-    if (validQ2b && inQ(q2b)) axisLabelX(ctx, cx(q2b), mt + ch, 'Q₂(2)=' + fmt(q2b, 1), '#ea580c');
+    // 比較モードでは Q の値のラベルを出さない（3つ並んで重なるため。値は下の要約と右のパネルにある）
   }
 
   // ── Points ──（範囲外の点は枠内に出さない）
