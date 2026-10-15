@@ -296,7 +296,17 @@ input#s-t { accent-color: #C69CC5; }
 }
 
 @media (max-width: 720px) {
-  .app { grid-template-columns: 1fr; }
+  .app { grid-template-columns: 1fr; padding: 10px; gap: 10px; }
+  header { padding: 8px 14px; }
+  /* スマホ：スライダーを動かしている間もグラフが見えるよう，画面上端に留める */
+  .chart-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 8px 8px 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .legend { margin-top: 6px; padding-top: 6px; gap: 4px 10px; }
 }
 </style>
 </head>
@@ -479,12 +489,20 @@ input#s-t { accent-color: #C69CC5; }
 const canvas = document.getElementById('chart');
 const ctx    = canvas.getContext('2d');
 const dpr    = window.devicePixelRatio || 1;
-const DW = 800, DH = 550;
-canvas.width  = DW * dpr;
-canvas.height = DH * dpr;
-canvas.style.width  = DW + 'px';
-canvas.style.height = DH + 'px';
-ctx.scale(dpr, dpr);
+const DW_MAX = 800, DH_MAX = 550;
+let DW = DW_MAX, DH = DH_MAX;
+// 枠の幅に合わせて描き直す（縮小表示にすると，スマホで文字が読めなくなるため）
+function sizeCanvas() {
+  canvas.style.width = '100%';
+  DW = Math.min(DW_MAX, Math.floor(canvas.getBoundingClientRect().width)) || DW_MAX;
+  DH = Math.round(DW * DH_MAX / DW_MAX);
+  canvas.width  = DW * dpr;
+  canvas.height = DH * dpr;
+  canvas.style.width  = DW + 'px';
+  canvas.style.height = DH + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+sizeCanvas();
 
 // ── State ─────────────────────────────────────────────────────────
 const P = { a: 20, b: 2, c: 2, d: 1, t: 0 };
@@ -886,6 +904,15 @@ function fmtTick(x) {
 
 // Initial draw
 update();
+
+let lastWidth = window.innerWidth;
+window.addEventListener('resize', () => {
+  // スマホのスクロールでアドレスバーが出入りするたびに高さだけ変わるので，幅が変わったときだけ描き直す
+  if (window.innerWidth === lastWidth) return;
+  lastWidth = window.innerWidth;
+  sizeCanvas();
+  update();
+});
 </script>
 <footer style="max-width:1100px;margin:20px auto;padding:12px 20px;color:#6b7280;font-size:12px;border-top:1px solid #e5e7eb" data-book-tpl="『{book}』（{authors}）Web教材">『ミクロ経済学の基本』（多鹿 智哉・栗田 健一）Web教材</footer>
 </body>
