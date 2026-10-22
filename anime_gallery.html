@@ -85,7 +85,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
 </style>
 </style>
 </head>
-<body>
+<body data-link-base="https://ttajika.github.io/micro-contents/anime_gallery.html">
 <div class="wrap">
 <h1>アニメーション一覧</h1>
 <p class="lead">『ミクロ経済学の基本』（多鹿 智哉・栗田 健一）本文中のアニメーション40点。</p>
@@ -584,7 +584,7 @@ h2.ch-head{font-family:'Noto Serif JP',serif;font-size:19px;color:#1e293b;border
   }
   document.querySelectorAll('.copy').forEach(function(btn){
     btn.addEventListener('click', function(){
-      var url=new URL('#'+btn.dataset.anchor, location.href).href;
+      var url=new URL('#'+btn.dataset.anchor, document.body.dataset.linkBase || location.href).href;
       var label=btn.textContent;
       function done(){
         btn.textContent='✓ コピーしました'; btn.classList.add('ok');
