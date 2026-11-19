@@ -295,7 +295,7 @@ li { margin-bottom: 0.3em; }
 .stub .box-label { color: var(--stub-border); }
 
 figure { margin: 1.5em 0; text-align: center; }
-figure svg { max-width: 100%; height: auto; }
+figure svg, figure img { max-width: 100%; height: auto; }
 figcaption {
   font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif;
   font-size: 12.5px;
@@ -407,6 +407,23 @@ figcaption {
   .fn-content::after  { content: '）'; }
   #fn-popup { display: none !important; }
 }
+
+/* 太字（strong）はゴシックにする。明朝の本文の中で太字が埋もれにくく，画面でも紙でも見分けやすい（和文組版の慣例）。
+   ルビは --ja-font を見るので，ここでも合わせる */
+strong { font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif; font-weight: 700; }
+
+@media print {
+  /* 印刷では背景色を消して白地にする。ブラウザの「背景のグラフィック」を ON にして印刷しても
+     色が乗らないようにし，囲みは左の色線と枠線だけで示す */
+  html, body { background: #fff !important; }
+  *, *::before, *::after { background-color: transparent !important; background-image: none !important; box-shadow: none !important; }
+  /* 画面用のナビゲーション帯（濃紺地に白文字）は紙では不要 */
+  header { display: none !important; }
+  /* 背景色だけで区切っていた囲みには細い枠を付ける */
+  .note { border: 1px solid #cbd5e1; }
+  /* 青地に白文字のリンクボタンは，白地に青文字・青枠にする（背景を消すと文字が見えなくなるため） */
+  .qr-link { color: var(--accent) !important; border: 1px solid currentColor; }
+}
 </style>
 </head>
 <body>
@@ -473,7 +490,10 @@ D(p)&\approx D(p^*)+D'(p^*)(p-p^*)\\
 S(p)&\approx S(p^*)+S'(p^*)(p-p^*)
 \end{align*}
 と書くことができる．すると変化量$\dot p$は
-\[\dot p= \alpha \bigl(D(p) - S(p)\bigr)\approx \alpha \bigl(D'(p^*) - S'(p^*)\bigr)(p - p^*)\]
+\[\begin{aligned}
+\dot p &= \alpha \bigl(D(p) - S(p)\bigr)\\
+&\approx \alpha \bigl(D'(p^*) - S'(p^*)\bigr)(p - p^*)
+\end{aligned}\]
 と書くことができる．
 </p>
   
@@ -512,7 +532,10 @@ P_D(q)&\approx P_D(q^*)+P_D'(q^*)(q-q^*)\\
 P_S(q)&\approx P_S(q^*)+P_S'(q^*)(q-q^*)
 \end{align*}
 と書くことができる．すると変化量$\dot q$は
-\[\dot q= \beta \bigl(P_D(q) - P_S(q)\bigr)\approx \beta \bigl(P_D'(q^*) - P_S'(q^*)\bigr)(q - q^*)\]
+\[\begin{aligned}
+\dot q &= \beta \bigl(P_D(q) - P_S(q)\bigr)\\
+&\approx \beta \bigl(P_D'(q^*) - P_S'(q^*)\bigr)(q - q^*)
+\end{aligned}\]
 と書くことができる．
 </p>
   
@@ -560,12 +583,23 @@ P_S(q)&\approx P_S(q^*)+P_S'(q^*)(q-q^*)
 
 さて，微分を使えば$S(p_{t})\approx S(p_{t-1})+S'(p_{t-1})(p_t-p_{t-1})$と書くことができる．さらに
 
-\[P_D(S(p_t))\approx P_D(S(p_{t-1}))+P'_D(S(p_{t-1}))(S(p_{t})-S(p_{t-1}))\]
+\[\begin{aligned}
+&P_D(S(p_t))\\
+&\quad\approx P_D(S(p_{t-1}))\\
+&\qquad {}+P'_D(S(p_{t-1}))(S(p_{t})-S(p_{t-1}))
+\end{aligned}\]
 と書くこともできることに注意しよう．そうすれば
-\[P_D(S(p_{t}))-P_D(S(p_{t-1}))\approx P'_D(S(p_{t-1}))(S(p_{t})-S(p_{t-1})) \approx P'_D(S(p_{t-1}))S'(p_{t-1})(p_t-p_{t-1})\]
+\[\begin{aligned}
+&P_D(S(p_{t}))-P_D(S(p_{t-1}))\\
+&\quad\approx P'_D(S(p_{t-1}))(S(p_{t})-S(p_{t-1}))\\
+&\quad\approx P'_D(S(p_{t-1}))S'(p_{t-1})(p_t-p_{t-1})
+\end{aligned}\]
 となるので，これを代入すれば
 
-\[\left|\frac{P_D(S(p_{t}))-P_D(S(p_{t-1}))}{p_{t}-p_{t-1}}\right|\approx \left|P'_D(S(p_{t-1}))S'(p_{t-1})\right|\]
+\[\begin{aligned}
+&\left|\frac{P_D(S(p_{t}))-P_D(S(p_{t-1}))}{p_{t}-p_{t-1}}\right|\\
+&\quad\approx \left|P'_D(S(p_{t-1}))S'(p_{t-1})\right|
+\end{aligned}\]
 である．これを先ほどの不等式に代入すると次の式になる．
 \[|P'_D(S(p_{t-1}))S'(p_{t-1})|\lt 1\]</p>
 

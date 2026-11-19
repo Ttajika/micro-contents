@@ -420,6 +420,23 @@ table.payoff td.blank { border: none; background: none; }
   .fn-content::after  { content: '）'; }
   #fn-popup { display: none !important; }
 }
+
+/* 太字（strong）はゴシックにする。明朝の本文の中で太字が埋もれにくく，画面でも紙でも見分けやすい（和文組版の慣例）。
+   ルビは --ja-font を見るので，ここでも合わせる */
+strong { font-family: 'Noto Sans JP', sans-serif; --ja-font: 'Noto Sans JP', sans-serif; font-weight: 700; }
+
+@media print {
+  /* 印刷では背景色を消して白地にする。ブラウザの「背景のグラフィック」を ON にして印刷しても
+     色が乗らないようにし，囲みは左の色線と枠線だけで示す */
+  html, body { background: #fff !important; }
+  *, *::before, *::after { background-color: transparent !important; background-image: none !important; box-shadow: none !important; }
+  /* 画面用のナビゲーション帯（濃紺地に白文字）は紙では不要 */
+  header { display: none !important; }
+  /* 背景色だけで区切っていた囲みには細い枠を付ける */
+  .note { border: 1px solid #cbd5e1; }
+  /* 青地に白文字のリンクボタンは，白地に青文字・青枠にする（背景を消すと文字が見えなくなるため） */
+  .qr-link { color: var(--accent) !important; border: 1px solid currentColor; }
+}
 </style>
 </head>
 <body>
@@ -534,7 +551,10 @@ C'(q)&=3
 <div class="box-label">公式（積の微分法）</div>
 <p>ふたつの関数$f$と$g$について
 \[
-[f(q)\times g(q)]'=f'(q)\times g(q)+f(q)\times g'(q)
+\begin{aligned}
+{}[f(q)\times g(q)]' &= f'(q)\times g(q)\\
+&\quad{}+f(q)\times g'(q)
+\end{aligned}
 \]</p>
 </div>
 
@@ -596,7 +616,8 @@ P'(q)=\frac{1}{D'(p)}\quad \text{（ただし } p=P(q)\text{）}
 \iff\ & p-C'(D(p))=-\frac{D(p)}{D'(p)}\\
 \iff\ & \frac{p-C'(D(p))}{p}=-\frac{D(p)}{p}\frac{1}{D'(p)}\\
 \iff\ & \frac{p-C'(D(p))}{p}=\frac{1}{-\frac{D'(p)\times p}{D(p)}}\\
-\iff\ & \frac{\text{独占価格}-\text{限界費用}}{\text{独占価格}}=\frac{1}{\text{需要の価格弾力性}}
+\iff\ & \frac{\text{独占価格}-\text{限界費用}}{\text{独占価格}}\\
+& \qquad=\frac{1}{\text{需要の価格弾力性}}
 \end{align*}
 
 <p>最後の等式は<strong>ラーナーの公式</strong>と呼ばれるものである．左辺は販売価格に占める利益の割合を指し，<strong>マークアップ率</strong>と呼ばれる（企業の価格支配力の大きさを測る指標として<strong>ラーナー指標</strong>とも呼ばれる）．市場均衡では価格と限界費用が等しくなるのでマークアップ率は$0$である．一方で，独占均衡ではそうではない．一般に企業の価格に対する影響力が高まれば高まるほどマークアップ率は高くなる．そのマークアップ率を決定するのが需要の価格弾力性の逆数である．</p>
@@ -663,11 +684,18 @@ P(q+\Delta)\times (q_A+\Delta)-P(q)\times q_A
 \]
 <p class="cont">である．$-P(q+\Delta)\times q_A+P(q+\Delta)\times q_A=0$をこの式に足すと</p>
 \[
-P(q+\Delta)\times (q_A+\Delta)-P(q+\Delta)\times q_A+P(q+\Delta)\times q_A-P(q)\times q_A
+\begin{aligned}
+&P(q+\Delta)\times (q_A+\Delta)\\
+&\quad{}-P(q+\Delta)\times q_A+P(q+\Delta)\times q_A\\
+&\quad{}-P(q)\times q_A
+\end{aligned}
 \]
 <p class="cont">となる．これを$\Delta$で割ると次の式になる．</p>
 \[
-P(q+\Delta)\frac{(q_A+\Delta)-q_A}{\Delta}+\frac{P(q+\Delta)-P(q)}{\Delta}\times q_A
+\begin{aligned}
+&P(q+\Delta)\frac{(q_A+\Delta)-q_A}{\Delta}\\
+&\quad{}+\frac{P(q+\Delta)-P(q)}{\Delta}\times q_A
+\end{aligned}
 \]
 <p>$\Delta$を$0$に近づけてやると，第1項は$P(q)$に，第2項は$P'(q)\times q_A$になる．これは積の微分法を証明するやり方を直接適用したものである．</p>
 </div>
@@ -738,7 +766,10 @@ P'(q)\times (q_A-h)+P(q)-C'(q_A-h)
 <p class="cont">なお，$h$は減らした量である．ここで，限界費用が増加的であるとする．$P'(q)\lt 0$であることを用いれば</p>
 
 \[
-P'(q)\times (q_A-h)+P(q)-C'(q_A-h)\gt P'(q)\times q_A+P(q)-C'(q_A)=0
+\begin{aligned}
+&P'(q)\times (q_A-h)+P(q)-C'(q_A-h)\\
+&\quad\gt P'(q)\times q_A+P(q)-C'(q_A)=0
+\end{aligned}
 \]
 
 <p class="cont">という式が成り立つ．ということは，限界収入$-$限界費用が正ということなので減らしすぎということがわかる．つまり，$q_B$が$h$増やされたときに減らすべき$q_A$の量は$h$より小さいということになる．これは最適反応曲線の傾きが$-1$より緩やかということである．</p>
@@ -759,21 +790,24 @@ P'(q)\times (q_A-h)+P(q)-C'(q_A-h)\gt P'(q)\times q_A+P(q)-C'(q_A)=0
 
 \begin{align*}
 \pi_A&=0\\
-\pi_B&=p_B\times q-c\times q \quad \text{（ただし } q=D(p_B)\text{）}
+\pi_B&=p_B\times q-c\times q\\
+&\quad \text{（ただし } q=D(p_B)\text{）}
 \end{align*}
 
 <p>このままであれば企業$A$は全く利益を出すことができない．したがって，$p_A=p_B=p$まで価格を下げようとするだろう．このときこの2企業は消費者を二分するとしてみよう．利潤は次のとおりである．</p>
 
 \begin{align*}
 \pi_A&=p\times \frac{q}{2}-c\times\frac{q}{2} \\
-\pi_B&=p\times \frac{q}{2}-c\times\frac{q}{2}\quad \text{（ただし } q=D(p)\text{）}
+\pi_B&=p\times \frac{q}{2}-c\times\frac{q}{2}\\
+&\quad \text{（ただし } q=D(p)\text{）}
 \end{align*}
 
 <p>さて，ここで下げ止まるかというとそうではない．企業$B$が価格をほんの少し下げて$p_B=p-\epsilon$にしてみたらどうだろうか．ここで$\epsilon$は，ほんの小さな数字のことを指す．1円とか1銭を想像してもらいたい．このとき$p_A\gt p_B$であるので，各社の利潤は以下のとおりである．</p>
 
 \begin{align*}
 \pi_A&=0\\
-\pi_B&=(p-\epsilon)\times q-c\times q \quad \text{（ただし } q=D(p-\epsilon)\text{）}
+\pi_B&=(p-\epsilon)\times q-c\times q\\
+&\quad \text{（ただし } q=D(p-\epsilon)\text{）}
 \end{align*}
 
 <p>価格が減るので財1単位あたりの儲けはほんの少し少なくなるが，消費者の需要を企業$A$からすべて奪い取れ，結果として売上量が二倍以上になるのでその分利益は増大する．そうすると今度はまた，企業$A$が価格を下げ……というスパイラルが発生する．結果として，値下げ競争は各社に利益が発生している間，つまり$p\gt c$である間ずっと続く．最終的には$p=c$となり，両者の利益は$0$となる．これがベルトラン競争の結果である．たった二社しかいないのに，完全競争市場と同じ「価格＝限界費用」が実現するのである．</p>
@@ -911,10 +945,12 @@ D(p)=q_A+q_B
 
 <p>さて，このホテリング・モデルにおける企業の価格競争を考えてみよう．言うまでもないが，ここでの戦略は価格である．地点$x$に居住する消費者が企業$A$から製品を買うことを選ぶ条件は以下のとおりである．</p>
 
-\begin{align*}
-&u-p_A-t\times x\gt u-p_B-t\times (1-x)\\
-\iff\ & \underbrace{p_A+t\times x}_{\text{$A$の価格＋$A$までの移動費用}}\lt \underbrace{p_B+t\times (1-x)}_{\text{$B$の価格＋$B$までの移動費用}}
-\end{align*}
+\[
+\begin{gathered}
+u-p_A-t\times x\gt u-p_B-t\times (1-x)\\
+\iff \underbrace{p_A+t\times x}_{\substack{\text{$A$の価格＋}\\\text{$A$までの移動費用}}}\lt \underbrace{p_B+t\times (1-x)}_{\substack{\text{$B$の価格＋}\\\text{$B$までの移動費用}}}
+\end{gathered}
+\]
 
 <p>要するに，価格と移動費用の合計費用が安いほうから買うというものである．いま，企業$A$で買うことと企業$B$で買うことがちょうど無差別な人を考える．その人の居住地$x^*$は次の式を満たす．</p>
 
