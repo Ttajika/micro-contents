@@ -139,6 +139,8 @@ code, pre, kbd, samp { text-autospace: no-autospace; }
    （mjx-container の中身が inline-block になり，文字の並びが切れるため）ので，
    数式の箱そのものに margin を持たせる。★本文 micro-notes.html と同じ 0.15em★ */
 mjx-container[jax="CHTML"]:not([display="true"]) { margin: 0 0.15em; }
+/* 長いディスプレイ数式は，ページごと横にずれないよう数式だけを横スクロールさせる（スマホ幅対策） */
+mjx-container[jax="CHTML"][display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding: 2px 0; }
 
 #toc {
   width: var(--sidebar-w);
@@ -556,6 +558,15 @@ table.data th {
 .modern-table tr:last-child td,
 .modern-table tr:last-child th { border-bottom: none; }
 .modern-table tr:hover td { background: var(--accent-light); }
+
+/* スマホ幅対策：画面より広い表は切らずに横スクロールさせる。
+   display:block + fit-content で，PC での見た目（内容幅の表）は変えない */
+.modern-table, .payoff { display: block; width: fit-content; max-width: 100%; overflow-x: auto; }
+@media (max-width: 600px) {
+  /* 狭い画面で「アダム」などが1文字ずつ折り返さないよう，セル内は折り返さずスクロールに任せる */
+  .modern-table th, .modern-table td, .payoff th, .payoff td { white-space: nowrap; }
+  .modern-table th, .modern-table td { padding: 9px 12px; }
+}
 .modern-table .answer {
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 600;
@@ -835,6 +846,10 @@ body.hide-advanced [data-level="advanced"] { display: none; }
   font-weight: 700;
 }
 
+@media (max-width: 600px) {
+  .wp-q-table { display: block; overflow-x: auto; }
+  .wp-q-table th, .wp-q-table td { white-space: nowrap; }
+}
 @media (max-width: 768px) {
   :root { --sidebar-w: 0px; }
   #toc { display: none; }
@@ -1177,9 +1192,9 @@ body.hide-advanced [data-level="advanced"] { display: none; }
       <p><strong>(2)</strong> 売り手の費用を低い順に並べると$850$（ヨセフ），$950$（ヤコブ），$1800$（ルツ），$3200$（イヴ），$4500$（アダム）である．申告額$v$をこれらの水準にとったときの取引数量と消費者余剰を計算する．</p>
       <ul>
         <li>$v=850$：$q=1$（ヨセフが売る）．買うのは天照．消費者余剰$=5000-850=4150$．</li>
-        <li>$v=950$：$q=2$（ヨセフ・ヤコブが売る）．買うのは天照・出雲．消費者余剰$=(5000+3500)-2\times 950=8500-1900=6600$．</li>
-        <li>$v=1800$：$q=3$（さらにルツが売る）．買うのは天照・出雲・高木．消費者余剰$=(5000+3500+2000)-3\times 1800=10500-5400=5100$．</li>
-        <li>$v=3200$：$q=4$（さらにイヴが売る）．消費者余剰$=(5000+3500+2000+1000)-4\times 3200=11500-12800=-1300&lt;0$．</li>
+        <li>$v=950$：$q=2$（ヨセフ・ヤコブが売る）．買うのは天照・出雲．消費者余剰$=(5000+3500)-2\times 950$<wbr>$=8500-1900$<wbr>$=6600$．</li>
+        <li>$v=1800$：$q=3$（さらにルツが売る）．買うのは天照・出雲・高木．消費者余剰$=(5000+3500+2000)-3\times 1800$<wbr>$=10500-5400$<wbr>$=5100$．</li>
+        <li>$v=3200$：$q=4$（さらにイヴが売る）．消費者余剰$=(5000+3500+2000+1000)$<wbr>$-4\times 3200$<wbr>$=11500-12800$<wbr>$=-1300&lt;0$．</li>
       </ul>
       <p>したがって連合の最適な申告は$v=950$であり，均衡価格$950$万円，取引数量$2$となる．実際に取引するのは買い手側が天照・出雲，売り手側がヨセフ・ヤコブである．各余剰は次のとおり．</p>
       \[
@@ -1290,7 +1305,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
         <li>×．収穫逓増だけでは利潤の符号は決まらない．例えば価格が$0$であれば投入を増やすほど赤字が拡大する．</li>
         <li>×．収穫逓減でも，限界生産物と実質要素価格が等しくなる有限の最適投入が存在し得る．</li>
         <li>○．固定費用なしで収穫逓増かつ利潤が正であれば，投入を$\lambda$倍するとき産出は$\lambda$倍以上，費用は$\lambda$倍に止まるので，利潤は$\lambda$倍以上になる．したがって，$\lambda$が無限大になるように生産要素を投入すれば利潤はいくらでも大きくなる．</li>
-        <li>○．収穫一定では，利潤が$\pi(\lambda K,\lambda L)=p f(\lambda K,\lambda L)-w \lambda L-r\lambda K=\lambda (pf(K,L)-wL-rK)=\lambda\pi(K,L)$である．もし，$\pi(K,L)>0$となる$K,L$があるのであれば$\lambda$を無限にすることが解であるし，どんな$K,L$についても$\pi(K,L)\lt 0$なら$\lambda=0$にすることがベストである．したがって問題文の条件を満たすのであれば$\pi(K,L)=0$であり，この場合，どんな$\lambda$についても$(\lambda K,\lambda L)$は利潤を最大化するので複数ある．</li>
+        <li>○．収穫一定では，利潤が$\pi(\lambda K,\lambda L)=p f(\lambda K,\lambda L)-w \lambda L-r\lambda K$<wbr>$=\lambda (pf(K,L)-wL-rK)$<wbr>$=\lambda\pi(K,L)$である．もし，$\pi(K,L)>0$となる$K,L$があるのであれば$\lambda$を無限にすることが解であるし，どんな$K,L$についても$\pi(K,L)\lt 0$なら$\lambda=0$にすることがベストである．したがって問題文の条件を満たすのであれば$\pi(K,L)=0$であり，この場合，どんな$\lambda$についても$(\lambda K,\lambda L)$は利潤を最大化するので複数ある．</li>
       </ol>
     </div>
   </div>
@@ -4940,7 +4955,7 @@ const ExtensiveGame = (() => {
         <figure style="text-align:center; margin:0.6em 0;">
           <img src="${inst.svg}" alt="${inst.alt}" style="max-width:340px; width:100%; height:auto;">
         </figure>
-        <p style="text-align:center;">$a=${inst.a},\\ b=${inst.b},\\ c=${inst.c},\\ d=${inst.d},\\ e=${inst.e},\\ f=${inst.f},\\ g=${inst.g},\\ h=${inst.h}$</p>
+        <p style="text-align:center;">$a=${inst.a},$ $b=${inst.b},$ $c=${inst.c},$ $d=${inst.d},$ $e=${inst.e},$ $f=${inst.f},$ $g=${inst.g},$ $h=${inst.h}$</p>
         <p>このゲームについて，逆算推論法を用いた各意思決定ノードでの選択とその結果実現する利得を答えよ．</p>
         <div class="ag-question"><span class="ag-label">(1) ノード$Y$での選択：</span>
           <select class="ag-input ag-y"><option value="">—</option><option value="う">う</option><option value="え">え</option></select></div>

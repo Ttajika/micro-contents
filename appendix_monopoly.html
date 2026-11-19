@@ -137,6 +137,8 @@ code, pre, kbd, samp { text-autospace: no-autospace; }
    （mjx-container の中身が inline-block になり，文字の並びが切れるため）ので，
    数式の箱そのものに margin を持たせる。★本文 micro-notes.html と同じ 0.15em★ */
 mjx-container[jax="CHTML"]:not([display="true"]) { margin: 0 0.15em; }
+/* 長いディスプレイ数式は，ページごと横にずれないよう数式だけを横スクロールさせる（スマホ幅対策） */
+mjx-container[jax="CHTML"][display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding: 2px 0; }
 
 :lang(el) {
   font-family: 'MJXText', 'Noto Serif', 'Noto Serif JP', serif; --ja-font: 'Noto Serif', 'Noto Serif JP', serif;

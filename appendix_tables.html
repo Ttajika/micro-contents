@@ -132,6 +132,8 @@ code, pre, kbd, samp { text-autospace: no-autospace; }
    （mjx-container の中身が inline-block になり，文字の並びが切れるため）ので，
    数式の箱そのものに margin を持たせる。★本文 micro-notes.html と同じ 0.15em★ */
 mjx-container[jax="CHTML"]:not([display="true"]) { margin: 0 0.15em; }
+/* 長いディスプレイ数式は，ページごと横にずれないよう数式だけを横スクロールさせる（スマホ幅対策） */
+mjx-container[jax="CHTML"][display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding: 2px 0; }
 
 :lang(el) {
   font-family: 'MJXText', 'Noto Serif', 'Noto Serif JP', serif; --ja-font: 'Noto Serif', 'Noto Serif JP', serif;
@@ -293,6 +295,15 @@ strong { font-weight: 700; }
 .modern-table tr:last-child td,
 .modern-table tr:last-child th { border-bottom: none; }
 .modern-table tr:hover td { background: var(--accent-light); }
+
+/* スマホ幅対策：画面より広い表は切らずに横スクロールさせる。
+   display:block + fit-content で，PC での見た目（内容幅の表）は変えない */
+.modern-table, .payoff { display: block; width: fit-content; max-width: 100%; overflow-x: auto; }
+@media (max-width: 600px) {
+  /* 狭い画面で「アダム」などが1文字ずつ折り返さないよう，セル内は折り返さずスクロールに任せる */
+  .modern-table th, .modern-table td, .payoff th, .payoff td { white-space: nowrap; }
+  .modern-table th, .modern-table td { padding: 9px 12px; }
+}
 .modern-table .center { text-align: center; }
 /* ━━━ FOOTNOTE ━━━ */
 .fn-ref {
