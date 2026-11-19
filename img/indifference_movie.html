@@ -13,6 +13,9 @@ window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},startup:{
 #pp{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#5b8def 0%,#3568d6 100%);color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 2px 8px rgba(53,104,214,.32);}
 #pp:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(53,104,214,.45);}
 #pp:active{transform:translateY(0);}
+#pp svg{display:block;pointer-events:none}
+/* タッチ端末・スマホ幅では再生ボタンを指で押しやすい 44px にする */
+@media (pointer: coarse), (max-width: 600px){#pp{width:44px;height:44px;flex:0 0 auto}#pp svg{width:18px;height:18px}#cl{padding:11px 16px;font-size:13px}}
 #cl{padding:7px 14px;border-radius:18px;font-size:12px;background:var(--color-background-tertiary);color:var(--color-text-primary);border:1px solid var(--color-border-secondary);}
 #cl:hover{border-color:var(--color-border-info);color:var(--color-border-info);}
 #ch button{border:1px solid var(--color-border-secondary);border-radius:14px;padding:4px 12px;font-size:11px;background:transparent;color:var(--color-text-secondary);cursor:pointer;font-family:inherit;transition:all .18s;outline:none;}
@@ -32,7 +35,7 @@ body { font-family: var(--font-sans); max-width: 640px; margin: 5rem auto; paddi
 <div id="formula"><span id="formulaMath">$u(q_x,q_y)=(q_x)^{0.4}\,(q_y)^{0.6}$</span> <span style="font-style:normal;"></span></div>
 </div>
 <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
-  <button id="pp" aria-label="再生/一時停止">⏸</button>
+  <button id="pp" aria-label="再生/一時停止"><svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><rect x="3.5" y="2.5" width="3" height="11" rx=".8"/><rect x="9.5" y="2.5" width="3" height="11" rx=".8"/></svg></button>
   <button id="cl">Camera: 固定</button>
   <div style="flex:1;position:relative;height:28px;">
     <div style="position:absolute;top:12px;left:0;right:0;height:4px;background:var(--color-background-tertiary);border-radius:2px;">
@@ -49,6 +52,8 @@ body { font-family: var(--font-sans); max-width: 640px; margin: 5rem auto; paddi
 const cv=document.getElementById('cv'),c=cv.getContext('2d');
 const narEl=document.getElementById('nar'),narIn=document.getElementById('narIn');
 const pbEl=document.getElementById('pb'),tlEl=document.getElementById('tl');
+// 再生・停止アイコン（絵文字は機種ごとに見た目が変わるため SVG で描く）
+const PP_PLAY='<svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4.5 2.6v10.8a.6.6 0 0 0 .9.5l8.6-5.4a.6.6 0 0 0 0-1L5.4 2.1a.6.6 0 0 0-.9.5z"/></svg>', PP_PAUSE='<svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><rect x="3.5" y="2.5" width="3" height="11" rx=".8"/><rect x="9.5" y="2.5" width="3" height="11" rx=".8"/></svg>';
 const ppB=document.getElementById('pp'),clB=document.getElementById('cl');
 const mkEl=document.getElementById('mk'),chEl=document.getElementById('ch');
 const dk=matchMedia('(prefers-color-scheme:dark)').matches;
@@ -123,14 +128,14 @@ sc.forEach((s,i)=>{const p=(s.time/TD*100).toFixed(1);
   const m=document.createElement('div');m.style.cssText='position:absolute;top:4px;width:9px;height:9px;border-radius:50%;background:var(--color-border-secondary);cursor:pointer;transform:translateX(-4.5px);';
   m.style.left=p+'%';m.dataset.idx=i;m.onclick=()=>{ct=s.time+.01;};mkEl.appendChild(m);
   const b=document.createElement('button');b.textContent=s.title;
-  b.onclick=()=>{ct=s.time+.01;if(!pl){pl=true;ppB.textContent='⏸';}};chEl.appendChild(b);});
+  b.onclick=()=>{ct=s.time+.01;if(!pl){pl=true;ppB.innerHTML=PP_PAUSE;}};chEl.appendChild(b);});
 
 let pl=true,ct=0,lf=null,pi=-1,rx=-.55,ry=PI-1,sz=1,dg=false,dmx,dmy,camLock=false;
 cv.addEventListener('pointerdown',e=>{dg=true;dmx=e.clientX;dmy=e.clientY;cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing';});
 cv.addEventListener('pointermove',e=>{if(!dg)return;ry+=(e.clientX-dmx)*.008;rx+=(e.clientY-dmy)*.008;rx=Math.max(-PI/2,Math.min(.1,rx));dmx=e.clientX;dmy=e.clientY;});
 cv.addEventListener('pointerup',()=>{dg=false;cv.style.cursor='grab';});
 cv.addEventListener('wheel',e=>{e.preventDefault();sz*=e.deltaY>0?.93:1.07;sz=Math.max(.4,Math.min(3,sz));},{passive:false});
-ppB.addEventListener('click',()=>{pl=!pl;ppB.textContent=pl?'⏸':'▶';});
+ppB.addEventListener('click',()=>{pl=!pl;ppB.innerHTML=pl?PP_PAUSE:PP_PLAY;});
 clB.addEventListener('click',()=>{camLock=!camLock;clB.textContent=camLock?'Camera: 固定':'Camera: 自動回転';});
 
 function lr(a,b,t){return a+(b-a)*t;}
