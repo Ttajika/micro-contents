@@ -850,9 +850,42 @@ body.hide-advanced [data-level="advanced"] { display: none; }
   .wp-q-table { display: block; overflow-x: auto; }
   .wp-q-table th, .wp-q-table td { white-space: nowrap; }
 }
+/* ━━━ スマホ幅：左メニューは隠し，右下の「目次」ボタンで引き出す ━━━ */
+#toc-open, #toc-backdrop { display: none; }
 @media (max-width: 768px) {
   :root { --sidebar-w: 0px; }
-  #toc { display: none; }
+  #toc {
+    width: min(280px, 85vw);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.25);
+    visibility: hidden;
+  }
+  body.toc-open #toc { transform: none; visibility: visible; }
+  #toc-backdrop {
+    display: block;
+    position: fixed; inset: 0;
+    z-index: 99;
+    background: rgba(15,23,42,0.4);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  body.toc-open #toc-backdrop { opacity: 1; pointer-events: auto; }
+  #toc-open {
+    display: flex; align-items: center; gap: 6px;
+    position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom));
+    z-index: 98;
+    height: 48px; padding: 0 18px;
+    border: none; border-radius: 24px;
+    background: var(--header-bg); color: #fff;
+    font-family: 'Noto Sans JP', sans-serif; font-size: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    cursor: pointer;
+  }
+  #toc-open svg { display: block; }
+  #adv-toggle { padding: 12px; font-size: 14px; }
+  .toc-ch { padding: 11px 16px 8px; font-size: 14px; }
+  .toc-sec { padding: 7px 16px 7px 24px; font-size: 13px; }
   #content { padding: 2rem 1.2rem 5rem; }
 }
 </style>
@@ -869,6 +902,8 @@ body.hide-advanced [data-level="advanced"] { display: none; }
   </div>
   <div id="toc-list"></div>
 </nav>
+<div id="toc-backdrop"></div>
+<button id="toc-open" type="button" aria-controls="toc" aria-expanded="false"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2.5 4h11M2.5 8h11M2.5 12h11"/></svg>目次</button>
 
 <div id="main-wrap">
 <div id="content">
@@ -882,7 +917,7 @@ body.hide-advanced [data-level="advanced"] { display: none; }
 
 <p>本問題集は教材『<span data-book-tpl="{book}">ミクロ経済学の基本</span>』（以下では「教科書」と呼ぶ）に対応した練習問題集である．各章は教材の対応する章と同じ順序で並んでいる．問題には「答えを表示」ボタンで解答例を確認できる．</p>
 
-<p><strong><span class="adv-star">★</span> が付いた問題は発展的な内容である．</strong>解けなくても先に進んでよい．左のメニューの「<span class="adv-star">★</span> 発展を隠す」ボタンを押すと，<span class="adv-star">★</span> の問題をまとめて隠せる．</p>
+<p><strong><span class="adv-star">★</span> が付いた問題は発展的な内容である．</strong>解けなくても先に進んでよい．メニュー（スマホでは右下の「目次」ボタン）の「<span class="adv-star">★</span> 発展を隠す」ボタンを押すと，<span class="adv-star">★</span> の問題をまとめて隠せる．</p>
 
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1937,6 +1972,19 @@ function restoreAdvancedState() {
       btn.classList.add('hiding');
     }
   } catch(_) {}
+}
+
+// スマホ幅：右下の「目次」ボタンで左メニューを開閉する。項目を選ぶ・背景を押す・Esc で閉じる
+function initTocDrawer() {
+  const btn = document.getElementById('toc-open');
+  const setOpen = open => {
+    document.body.classList.toggle('toc-open', open);
+    btn.setAttribute('aria-expanded', open);
+  };
+  btn.addEventListener('click', () => setOpen(!document.body.classList.contains('toc-open')));
+  document.getElementById('toc-backdrop').addEventListener('click', () => setOpen(false));
+  document.getElementById('toc-list').addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
 }
 
 function initScrollSpy() {
@@ -5166,6 +5214,7 @@ const ImperfectGame = (() => {
 
 document.addEventListener('DOMContentLoaded', () => {
   buildTOC();
+  initTocDrawer();
   initScrollSpy();
   initReveal();
   restoreAdvancedState();
